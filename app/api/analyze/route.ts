@@ -3,17 +3,13 @@ import { z } from "zod"
 import { findAllSets, type SetCard } from "@/lib/set-game"
 
 const CardSchema = z.object({
-  id: z.string(),
-  color: z.enum(["red", "green", "purple"]),
-  shape: z.enum(["diamond", "oval", "squiggle"]),
-  shading: z.enum(["solid", "striped", "empty"]),
-  number: z.union([z.literal(1), z.literal(2), z.literal(3)]),
-  position: z
-    .object({
-      x: z.number().describe("Approximate x position (0-100) of the card in the image"),
-      y: z.number().describe("Approximate y position (0-100) of the card in the image"),
-    })
-    .optional(),
+  id: z.string().describe("Unique identifier like card-1, card-2, etc."),
+  color: z.enum(["red", "green", "purple"]).describe("The color of the shapes on the card"),
+  shape: z.enum(["diamond", "oval", "squiggle"]).describe("The shape type on the card"),
+  shading: z.enum(["solid", "striped", "empty"]).describe("solid=filled, striped=has lines, empty=outline only"),
+  number: z.enum(["1", "2", "3"]).describe("Count of shapes on the card as a string"),
+  positionX: z.number().describe("Approximate x position (0-100) of the card in the image"),
+  positionY: z.number().describe("Approximate y position (0-100) of the card in the image"),
 })
 
 const ResponseSchema = z.object({
@@ -23,8 +19,7 @@ const ResponseSchema = z.object({
     .describe("How confident you are in the card detection"),
   notes: z
     .string()
-    .optional()
-    .describe("Any notes about card detection issues or unclear cards"),
+    .describe("Any notes about card detection issues or unclear cards, or empty string if none"),
 })
 
 export async function POST(req: Request) {
@@ -68,15 +63,25 @@ Return all cards you can clearly identify. Assign each card a unique id like "ca
 
     const { cards, confidence, notes } = result.object
 
+    // Convert string numbers to actual numbers for the SetCard type
+    const parsedCards: SetCard[] = cards.map((card) => ({
+      id: card.id,
+      color: card.color,
+      shape: card.shape,
+      shading: card.shading,
+      number: parseInt(card.number, 10) as 1 | 2 | 3,
+      position: { x: card.positionX, y: card.positionY },
+    }))
+
     // Find all valid sets
-    const validSets = findAllSets(cards as SetCard[])
+    const validSets = findAllSets(parsedCards)
 
     return Response.json({
-      cards,
+      cards: parsedCards,
       validSets,
       confidence,
       notes,
-      totalCards: cards.length,
+      totalCards: parsedCards.length,
       totalSets: validSets.length,
     })
   } catch (error) {
