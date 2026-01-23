@@ -30,9 +30,9 @@ export async function POST(req: Request) {
       return Response.json({ error: "No image provided" }, { status: 400 })
     }
 
-    // Use GPT-4o to analyze the image
+    // Use Claude for better visual analysis
     const result = await generateObject({
-      model: "openai/gpt-4o",
+      model: "anthropic/claude-sonnet-4-20250514",
       schema: ResponseSchema,
       messages: [
         {
@@ -40,17 +40,33 @@ export async function POST(req: Request) {
           content: [
             {
               type: "text",
-              text: `Analyze this image of Set game cards. For each card visible, identify:
-1. Color: red, green, or purple
-2. Shape: diamond, oval, or squiggle  
-3. Shading: solid (completely filled), striped (has lines/pattern), or empty (just outline)
-4. Number: 1, 2, or 3 (count of shapes on the card)
+              text: `You are analyzing a photo of Set game cards. Carefully examine each card and identify its 4 attributes:
 
-Also estimate the approximate position of each card in the image (x, y as percentages 0-100).
+**COLOR** (look at the actual color of the shapes):
+- RED: shapes are red/pink colored
+- GREEN: shapes are green colored  
+- PURPLE: shapes are purple/violet colored
 
-Be precise about the shading - solid means completely filled with color, striped has lines through it, empty is just an outline.
+**SHAPE** (the geometric form):
+- DIAMOND: pointed at top and bottom, like a rhombus/playing card diamond
+- OVAL: rounded elongated shape, like a pill or stadium
+- SQUIGGLE: wavy/irregular blob shape with curves
 
-Return all cards you can clearly identify. Assign each card a unique id like "card-1", "card-2", etc.`,
+**SHADING** (how the shape is filled - look very carefully):
+- SOLID: completely filled in with solid color, no white showing inside
+- STRIPED: has horizontal lines running through it, you can see lines/stripes inside the shape
+- EMPTY: just an outline with white/blank inside, only the border is colored
+
+**NUMBER**: Count the shapes on the card - exactly 1, 2, or 3
+
+For position, estimate where each card is located in the image as x,y percentages (0-100).
+
+Important: The most common mistake is confusing shading. Look closely:
+- If the inside is completely one solid color = SOLID
+- If you see lines/stripes through it = STRIPED  
+- If the inside is white/empty = EMPTY
+
+Examine each card systematically, one by one. Assign IDs as "card-1", "card-2", etc.`,
             },
             {
               type: "image",
