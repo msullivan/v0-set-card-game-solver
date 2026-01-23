@@ -10,7 +10,7 @@ const _geistMono = Geist_Mono({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'Set Solver - Find Sets in Your Cards',
   description: 'Upload a photo of Set cards and instantly find all valid sets using AI vision',
-  generator: 'v0.app',
+  generator: 'v0.dev',
 }
 
 export default function RootLayout({
