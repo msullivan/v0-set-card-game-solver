@@ -63,13 +63,13 @@ Important: The most common mistake is confusing shading. Look closely:
 
 Examine each card systematically, one by one. Assign IDs as "card-1", "card-2", etc.`
 
-async function analyzeImage(imagePath: string) {
+async function analyzeImage(imagePath: string, model: string) {
   const imageBuffer = readFileSync(imagePath)
   const base64 = imageBuffer.toString("base64")
   const mimeType = "image/jpeg"
 
   const result = await generateObject({
-    model: "anthropic/claude-sonnet-4-20250514",
+    model,
     schema: ResponseSchema,
     messages: [
       {
@@ -106,8 +106,17 @@ async function analyzeImage(imagePath: string) {
 }
 
 async function main() {
+  const model = process.argv[2]
+  const outName = process.argv[3]
+
+  if (!model || !outName) {
+    console.error("Usage: npx tsx scripts/analyze-images.ts <model> <output-dir>")
+    console.error("Example: npx tsx scripts/analyze-images.ts anthropic/claude-sonnet-4-20250514 sonnet-4")
+    process.exit(1)
+  }
+
   const inputDir = join(__dirname, "..", "test-images", "fixed")
-  const outputDir = join(__dirname, "..", "test-images", "results")
+  const outputDir = join(__dirname, "..", "test-images", "results", outName)
 
   const files = readdirSync(inputDir).filter((f) =>
     /\.(jpg|jpeg|png)$/i.test(f)
@@ -127,7 +136,7 @@ async function main() {
 
     console.log(`Analyzing ${file}...`)
     try {
-      const result = await analyzeImage(imagePath)
+      const result = await analyzeImage(imagePath, model)
       writeFileSync(outputPath, JSON.stringify(result, null, 2))
       console.log(
         `  → ${result.totalCards} cards, ${result.totalSets} sets (${result.confidence} confidence)`
