@@ -36,7 +36,7 @@ export function ImageUpload({ onImageSelect, disabled }: ImageUploadProps) {
           }
           let scale = 1
           while (result.length > MAX_BYTES && scale > 0.1) {
-            scale *= 0.5
+            scale *= 0.8
             result = tryScale(scale)
           }
           resolve(result)
