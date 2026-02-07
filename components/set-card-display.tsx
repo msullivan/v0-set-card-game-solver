@@ -71,7 +71,7 @@ function SquiggleShape({ shading, color }: { shading: string; color: string }) {
   return (
     <svg viewBox="0 0 60 40" className="w-[60%] h-auto">
       <path
-        d="M5,28 C5,15 16,2 30,15 C44,25 55,2 55,12 C55,22 44,38 30,25 C16,15 5,38 5,28Z"
+        d="M5,28 C5,15 16,2 30,15 C44,22 55,2 55,12 C55,22 44,38 30,25 C16,18 5,38 5,28Z"
         fill={shading === "solid" ? fillColor : shading === "striped" ? `url(#stripe-squiggle-${color})` : "none"}
         stroke={fillColor}
         strokeWidth="2"
