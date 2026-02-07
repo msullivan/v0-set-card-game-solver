@@ -11,8 +11,8 @@ const outputDir = join(__dirname, "..", "test-images", "results", "merged")
 
 // Corrections: use haiku's value for these specific cards
 const corrections: Record<string, Record<string, Partial<SetCard>>> = {
-  "001": { "card-1": { number: 3 } },  // haiku had 3, sonnet had 2
   "003": { "card-7": { number: 2 } },  // haiku had 2, sonnet had 3
+  "011": { "card-7": { number: 2 } },  // haiku had 2, sonnet had 3
 }
 
 mkdirSync(outputDir, { recursive: true })
