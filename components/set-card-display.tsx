@@ -24,11 +24,11 @@ const bgColorMap = {
 // SVG shapes for Set cards
 function DiamondShape({ shading, color }: { shading: string; color: string }) {
   const fillColor = color === "red" ? "#ef4444" : color === "green" ? "#10b981" : "#a855f7"
-  
+
   return (
-    <svg viewBox="0 0 40 60" className="w-6 h-9">
+    <svg viewBox="0 0 60 40" className="w-[60%] h-auto">
       <polygon
-        points="20,5 35,30 20,55 5,30"
+        points="5,20 30,5 55,20 30,35"
         fill={shading === "solid" ? fillColor : shading === "striped" ? `url(#stripe-${color})` : "none"}
         stroke={fillColor}
         strokeWidth="2"
@@ -44,14 +44,14 @@ function DiamondShape({ shading, color }: { shading: string; color: string }) {
 
 function OvalShape({ shading, color }: { shading: string; color: string }) {
   const fillColor = color === "red" ? "#ef4444" : color === "green" ? "#10b981" : "#a855f7"
-  
+
   return (
-    <svg viewBox="0 0 40 60" className="w-6 h-9">
+    <svg viewBox="0 0 60 40" className="w-[60%] h-auto">
       <ellipse
-        cx="20"
-        cy="30"
-        rx="15"
-        ry="25"
+        cx="30"
+        cy="20"
+        rx="25"
+        ry="15"
         fill={shading === "solid" ? fillColor : shading === "striped" ? `url(#stripe-oval-${color})` : "none"}
         stroke={fillColor}
         strokeWidth="2"
@@ -67,11 +67,11 @@ function OvalShape({ shading, color }: { shading: string; color: string }) {
 
 function SquiggleShape({ shading, color }: { shading: string; color: string }) {
   const fillColor = color === "red" ? "#ef4444" : color === "green" ? "#10b981" : "#a855f7"
-  
+
   return (
-    <svg viewBox="0 0 40 60" className="w-6 h-9">
+    <svg viewBox="0 0 60 40" className="w-[60%] h-auto">
       <path
-        d="M10,10 Q5,20 15,30 Q25,40 15,50 Q10,55 20,55 Q35,55 30,45 Q25,35 30,25 Q35,15 25,10 Q15,5 10,10"
+        d="M10,30 Q20,35 30,25 Q40,15 50,25 Q55,30 55,20 Q55,5 45,10 Q35,15 25,10 Q15,5 10,15 Q5,25 10,30"
         fill={shading === "solid" ? fillColor : shading === "striped" ? `url(#stripe-squiggle-${color})` : "none"}
         stroke={fillColor}
         strokeWidth="2"
@@ -100,15 +100,15 @@ function ShapeRenderer({ shape, shading, color }: { shape: string; shading: stri
 
 export function SetCardDisplay({ card, highlighted, size = "md" }: SetCardDisplayProps) {
   const sizeClasses = {
-    sm: "p-2 min-w-[60px]",
-    md: "p-3 min-w-[80px]",
-    lg: "p-4 min-w-[100px]",
+    sm: "w-[60px]",
+    md: "w-[80px]",
+    lg: "w-[100px]",
   }
 
   return (
     <div
       className={cn(
-        "rounded-lg border-2 flex flex-col items-center justify-center gap-1 transition-all",
+        "rounded-lg border-2 aspect-[5/7] flex flex-col items-center justify-center transition-all",
         bgColorMap[card.color],
         sizeClasses[size],
         highlighted && "ring-2 ring-primary ring-offset-2 scale-105"
