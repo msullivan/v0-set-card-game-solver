@@ -128,13 +128,24 @@ async function detectCardsFromBuffer(imageBuffer: Buffer): Promise<Buffer[]> {
   return crops
 }
 
-export async function detectCards(imageBuffer: Buffer): Promise<Buffer[]> {
+export interface DetectCardsResult {
+  crops: Buffer[]
+  timing: { cvInit: number; cvProcess: number }
+}
+
+export async function detectCards(imageBuffer: Buffer): Promise<DetectCardsResult> {
+  const initStart = performance.now()
   await ensureCVReady()
+  const cvInit = performance.now() - initStart
 
-  const crops = await detectCardsFromBuffer(imageBuffer)
-  if (crops.length > 0) return crops
+  const processStart = performance.now()
+  let crops = await detectCardsFromBuffer(imageBuffer)
+  if (crops.length === 0) {
+    // No cards found — try rotating 90 degrees in case image is landscape
+    const rotated = await sharp(imageBuffer).rotate(90).jpeg().toBuffer()
+    crops = await detectCardsFromBuffer(rotated)
+  }
+  const cvProcess = performance.now() - processStart
 
-  // No cards found — try rotating 90 degrees in case image is landscape
-  const rotated = await sharp(imageBuffer).rotate(90).jpeg().toBuffer()
-  return detectCardsFromBuffer(rotated)
+  return { crops, timing: { cvInit, cvProcess } }
 }

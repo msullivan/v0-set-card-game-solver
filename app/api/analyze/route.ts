@@ -55,7 +55,7 @@ export async function POST(req: Request) {
     const imageBuffer = Buffer.from(base64Data, "base64")
 
     // Pass 1: CV card detection
-    const crops = await detectCards(imageBuffer)
+    const { crops, timing: cvTiming } = await detectCards(imageBuffer)
 
     if (crops.length === 0) {
       return Response.json(
@@ -65,6 +65,7 @@ export async function POST(req: Request) {
     }
 
     // Pass 2: AI analysis of each card (parallel)
+    const aiStart = performance.now()
     const model = "anthropic/claude-sonnet-4-20250514"
     const cardResults = await Promise.all(
       crops.map(async (crop, i) => {
@@ -79,8 +80,12 @@ export async function POST(req: Request) {
         } as SetCard
       })
     )
+    const aiTime = performance.now() - aiStart
 
+    // Find valid sets
+    const setsStart = performance.now()
     const validSets = findAllSets(cardResults)
+    const setsTime = performance.now() - setsStart
 
     return Response.json({
       cards: cardResults,
@@ -89,6 +94,12 @@ export async function POST(req: Request) {
       notes: "",
       totalCards: cardResults.length,
       totalSets: validSets.length,
+      timing: {
+        cvInit: Math.round(cvTiming.cvInit),
+        cvProcess: Math.round(cvTiming.cvProcess),
+        ai: Math.round(aiTime),
+        sets: Math.round(setsTime),
+      },
     })
   } catch (error) {
     console.error("Error analyzing image:", error)

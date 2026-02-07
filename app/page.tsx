@@ -16,11 +16,19 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 
+interface Timing {
+  cvInit: number
+  cvProcess: number
+  ai: number
+  sets: number
+}
+
 interface AnalysisResult {
   cards: SetCard[]
   validSets: ValidSet[]
   confidence: "high" | "medium" | "low"
   notes?: string
+  timing?: Timing
 }
 
 export default function SetSolverPage() {
@@ -28,7 +36,6 @@ export default function SetSolverPage() {
   const [isAnalyzing, setIsAnalyzing] = useState(false)
   const [result, setResult] = useState<AnalysisResult | null>(null)
   const [error, setError] = useState<string | null>(null)
-  const [elapsed, setElapsed] = useState<number | null>(null)
 
   const handleImageSelect = (data: string) => {
     setImageData(data)
@@ -41,10 +48,8 @@ export default function SetSolverPage() {
 
     setIsAnalyzing(true)
     setError(null)
-    setElapsed(null)
 
     try {
-      const start = performance.now()
       const response = await fetch("/api/analyze", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -57,7 +62,6 @@ export default function SetSolverPage() {
       }
 
       const data = await response.json()
-      setElapsed(Math.round((performance.now() - start) / 100) / 10)
       setResult(data)
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred")
@@ -70,7 +74,6 @@ export default function SetSolverPage() {
     setImageData(null)
     setResult(null)
     setError(null)
-    setElapsed(null)
   }
 
   return (
@@ -171,17 +174,25 @@ export default function SetSolverPage() {
         {result && (
           <section className="space-y-4">
             <div className="flex items-center justify-between">
-              <div className="flex items-baseline gap-3">
-                <h2 className="text-2xl font-bold text-foreground">Results</h2>
-                {elapsed !== null && (
-                  <span className="text-sm text-muted-foreground">{elapsed}s</span>
-                )}
-              </div>
+              <h2 className="text-2xl font-bold text-foreground">Results</h2>
               <Button variant="outline" onClick={reset}>
                 <RefreshCw className="w-4 h-4 mr-2" />
                 Analyze New Photo
               </Button>
             </div>
+            {result.timing && (
+              <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted-foreground">
+                {result.timing.cvInit > 100 && (
+                  <span>OpenCV init: {(result.timing.cvInit / 1000).toFixed(1)}s</span>
+                )}
+                <span>CV detection: {(result.timing.cvProcess / 1000).toFixed(1)}s</span>
+                <span>AI analysis: {(result.timing.ai / 1000).toFixed(1)}s</span>
+                <span>Set finding: {result.timing.sets < 1 ? "<1ms" : `${result.timing.sets}ms`}</span>
+                <span className="font-medium">
+                  Total: {((result.timing.cvInit + result.timing.cvProcess + result.timing.ai + result.timing.sets) / 1000).toFixed(1)}s
+                </span>
+              </div>
+            )}
             <SetResults
               cards={result.cards}
               validSets={result.validSets}
