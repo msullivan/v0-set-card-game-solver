@@ -1,21 +1,12 @@
-import { readFileSync, writeFileSync, mkdirSync } from "fs"
-import { join, dirname } from "path"
+import { readFileSync, writeFileSync, mkdirSync, readdirSync } from "fs"
+import { join, dirname, basename } from "path"
 import { fileURLToPath } from "url"
 import sharp from "sharp"
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const cv = require("@techstark/opencv-js")
 
-async function main() {
-  // Wait for OpenCV WASM init
-  await new Promise<void>((resolve) => {
-    if (typeof cv.Mat === "function") { resolve(); return }
-    cv.onRuntimeInitialized = () => resolve()
-  })
-
-  const imagePath = process.argv[2] || join(__dirname, "..", "test-images", "fixed", "001.jpg")
-  const outputDir = process.argv[3] || join(__dirname, "..", "test-images", "cv-crops")
-
+async function processImage(imagePath: string, outputDir: string) {
   console.log(`Processing ${imagePath}...`)
   const imageBuffer = readFileSync(imagePath)
   const metadata = await sharp(imageBuffer).metadata()
@@ -77,13 +68,11 @@ async function main() {
   await sharp(scaledBuf, { raw: { width, height, channels: 1 } })
     .jpeg()
     .toFile(join(outputDir, "debug-normalized.jpg"))
-  console.log("  Saved debug-normalized.jpg")
 
   const threshBuf = Buffer.from(eroded.data)
   await sharp(threshBuf, { raw: { width, height, channels: 1 } })
     .jpeg()
     .toFile(join(outputDir, "debug-threshold.jpg"))
-  console.log("  Saved debug-threshold.jpg")
 
   // Find contours on eroded image
   const contours = new cv.MatVector()
@@ -123,8 +112,6 @@ async function main() {
   console.log(`  Found ${cards.length} cards`)
 
   // Save crops
-  mkdirSync(outputDir, { recursive: true })
-
   for (let i = 0; i < cards.length; i++) {
     const card = cards[i]
     const pad = 10
@@ -148,6 +135,33 @@ async function main() {
   scaled.delete(); blurred.delete(); thresh.delete()
   kernel.delete(); closed.delete(); erodeKernel.delete(); eroded.delete()
   contours.delete(); hierarchy.delete()
+}
+
+async function main() {
+  // Wait for OpenCV WASM init
+  await new Promise<void>((resolve) => {
+    if (typeof cv.Mat === "function") { resolve(); return }
+    cv.onRuntimeInitialized = () => resolve()
+  })
+
+  const inputPath = process.argv[2] || join(__dirname, "..", "test-images", "fixed")
+  const outputBase = process.argv[3] || join(__dirname, "..", "test-images", "cv-crops")
+
+  // Check if input is a directory or a single file
+  const stat = require("fs").statSync(inputPath)
+  if (stat.isDirectory()) {
+    const files = readdirSync(inputPath)
+      .filter(f => /\.(jpg|jpeg|png)$/i.test(f))
+      .sort()
+    console.log(`Found ${files.length} images in ${inputPath}\n`)
+    for (const file of files) {
+      const name = basename(file, ".jpg").replace(/\.jpeg$/i, "").replace(/\.png$/i, "")
+      await processImage(join(inputPath, file), join(outputBase, name))
+      console.log()
+    }
+  } else {
+    await processImage(inputPath, outputBase)
+  }
 }
 
 main()
