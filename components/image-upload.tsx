@@ -16,6 +16,37 @@ export function ImageUpload({ onImageSelect, disabled }: ImageUploadProps) {
   const [preview, setPreview] = useState<string | null>(null)
   const [isDragging, setIsDragging] = useState(false)
 
+  const MAX_BYTES = 3.5 * 1024 * 1024
+
+  const downscaleImage = useCallback(
+    (dataUrl: string): Promise<string> => {
+      return new Promise((resolve) => {
+        const img = new Image()
+        img.onload = () => {
+          const canvas = document.createElement("canvas")
+          // Scale down by 50% each iteration until under limit
+          let { width, height } = img
+          let result = dataUrl
+          const tryScale = (scale: number) => {
+            canvas.width = Math.round(width * scale)
+            canvas.height = Math.round(height * scale)
+            const ctx = canvas.getContext("2d")!
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
+            return canvas.toDataURL("image/jpeg", 0.85)
+          }
+          let scale = 1
+          while (result.length > MAX_BYTES && scale > 0.1) {
+            scale *= 0.5
+            result = tryScale(scale)
+          }
+          resolve(result)
+        }
+        img.src = dataUrl
+      })
+    },
+    []
+  )
+
   const handleFile = useCallback(
     (file: File) => {
       if (!file.type.startsWith("image/")) {
@@ -23,14 +54,17 @@ export function ImageUpload({ onImageSelect, disabled }: ImageUploadProps) {
       }
 
       const reader = new FileReader()
-      reader.onloadend = () => {
-        const result = reader.result as string
+      reader.onloadend = async () => {
+        let result = reader.result as string
+        if (result.length > MAX_BYTES) {
+          result = await downscaleImage(result)
+        }
         setPreview(result)
         onImageSelect(result)
       }
       reader.readAsDataURL(file)
     },
-    [onImageSelect]
+    [onImageSelect, downscaleImage]
   )
 
   const handleDrop = useCallback(
