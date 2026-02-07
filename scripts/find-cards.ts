@@ -58,25 +58,18 @@ async function processImage(imagePath: string, outputDir: string) {
   const thresh = new cv.Mat()
   cv.threshold(blurred, thresh, 40, 255, cv.THRESH_BINARY)
 
-  // Morphological close to fill remaining gaps from shapes inside cards
-  // Keep kernel small to avoid bridging between closely-placed cards
-  const closeSize = Math.max(3, Math.round(20 * scale))
-  const kernel = cv.getStructuringElement(cv.MORPH_RECT, new cv.Size(closeSize, closeSize))
-  const closed = new cv.Mat()
-  cv.morphologyEx(thresh, closed, cv.MORPH_CLOSE, kernel)
-
   // Clear border to prevent edge noise from merging with cards
   const border = Math.max(5, Math.round(50 * scale))
-  cv.rectangle(closed, new cv.Point(0, 0), new cv.Point(width, border), new cv.Scalar(0), cv.FILLED)
-  cv.rectangle(closed, new cv.Point(0, height - border), new cv.Point(width, height), new cv.Scalar(0), cv.FILLED)
-  cv.rectangle(closed, new cv.Point(0, 0), new cv.Point(border, height), new cv.Scalar(0), cv.FILLED)
-  cv.rectangle(closed, new cv.Point(width - border, 0), new cv.Point(width, height), new cv.Scalar(0), cv.FILLED)
+  cv.rectangle(thresh, new cv.Point(0, 0), new cv.Point(width, border), new cv.Scalar(0), cv.FILLED)
+  cv.rectangle(thresh, new cv.Point(0, height - border), new cv.Point(width, height), new cv.Scalar(0), cv.FILLED)
+  cv.rectangle(thresh, new cv.Point(0, 0), new cv.Point(border, height), new cv.Scalar(0), cv.FILLED)
+  cv.rectangle(thresh, new cv.Point(width - border, 0), new cv.Point(width, height), new cv.Scalar(0), cv.FILLED)
 
   // Erode slightly to break thin connections between cards and edge noise
   const erodeSize = Math.max(3, Math.round(15 * scale))
   const erodeKernel = cv.getStructuringElement(cv.MORPH_RECT, new cv.Size(erodeSize, erodeSize))
   const eroded = new cv.Mat()
-  cv.erode(closed, eroded, erodeKernel)
+  cv.erode(thresh, eroded, erodeKernel)
 
   // Debug: save intermediate images
   mkdirSync(outputDir, { recursive: true })
@@ -153,7 +146,7 @@ async function processImage(imagePath: string, outputDir: string) {
   // Cleanup
   mat.delete(); gray.delete(); background.delete(); normalized.delete()
   scaled.delete(); blurred.delete(); thresh.delete()
-  kernel.delete(); closed.delete(); erodeKernel.delete(); eroded.delete()
+  erodeKernel.delete(); eroded.delete()
   contours.delete(); hierarchy.delete()
 }
 
