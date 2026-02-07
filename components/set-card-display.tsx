@@ -71,10 +71,11 @@ function SquiggleShape({ shading, color }: { shading: string; color: string }) {
   return (
     <svg viewBox="0 0 60 40" className="w-[60%] h-auto">
       <path
-        d="M10,30 Q20,35 30,25 Q40,15 50,25 Q55,30 55,20 Q55,5 45,10 Q35,15 25,10 Q15,5 10,15 Q5,25 10,30"
+        d="M5,27 C5,16 16,5 30,15 C44,24 55,5 55,13 C55,21 44,35 30,25 C16,16 5,35 5,27Z"
         fill={shading === "solid" ? fillColor : shading === "striped" ? `url(#stripe-squiggle-${color})` : "none"}
         stroke={fillColor}
         strokeWidth="2"
+        strokeLinejoin="round"
       />
       <defs>
         <pattern id={`stripe-squiggle-${color}`} patternUnits="userSpaceOnUse" width="4" height="4">
