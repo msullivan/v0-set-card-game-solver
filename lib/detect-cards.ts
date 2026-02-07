@@ -17,9 +17,7 @@ function ensureCVReady(): Promise<void> {
   return cvReady
 }
 
-export async function detectCards(imageBuffer: Buffer): Promise<Buffer[]> {
-  await ensureCVReady()
-
+async function detectCardsFromBuffer(imageBuffer: Buffer): Promise<Buffer[]> {
   const metadata = await sharp(imageBuffer).metadata()
   const origWidth = metadata.width!
   const origHeight = metadata.height!
@@ -128,4 +126,15 @@ export async function detectCards(imageBuffer: Buffer): Promise<Buffer[]> {
   contours.delete(); hierarchy.delete()
 
   return crops
+}
+
+export async function detectCards(imageBuffer: Buffer): Promise<Buffer[]> {
+  await ensureCVReady()
+
+  const crops = await detectCardsFromBuffer(imageBuffer)
+  if (crops.length > 0) return crops
+
+  // No cards found — try rotating 90 degrees in case image is landscape
+  const rotated = await sharp(imageBuffer).rotate(90).jpeg().toBuffer()
+  return detectCardsFromBuffer(rotated)
 }
