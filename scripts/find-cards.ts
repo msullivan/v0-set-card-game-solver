@@ -6,14 +6,25 @@ import sharp from "sharp"
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const cv = require("@techstark/opencv-js")
 
+const CV_MAX_DIM = 1000 // max dimension for CV processing
+
 async function processImage(imagePath: string, outputDir: string) {
   console.log(`Processing ${imagePath}...`)
   const imageBuffer = readFileSync(imagePath)
   const metadata = await sharp(imageBuffer).metadata()
-  const width = metadata.width!
-  const height = metadata.height!
-  const rawData = await sharp(imageBuffer).removeAlpha().raw().toBuffer()
-  console.log(`  Image: ${width}x${height}`)
+  const origWidth = metadata.width!
+  const origHeight = metadata.height!
+
+  // Downscale for CV processing
+  const scale = Math.min(1, CV_MAX_DIM / Math.max(origWidth, origHeight))
+  const width = Math.round(origWidth * scale)
+  const height = Math.round(origHeight * scale)
+  const rawData = await sharp(imageBuffer)
+    .resize(width, height)
+    .removeAlpha()
+    .raw()
+    .toBuffer()
+  console.log(`  Image: ${origWidth}x${origHeight} → ${width}x${height} for CV (${scale.toFixed(2)}x)`)
 
   // Create OpenCV mat from raw RGB data
   const mat = new cv.Mat(height, width, cv.CV_8UC3)
@@ -24,8 +35,10 @@ async function processImage(imagePath: string, outputDir: string) {
   cv.cvtColor(mat, gray, cv.COLOR_RGB2GRAY)
 
   // Estimate background illumination with a very large blur
+  // Scale kernel sizes proportionally (must be odd)
+  const bgBlurSize = Math.round(151 * scale) | 1
   const background = new cv.Mat()
-  cv.GaussianBlur(gray, background, new cv.Size(151, 151), 0)
+  cv.GaussianBlur(gray, background, new cv.Size(bgBlurSize, bgBlurSize), 0)
 
   // Subtract background to normalize lighting (removes shadow gradient)
   // Result: cards become bright, table becomes ~uniform gray
@@ -37,8 +50,9 @@ async function processImage(imagePath: string, outputDir: string) {
   normalized.convertTo(scaled, cv.CV_8U, 3.0, 0)
 
   // Blur to smooth out shapes inside cards
+  const blurSize = Math.round(31 * scale) | 1
   const blurred = new cv.Mat()
-  cv.GaussianBlur(scaled, blurred, new cv.Size(31, 31), 0)
+  cv.GaussianBlur(scaled, blurred, new cv.Size(blurSize, blurSize), 0)
 
   // Global threshold on the normalized image (shadow-free)
   const thresh = new cv.Mat()
@@ -46,19 +60,21 @@ async function processImage(imagePath: string, outputDir: string) {
 
   // Morphological close to fill remaining gaps from shapes inside cards
   // Keep kernel small to avoid bridging between closely-placed cards
-  const kernel = cv.getStructuringElement(cv.MORPH_RECT, new cv.Size(20, 20))
+  const closeSize = Math.max(3, Math.round(20 * scale))
+  const kernel = cv.getStructuringElement(cv.MORPH_RECT, new cv.Size(closeSize, closeSize))
   const closed = new cv.Mat()
   cv.morphologyEx(thresh, closed, cv.MORPH_CLOSE, kernel)
 
   // Clear border to prevent edge noise from merging with cards
-  const border = 50
+  const border = Math.max(5, Math.round(50 * scale))
   cv.rectangle(closed, new cv.Point(0, 0), new cv.Point(width, border), new cv.Scalar(0), cv.FILLED)
   cv.rectangle(closed, new cv.Point(0, height - border), new cv.Point(width, height), new cv.Scalar(0), cv.FILLED)
   cv.rectangle(closed, new cv.Point(0, 0), new cv.Point(border, height), new cv.Scalar(0), cv.FILLED)
   cv.rectangle(closed, new cv.Point(width - border, 0), new cv.Point(width, height), new cv.Scalar(0), cv.FILLED)
 
   // Erode slightly to break thin connections between cards and edge noise
-  const erodeKernel = cv.getStructuringElement(cv.MORPH_RECT, new cv.Size(15, 15))
+  const erodeSize = Math.max(3, Math.round(15 * scale))
+  const erodeKernel = cv.getStructuringElement(cv.MORPH_RECT, new cv.Size(erodeSize, erodeSize))
   const eroded = new cv.Mat()
   cv.erode(closed, eroded, erodeKernel)
 
@@ -111,14 +127,18 @@ async function processImage(imagePath: string, outputDir: string) {
 
   console.log(`  Found ${cards.length} cards`)
 
-  // Save crops
+  // Save crops (map coordinates back to original resolution)
   for (let i = 0; i < cards.length; i++) {
     const card = cards[i]
-    const pad = 10
-    const left = Math.max(0, card.x - pad)
-    const top = Math.max(0, card.y - pad)
-    const cropWidth = Math.min(card.w + pad * 2, width - left)
-    const cropHeight = Math.min(card.h + pad * 2, height - top)
+    const pad = Math.round(10 / scale)
+    const origX = Math.round(card.x / scale)
+    const origY = Math.round(card.y / scale)
+    const origW = Math.round(card.w / scale)
+    const origH = Math.round(card.h / scale)
+    const left = Math.max(0, origX - pad)
+    const top = Math.max(0, origY - pad)
+    const cropWidth = Math.min(origW + pad * 2, origWidth - left)
+    const cropHeight = Math.min(origH + pad * 2, origHeight - top)
 
     const cropped = await sharp(imageBuffer)
       .extract({ left, top, width: cropWidth, height: cropHeight })
@@ -127,7 +147,7 @@ async function processImage(imagePath: string, outputDir: string) {
 
     const name = `card-${String(i + 1).padStart(2, "0")}.jpg`
     writeFileSync(join(outputDir, name), cropped)
-    console.log(`    ${name}: ${card.w}x${card.h} at (${card.x}, ${card.y})`)
+    console.log(`    ${name}: ${origW}x${origH} at (${origX}, ${origY})`)
   }
 
   // Cleanup
