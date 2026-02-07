@@ -36,6 +36,7 @@ export default function SetSolverPage() {
   const [isAnalyzing, setIsAnalyzing] = useState(false)
   const [result, setResult] = useState<AnalysisResult | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const [elapsed, setElapsed] = useState<number | null>(null)
 
   const handleImageSelect = (data: string) => {
     setImageData(data)
@@ -48,8 +49,10 @@ export default function SetSolverPage() {
 
     setIsAnalyzing(true)
     setError(null)
+    setElapsed(null)
 
     try {
+      const start = performance.now()
       const response = await fetch("/api/analyze", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -62,6 +65,7 @@ export default function SetSolverPage() {
       }
 
       const data = await response.json()
+      setElapsed(Math.round(performance.now() - start))
       setResult(data)
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred")
@@ -74,6 +78,7 @@ export default function SetSolverPage() {
     setImageData(null)
     setResult(null)
     setError(null)
+    setElapsed(null)
   }
 
   return (
@@ -189,8 +194,13 @@ export default function SetSolverPage() {
                 <span>AI analysis: {(result.timing.ai / 1000).toFixed(1)}s</span>
                 <span>Set finding: {result.timing.sets < 1 ? "<1ms" : `${result.timing.sets}ms`}</span>
                 <span className="font-medium">
-                  Total: {((result.timing.cvInit + result.timing.cvProcess + result.timing.ai + result.timing.sets) / 1000).toFixed(1)}s
+                  Server: {((result.timing.cvInit + result.timing.cvProcess + result.timing.ai + result.timing.sets) / 1000).toFixed(1)}s
                 </span>
+                {elapsed !== null && (
+                  <span className="font-medium">
+                    Round-trip: {(elapsed / 1000).toFixed(1)}s
+                  </span>
+                )}
               </div>
             )}
             <SetResults
