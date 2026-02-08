@@ -135,8 +135,9 @@ interface CardGridProps {
 }
 
 export function CardGrid({ cards, highlightedIds = [] }: CardGridProps) {
+  const cols = Math.ceil(cards.length / 3)
   return (
-    <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3">
+    <div className="grid gap-3" style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}>
       {cards.map((card) => (
         <SetCardDisplay
           key={card.id}
