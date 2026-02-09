@@ -214,13 +214,26 @@ async function detectCardsFromBuffer(imageBuffer: Buffer, debugDir?: string): Pr
   // Infer missing cards from grid geometry
   const allRects = inferMissingGridCards(rects, debugDir)
 
-  // Sort top-to-bottom, left-to-right
-  allRects.sort((a, b) => {
-    const rowA = Math.round(a.y / (height * 0.1))
-    const rowB = Math.round(b.y / (height * 0.1))
-    if (rowA !== rowB) return rowA - rowB
-    return a.x - b.x
-  })
+  // Sort top-to-bottom, left-to-right using clustering for row assignment
+  if (allRects.length >= 2) {
+    const medH = median(allRects.map(r => r.h))
+    const rowClusters = clusterValues(allRects.map(r => r.y + r.h / 2), medH * 0.5)
+    const rowCenters = rowClusters.map(c => median(c)).sort((a, b) => a - b)
+    const rowOf = (r: { y: number; h: number }) => {
+      let best = 0
+      let bestDist = Infinity
+      for (let i = 0; i < rowCenters.length; i++) {
+        const d = Math.abs(r.y + r.h / 2 - rowCenters[i])
+        if (d < bestDist) { best = i; bestDist = d }
+      }
+      return best
+    }
+    allRects.sort((a, b) => {
+      const rowDiff = rowOf(a) - rowOf(b)
+      if (rowDiff !== 0) return rowDiff
+      return a.x - b.x
+    })
+  }
 
   // Crop at full resolution
   const crops: Buffer[] = []
