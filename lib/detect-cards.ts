@@ -20,6 +20,8 @@ function ensureCVReady(): Promise<void> {
 }
 
 async function detectCardsFromBuffer(imageBuffer: Buffer, debugDir?: string): Promise<Buffer[]> {
+  // Apply EXIF rotation so pixel dimensions match visual orientation
+  imageBuffer = await sharp(imageBuffer).rotate().jpeg().toBuffer()
   const metadata = await sharp(imageBuffer).metadata()
   const origWidth = metadata.width!
   const origHeight = metadata.height!
@@ -113,12 +115,12 @@ async function detectCardsFromBuffer(imageBuffer: Buffer, debugDir?: string): Pr
     if (debugDir) {
       const dominated = areaRatio >= 0.005 && areaRatio <= 0.08
       if (dominated || areaRatio >= 0.002) {
-        console.log(`  contour ${i}: area=${areaRatio.toFixed(4)} aspect=${aspect.toFixed(2)} rect=${rectangularity.toFixed(2)} ${rect.width}x${rect.height} at (${rect.x},${rect.y})${areaRatio < 0.005 || areaRatio > 0.08 ? ' REJECT:area' : aspect < 0.45 || aspect > 2.2 ? ' REJECT:aspect' : rectangularity < 0.25 ? ' REJECT:rect' : ' OK'}`)
+        console.log(`  contour ${i}: area=${areaRatio.toFixed(4)} aspect=${aspect.toFixed(2)} rect=${rectangularity.toFixed(2)} ${rect.width}x${rect.height} at (${rect.x},${rect.y})${areaRatio < 0.005 || areaRatio > 0.08 ? ' REJECT:area' : aspect < 0.9 || aspect > 2.2 ? ' REJECT:aspect' : rectangularity < 0.25 ? ' REJECT:rect' : ' OK'}`)
       }
     }
 
     if (areaRatio < 0.005 || areaRatio > 0.08) continue
-    if (aspect < 0.45 || aspect > 2.2) continue
+    if (aspect < 0.9 || aspect > 2.2) continue
     if (rectangularity < 0.25) continue
 
     rects.push({ x: rect.x, y: rect.y, w: rect.width, h: rect.height })
