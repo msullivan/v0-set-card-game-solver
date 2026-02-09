@@ -6,6 +6,7 @@ import { mkdir } from "fs/promises"
 const cv = require("@techstark/opencv-js")
 
 const CV_MAX_DIM = 1000
+const GRID_MIN_CARDS = 6
 
 let cvReady: Promise<void> | null = null
 
@@ -17,6 +18,90 @@ function ensureCVReady(): Promise<void> {
     })
   }
   return cvReady
+}
+
+function median(values: number[]): number {
+  const sorted = [...values].sort((a, b) => a - b)
+  const mid = Math.floor(sorted.length / 2)
+  return sorted.length % 2 ? sorted[mid] : (sorted[mid - 1] + sorted[mid]) / 2
+}
+
+function clusterValues(values: number[], threshold: number): number[][] {
+  const sorted = [...values].sort((a, b) => a - b)
+  const clusters: number[][] = [[sorted[0]]]
+  for (let i = 1; i < sorted.length; i++) {
+    if (sorted[i] - sorted[i - 1] <= threshold) {
+      clusters[clusters.length - 1].push(sorted[i])
+    } else {
+      clusters.push([sorted[i]])
+    }
+  }
+  return clusters
+}
+
+/**
+ * Infer missing cards from grid geometry.
+ * When most cards in a regular grid are detected, compute the expected grid
+ * positions and add synthetic rects for any empty cells.
+ */
+function inferMissingGridCards(
+  rects: { x: number; y: number; w: number; h: number }[],
+  debugDir?: string,
+): { x: number; y: number; w: number; h: number }[] {
+  if (rects.length < GRID_MIN_CARDS) return rects
+
+  const medW = median(rects.map(r => r.w))
+  const medH = median(rects.map(r => r.h))
+
+  // Cluster centers into columns and rows
+  const xCenters = rects.map(r => r.x + r.w / 2)
+  const yCenters = rects.map(r => r.y + r.h / 2)
+
+  const colClusters = clusterValues(xCenters, medW * 0.5)
+  const rowClusters = clusterValues(yCenters, medH * 0.5)
+
+  // Need at least 2 rows and 2 columns to form a grid
+  if (colClusters.length < 2 || rowClusters.length < 2) return rects
+
+  const colCenters = colClusters.map(c => median(c)).sort((a, b) => a - b)
+  const rowCenters = rowClusters.map(c => median(c)).sort((a, b) => a - b)
+
+  const totalCells = colCenters.length * rowCenters.length
+  // Only infer if we have most of the grid already (at least 75%)
+  if (rects.length < totalCells * 0.75) return rects
+
+  const result = [...rects]
+  let added = 0
+
+  for (const rowY of rowCenters) {
+    for (const colX of colCenters) {
+      // Check if a detected card exists near this grid intersection
+      const nearby = rects.some(r => {
+        const cx = r.x + r.w / 2
+        const cy = r.y + r.h / 2
+        return Math.abs(cx - colX) < medW * 0.5 && Math.abs(cy - rowY) < medH * 0.5
+      })
+      if (!nearby) {
+        const synth = {
+          x: Math.max(0, Math.round(colX - medW / 2)),
+          y: Math.max(0, Math.round(rowY - medH / 2)),
+          w: Math.round(medW),
+          h: Math.round(medH),
+        }
+        result.push(synth)
+        added++
+        if (debugDir) {
+          console.log(`  grid inferred card at (${synth.x},${synth.y}) ${synth.w}x${synth.h}`)
+        }
+      }
+    }
+  }
+
+  if (debugDir && added > 0) {
+    console.log(`  grid inference: ${colCenters.length} cols × ${rowCenters.length} rows, added ${added} card(s)`)
+  }
+
+  return result
 }
 
 async function detectCardsFromBuffer(imageBuffer: Buffer, debugDir?: string): Promise<Buffer[]> {
@@ -126,8 +211,11 @@ async function detectCardsFromBuffer(imageBuffer: Buffer, debugDir?: string): Pr
     rects.push({ x: rect.x, y: rect.y, w: rect.width, h: rect.height })
   }
 
+  // Infer missing cards from grid geometry
+  const allRects = inferMissingGridCards(rects, debugDir)
+
   // Sort top-to-bottom, left-to-right
-  rects.sort((a, b) => {
+  allRects.sort((a, b) => {
     const rowA = Math.round(a.y / (height * 0.1))
     const rowB = Math.round(b.y / (height * 0.1))
     if (rowA !== rowB) return rowA - rowB
@@ -136,7 +224,7 @@ async function detectCardsFromBuffer(imageBuffer: Buffer, debugDir?: string): Pr
 
   // Crop at full resolution
   const crops: Buffer[] = []
-  for (const r of rects) {
+  for (const r of allRects) {
     const pad = Math.round(10 / scale)
     const left = Math.max(0, Math.round(r.x / scale) - pad)
     const top = Math.max(0, Math.round(r.y / scale) - pad)
