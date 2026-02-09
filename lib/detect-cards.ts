@@ -1,4 +1,6 @@
 import sharp from "sharp"
+import path from "path"
+import { mkdir } from "fs/promises"
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const cv = require("@techstark/opencv-js")
@@ -17,7 +19,7 @@ function ensureCVReady(): Promise<void> {
   return cvReady
 }
 
-async function detectCardsFromBuffer(imageBuffer: Buffer): Promise<Buffer[]> {
+async function detectCardsFromBuffer(imageBuffer: Buffer, debugDir?: string): Promise<Buffer[]> {
   const metadata = await sharp(imageBuffer).metadata()
   const origWidth = metadata.width!
   const origHeight = metadata.height!
@@ -68,6 +70,17 @@ async function detectCardsFromBuffer(imageBuffer: Buffer): Promise<Buffer[]> {
   const erodeKernel = cv.getStructuringElement(cv.MORPH_RECT, new cv.Size(erodeSize, erodeSize))
   const eroded = new cv.Mat()
   cv.erode(thresh, eroded, erodeKernel)
+
+  // Write debug images if requested
+  if (debugDir) {
+    await mkdir(debugDir, { recursive: true })
+    await sharp(Buffer.from(scaled.data), { raw: { width, height, channels: 1 } })
+      .jpeg()
+      .toFile(path.join(debugDir, "debug-normalized.jpg"))
+    await sharp(Buffer.from(eroded.data), { raw: { width, height, channels: 1 } })
+      .jpeg()
+      .toFile(path.join(debugDir, "debug-threshold.jpg"))
+  }
 
   // Find contours
   const contours = new cv.MatVector()
@@ -133,17 +146,17 @@ export interface DetectCardsResult {
   timing: { cvInit: number; cvProcess: number }
 }
 
-export async function detectCards(imageBuffer: Buffer): Promise<DetectCardsResult> {
+export async function detectCards(imageBuffer: Buffer, debugDir?: string): Promise<DetectCardsResult> {
   const initStart = performance.now()
   await ensureCVReady()
   const cvInit = performance.now() - initStart
 
   const processStart = performance.now()
-  let crops = await detectCardsFromBuffer(imageBuffer)
+  let crops = await detectCardsFromBuffer(imageBuffer, debugDir)
   if (crops.length === 0) {
     // No cards found — try rotating 90 degrees in case image is landscape
     const rotated = await sharp(imageBuffer).rotate(90).jpeg().toBuffer()
-    crops = await detectCardsFromBuffer(rotated)
+    crops = await detectCardsFromBuffer(rotated, debugDir)
   }
   const cvProcess = performance.now() - processStart
 
