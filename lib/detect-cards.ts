@@ -46,8 +46,18 @@ async function detectCardsFromBuffer(imageBuffer: Buffer, debugDir?: string): Pr
 
   const normalized = new cv.Mat()
   cv.subtract(gray, background, normalized)
+
+  // Local contrast normalization: divide by local max to equalize dim/bright areas
+  const normKernelSize = Math.round(101 * scale) | 1
+  const normKernel = cv.getStructuringElement(cv.MORPH_RECT, new cv.Size(normKernelSize, normKernelSize))
+  const localMax = new cv.Mat()
+  cv.dilate(normalized, localMax, normKernel)
+  // Clamp localMax to min 1 to avoid division by zero
+  const ones = new cv.Mat(height, width, cv.CV_8U, new cv.Scalar(1))
+  cv.max(localMax, ones, localMax)
+  ones.delete()
   const scaled = new cv.Mat()
-  normalized.convertTo(scaled, cv.CV_8U, 3.0, 0)
+  cv.divide(normalized, localMax, scaled, 255.0)
 
   // Blur to smooth shapes inside cards
   const blurSize = Math.round(31 * scale) | 1
@@ -56,7 +66,7 @@ async function detectCardsFromBuffer(imageBuffer: Buffer, debugDir?: string): Pr
 
   // Threshold
   const thresh = new cv.Mat()
-  cv.threshold(blurred, thresh, 40, 255, cv.THRESH_BINARY)
+  cv.threshold(blurred, thresh, 0, 255, cv.THRESH_BINARY | cv.THRESH_OTSU)
 
   // Clear border to prevent edge noise
   const border = Math.max(5, Math.round(50 * scale))
@@ -65,8 +75,8 @@ async function detectCardsFromBuffer(imageBuffer: Buffer, debugDir?: string): Pr
   cv.rectangle(thresh, new cv.Point(0, 0), new cv.Point(border, height), new cv.Scalar(0), cv.FILLED)
   cv.rectangle(thresh, new cv.Point(width - border, 0), new cv.Point(width, height), new cv.Scalar(0), cv.FILLED)
 
-  // Erode to break thin connections
-  const erodeSize = Math.max(3, Math.round(15 * scale))
+  // Erode to break thin connections between adjacent cards
+  const erodeSize = Math.max(3, Math.round(10 * scale))
   const erodeKernel = cv.getStructuringElement(cv.MORPH_RECT, new cv.Size(erodeSize, erodeSize))
   const eroded = new cv.Mat()
   cv.erode(thresh, eroded, erodeKernel)
@@ -96,14 +106,20 @@ async function detectCardsFromBuffer(imageBuffer: Buffer, debugDir?: string): Pr
     const rect = cv.boundingRect(contour)
 
     const areaRatio = area / imgArea
-    if (areaRatio < 0.005 || areaRatio > 0.08) continue
-
     const aspect = rect.height / rect.width
-    if (aspect < 0.9 || aspect > 2.2) continue
-
     const rectArea = rect.width * rect.height
     const rectangularity = area / rectArea
-    if (rectangularity < 0.65) continue
+
+    if (debugDir) {
+      const dominated = areaRatio >= 0.005 && areaRatio <= 0.08
+      if (dominated || areaRatio >= 0.002) {
+        console.log(`  contour ${i}: area=${areaRatio.toFixed(4)} aspect=${aspect.toFixed(2)} rect=${rectangularity.toFixed(2)} ${rect.width}x${rect.height} at (${rect.x},${rect.y})${areaRatio < 0.005 || areaRatio > 0.08 ? ' REJECT:area' : aspect < 0.45 || aspect > 2.2 ? ' REJECT:aspect' : rectangularity < 0.25 ? ' REJECT:rect' : ' OK'}`)
+      }
+    }
+
+    if (areaRatio < 0.005 || areaRatio > 0.08) continue
+    if (aspect < 0.45 || aspect > 2.2) continue
+    if (rectangularity < 0.25) continue
 
     rects.push({ x: rect.x, y: rect.y, w: rect.width, h: rect.height })
   }
@@ -134,6 +150,7 @@ async function detectCardsFromBuffer(imageBuffer: Buffer, debugDir?: string): Pr
 
   // Cleanup
   mat.delete(); gray.delete(); background.delete(); normalized.delete()
+  normKernel.delete(); localMax.delete()
   scaled.delete(); blurred.delete(); thresh.delete()
   erodeKernel.delete(); eroded.delete()
   contours.delete(); hierarchy.delete()
