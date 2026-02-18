@@ -14,7 +14,7 @@ PROJECT_DIR = SCRIPT_DIR.parent
 
 COLORS = ["red", "green", "purple"]
 SHAPES = ["diamond", "oval", "squiggle"]
-SHADINGS = ["solid", "striped", "outline"]
+SHADINGS = ["solid", "striped", "empty"]
 NUMBERS = [1, 2, 3]
 
 
@@ -37,7 +37,7 @@ def format_card_list(cards: list[dict]) -> str:
 
 
 def build_prompt(cards: list[dict]) -> str:
-    card_list = format_card_list(cards)
+    card_list = format_card_list(cards).replace("empty", "outline")
     return f"""Here is a reference photo of real Set game cards. Study the three shapes carefully:
 
 1. DIAMOND: a four-sided rhombus shape, oriented horizontally (wider than tall)
