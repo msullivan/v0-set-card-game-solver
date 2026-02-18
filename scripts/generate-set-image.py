@@ -137,6 +137,11 @@ def main():
     output_path.write_bytes(img_bytes)
     print(f"Image saved to {output_path}")
 
+    # Save expected cards as JSON sidecar
+    json_path = output_path.with_suffix(".json")
+    json_path.write_text(json.dumps(cards, indent=2))
+    print(f"Expected cards saved to {json_path}")
+
 
 
 if __name__ == "__main__":
