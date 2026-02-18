@@ -26,7 +26,7 @@ export async function POST(req: Request) {
 
     // Pass 2: AI analysis of each card (parallel)
     const aiStart = performance.now()
-    const model = "anthropic/claude-sonnet-4-20250514"
+    const model = "anthropic/claude-haiku-4-5-20251001"
     const cardResults = await Promise.all(
       crops.map(async (crop, i) => {
         const attrs = await analyzeCard(crop, model)

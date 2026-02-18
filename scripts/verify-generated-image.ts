@@ -38,7 +38,7 @@ async function main() {
     console.log(`No expected cards file found at ${jsonPath}, will just print detected cards.\n`)
   }
 
-  const model = process.argv[4] || "anthropic/claude-sonnet-4-20250514"
+  const model = process.argv[4] || "anthropic/claude-haiku-4-5-20251001"
 
   // Run two-pass analysis
   const imageBuffer = readFileSync(imagePath)
