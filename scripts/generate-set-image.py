@@ -36,17 +36,18 @@ def format_card_list(cards: list[dict]) -> str:
     return "\n".join(lines)
 
 
-def build_prompt(cards: list[dict]) -> str:
-    card_list = format_card_list(cards).replace("empty", "outline")
-    return f"""Here is a reference photo of real Set game cards. Study the three shapes carefully:
+REFERENCE_MESSAGE = """This is a reference photo of real Set game cards. The three shapes are:
 
 1. DIAMOND: a four-sided rhombus shape, oriented horizontally (wider than tall)
 2. OVAL: a rounded rectangle / stadium shape, oriented horizontally
-3. SQUIGGLE: a fat blobby bean/slug shape with smooth organic curves — NOT an S or a 2. Look at the squiggle cards in the reference for examples.
+3. SQUIGGLE: a fat blobby bean/slug shape with smooth organic curves — NOT an S or a 2.
 
-All three shadings exist: solid (100% filled with color), striped (horizontal lines inside the shape), and outline (just the colored border, white/blank inside — 0% fill).
+All three shadings exist: solid (100% filled with color), striped (horizontal lines inside the shape), and outline (just the colored border, white/blank inside — 0% fill)."""
 
-Generate a new photorealistic overhead photograph of exactly these 12 Set cards arranged in a 4 columns x 3 rows grid on a wooden table. ALL cards must be in portrait orientation (taller than wide), with shapes stacked vertically on each card. The squiggle must closely match the blobby organic shape from the reference photo.
+
+def build_generation_prompt(cards: list[dict]) -> str:
+    card_list = format_card_list(cards).replace("empty", "outline")
+    return f"""Generate a new photorealistic overhead photograph of exactly these 12 Set cards arranged in a 4 columns x 3 rows grid on a wooden table. ALL cards must be in portrait orientation (taller than wide), with shapes stacked vertically on each card. The squiggle must closely match the blobby organic shape from the reference photo.
 
 The cards must be exactly (left to right, top to bottom):
 {card_list}"""
@@ -82,7 +83,7 @@ def main():
         sys.exit(1)
 
     cards = generate_cards(args.num_cards)
-    prompt = build_prompt(cards)
+    generation_prompt = build_generation_prompt(cards)
 
     print("Generated cards:")
     print(format_card_list(cards))
@@ -100,9 +101,13 @@ def main():
                         "type": "image_url",
                         "image_url": {"url": f"data:image/jpeg;base64,{ref_base64}"},
                     },
-                    {"type": "text", "text": prompt},
+                    {"type": "text", "text": REFERENCE_MESSAGE},
                 ],
-            }
+            },
+            {
+                "role": "user",
+                "content": generation_prompt,
+            },
         ],
     }
 
