@@ -36,21 +36,33 @@ def format_card_list(cards: list[dict]) -> str:
     return "\n".join(lines)
 
 
-REFERENCE_MESSAGE = """This is a reference photo of real Set game cards. The three shapes are:
+def build_prompt(cards: list[dict]) -> str:
+    card_list = format_card_list(cards).replace("empty", "outline")
+    return f"""This is a reference photo of real Set game cards. The three shapes are:
 
 1. DIAMOND: a four-sided rhombus shape, oriented horizontally (wider than tall)
 2. OVAL: a rounded rectangle / stadium shape, oriented horizontally
 3. SQUIGGLE: a fat blobby bean/slug shape with smooth organic curves — NOT an S or a 2.
 
-All three shadings exist: solid (100% filled with color), striped (horizontal lines inside the shape), and outline (just the colored border, white/blank inside — 0% fill)."""
+All three shadings exist: solid (100% filled with color), striped (horizontal lines inside the shape), and outline (just the colored border, white/blank inside — 0% fill).
 
+Generate a new photo that looks similar to the reference — same style, same type of cards, same wooden table, same overhead perspective. ALL cards must be in portrait orientation (taller than wide), with shapes stacked vertically. All shapes should be wider than they are tall.
 
-def build_generation_prompt(cards: list[dict]) -> str:
-    card_list = format_card_list(cards).replace("empty", "outline")
-    return f"""Generate a new photorealistic overhead photograph of exactly these 12 Set cards arranged in a 4 columns x 3 rows grid on a wooden table. ALL cards must be in portrait orientation (taller than wide), with shapes stacked vertically on each card. The squiggle must closely match the blobby organic shape from the reference photo.
-
-The cards must be exactly (left to right, top to bottom):
+The cards must be exactly these 12, arranged in a 4 columns x 3 rows grid (left to right, top to bottom):
 {card_list}"""
+
+
+def api_call(api_key: str, body: dict) -> dict:
+    request = urllib.request.Request(
+        "https://ai-gateway.vercel.sh/v1/chat/completions",
+        data=json.dumps(body).encode(),
+        headers={
+            "Authorization": f"Bearer {api_key}",
+            "Content-Type": "application/json",
+        },
+    )
+    resp = urllib.request.urlopen(request, timeout=120)
+    return json.loads(resp.read())
 
 
 def load_api_key() -> str:
@@ -83,7 +95,7 @@ def main():
         sys.exit(1)
 
     cards = generate_cards(args.num_cards)
-    generation_prompt = build_generation_prompt(cards)
+    prompt = build_prompt(cards)
 
     print("Generated cards:")
     print(format_card_list(cards))
@@ -101,28 +113,14 @@ def main():
                         "type": "image_url",
                         "image_url": {"url": f"data:image/jpeg;base64,{ref_base64}"},
                     },
-                    {"type": "text", "text": REFERENCE_MESSAGE},
+                    {"type": "text", "text": prompt},
                 ],
-            },
-            {
-                "role": "user",
-                "content": generation_prompt,
             },
         ],
     }
 
     print("Generating Set card image with Gemini Pro...")
-    request = urllib.request.Request(
-        "https://ai-gateway.vercel.sh/v1/chat/completions",
-        data=json.dumps(body).encode(),
-        headers={
-            "Authorization": f"Bearer {api_key}",
-            "Content-Type": "application/json",
-        },
-    )
-
-    resp = urllib.request.urlopen(request, timeout=120)
-    result = json.loads(resp.read())
+    result = api_call(api_key, body)
     msg = result.get("choices", [{}])[0].get("message", {})
 
     images = msg.get("images", [])
@@ -134,9 +132,11 @@ def main():
     if "," in img_data:
         img_data = img_data.split(",", 1)[1]
 
+    img_bytes = base64.b64decode(img_data)
     output_path = Path(args.output)
-    output_path.write_bytes(base64.b64decode(img_data))
+    output_path.write_bytes(img_bytes)
     print(f"Image saved to {output_path}")
+
 
 
 if __name__ == "__main__":
