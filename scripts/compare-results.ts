@@ -14,7 +14,7 @@ function cardKey(c: any): string {
   return `${c.number} ${c.color} ${c.shape} ${c.shading}`
 }
 
-for (const f of ["001","002","003","005","006","007","008","009","010","011"]) {
+for (const f of ["001","002","003","005","006","007","008","009","010","011","012","013","014","015"]) {
   const base = JSON.parse(readFileSync(join(basePath, f + ".json"), "utf-8"))
   const comp = JSON.parse(readFileSync(join(comparePath, f + ".json"), "utf-8"))
 
