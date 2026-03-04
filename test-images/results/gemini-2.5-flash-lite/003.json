@@ -1,0 +1,218 @@
+{
+  "cards": [
+    {
+      "id": "card-1",
+      "color": "purple",
+      "shape": "squiggle",
+      "shading": "solid",
+      "number": 2,
+      "position": {
+        "x": 378,
+        "y": 948
+      }
+    },
+    {
+      "id": "card-2",
+      "color": "purple",
+      "shape": "squiggle",
+      "shading": "striped",
+      "number": 2,
+      "position": {
+        "x": 1677,
+        "y": 988
+      }
+    },
+    {
+      "id": "card-3",
+      "color": "purple",
+      "shape": "diamond",
+      "shading": "solid",
+      "number": 2,
+      "position": {
+        "x": 1065,
+        "y": 936
+      }
+    },
+    {
+      "id": "card-4",
+      "color": "purple",
+      "shape": "oval",
+      "shading": "empty",
+      "number": 2,
+      "position": {
+        "x": 2268,
+        "y": 996
+      }
+    },
+    {
+      "id": "card-5",
+      "color": "purple",
+      "shape": "diamond",
+      "shading": "empty",
+      "number": 3,
+      "position": {
+        "x": 369,
+        "y": 1892
+      }
+    },
+    {
+      "id": "card-6",
+      "color": "red",
+      "shape": "diamond",
+      "shading": "striped",
+      "number": 3,
+      "position": {
+        "x": 1086,
+        "y": 1912
+      }
+    },
+    {
+      "id": "card-7",
+      "color": "purple",
+      "shape": "diamond",
+      "shading": "empty",
+      "number": 2,
+      "position": {
+        "x": 1602,
+        "y": 1928
+      }
+    },
+    {
+      "id": "card-8",
+      "color": "green",
+      "shape": "squiggle",
+      "shading": "empty",
+      "number": 3,
+      "position": {
+        "x": 2250,
+        "y": 1868
+      }
+    },
+    {
+      "id": "card-9",
+      "color": "red",
+      "shape": "squiggle",
+      "shading": "solid",
+      "number": 3,
+      "position": {
+        "x": 411,
+        "y": 2760
+      }
+    },
+    {
+      "id": "card-10",
+      "color": "red",
+      "shape": "diamond",
+      "shading": "striped",
+      "number": 2,
+      "position": {
+        "x": 1077,
+        "y": 2824
+      }
+    },
+    {
+      "id": "card-11",
+      "color": "red",
+      "shape": "diamond",
+      "shading": "empty",
+      "number": 3,
+      "position": {
+        "x": 1692,
+        "y": 2744
+      }
+    },
+    {
+      "id": "card-12",
+      "color": "green",
+      "shape": "diamond",
+      "shading": "solid",
+      "number": 2,
+      "position": {
+        "x": 2373,
+        "y": 2752
+      }
+    }
+  ],
+  "validSets": [
+    {
+      "cards": [
+        {
+          "id": "card-2",
+          "color": "purple",
+          "shape": "squiggle",
+          "shading": "striped",
+          "number": 2,
+          "position": {
+            "x": 1677,
+            "y": 988
+          }
+        },
+        {
+          "id": "card-3",
+          "color": "purple",
+          "shape": "diamond",
+          "shading": "solid",
+          "number": 2,
+          "position": {
+            "x": 1065,
+            "y": 936
+          }
+        },
+        {
+          "id": "card-4",
+          "color": "purple",
+          "shape": "oval",
+          "shading": "empty",
+          "number": 2,
+          "position": {
+            "x": 2268,
+            "y": 996
+          }
+        }
+      ],
+      "reason": "all purple color, different shape (squiggle, diamond, oval), different shading (striped, solid, empty), all 2 number"
+    },
+    {
+      "cards": [
+        {
+          "id": "card-7",
+          "color": "purple",
+          "shape": "diamond",
+          "shading": "empty",
+          "number": 2,
+          "position": {
+            "x": 1602,
+            "y": 1928
+          }
+        },
+        {
+          "id": "card-10",
+          "color": "red",
+          "shape": "diamond",
+          "shading": "striped",
+          "number": 2,
+          "position": {
+            "x": 1077,
+            "y": 2824
+          }
+        },
+        {
+          "id": "card-12",
+          "color": "green",
+          "shape": "diamond",
+          "shading": "solid",
+          "number": 2,
+          "position": {
+            "x": 2373,
+            "y": 2752
+          }
+        }
+      ],
+      "reason": "different color (purple, red, green), all diamond shape, different shading (empty, striped, solid), all 2 number"
+    }
+  ],
+  "confidence": "high",
+  "notes": "",
+  "totalCards": 12,
+  "totalSets": 2
+}

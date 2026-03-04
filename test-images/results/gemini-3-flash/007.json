@@ -1,0 +1,332 @@
+{
+  "cards": [
+    {
+      "id": "card-1",
+      "color": "green",
+      "shape": "oval",
+      "shading": "empty",
+      "number": 1,
+      "position": {
+        "x": 13,
+        "y": 13
+      }
+    },
+    {
+      "id": "card-2",
+      "color": "green",
+      "shape": "squiggle",
+      "shading": "striped",
+      "number": 3,
+      "position": {
+        "x": 34,
+        "y": 13
+      }
+    },
+    {
+      "id": "card-3",
+      "color": "red",
+      "shape": "squiggle",
+      "shading": "striped",
+      "number": 1,
+      "position": {
+        "x": 54,
+        "y": 12
+      }
+    },
+    {
+      "id": "card-4",
+      "color": "green",
+      "shape": "diamond",
+      "shading": "empty",
+      "number": 3,
+      "position": {
+        "x": 77,
+        "y": 11
+      }
+    },
+    {
+      "id": "card-5",
+      "color": "green",
+      "shape": "oval",
+      "shading": "solid",
+      "number": 3,
+      "position": {
+        "x": 14,
+        "y": 35
+      }
+    },
+    {
+      "id": "card-6",
+      "color": "purple",
+      "shape": "diamond",
+      "shading": "striped",
+      "number": 2,
+      "position": {
+        "x": 38,
+        "y": 34
+      }
+    },
+    {
+      "id": "card-7",
+      "color": "purple",
+      "shape": "oval",
+      "shading": "empty",
+      "number": 3,
+      "position": {
+        "x": 56,
+        "y": 35
+      }
+    },
+    {
+      "id": "card-8",
+      "color": "red",
+      "shape": "diamond",
+      "shading": "solid",
+      "number": 3,
+      "position": {
+        "x": 82,
+        "y": 36
+      }
+    },
+    {
+      "id": "card-9",
+      "color": "purple",
+      "shape": "squiggle",
+      "shading": "solid",
+      "number": 1,
+      "position": {
+        "x": 16,
+        "y": 59
+      }
+    },
+    {
+      "id": "card-10",
+      "color": "green",
+      "shape": "squiggle",
+      "shading": "empty",
+      "number": 1,
+      "position": {
+        "x": 37,
+        "y": 58
+      }
+    },
+    {
+      "id": "card-11",
+      "color": "red",
+      "shape": "diamond",
+      "shading": "solid",
+      "number": 1,
+      "position": {
+        "x": 58,
+        "y": 59
+      }
+    },
+    {
+      "id": "card-12",
+      "color": "purple",
+      "shape": "diamond",
+      "shading": "solid",
+      "number": 3,
+      "position": {
+        "x": 83,
+        "y": 60
+      }
+    }
+  ],
+  "validSets": [
+    {
+      "cards": [
+        {
+          "id": "card-2",
+          "color": "green",
+          "shape": "squiggle",
+          "shading": "striped",
+          "number": 3,
+          "position": {
+            "x": 34,
+            "y": 13
+          }
+        },
+        {
+          "id": "card-4",
+          "color": "green",
+          "shape": "diamond",
+          "shading": "empty",
+          "number": 3,
+          "position": {
+            "x": 77,
+            "y": 11
+          }
+        },
+        {
+          "id": "card-5",
+          "color": "green",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 14,
+            "y": 35
+          }
+        }
+      ],
+      "reason": "all green color, different shape (squiggle, diamond, oval), different shading (striped, empty, solid), all 3 number"
+    },
+    {
+      "cards": [
+        {
+          "id": "card-2",
+          "color": "green",
+          "shape": "squiggle",
+          "shading": "striped",
+          "number": 3,
+          "position": {
+            "x": 34,
+            "y": 13
+          }
+        },
+        {
+          "id": "card-7",
+          "color": "purple",
+          "shape": "oval",
+          "shading": "empty",
+          "number": 3,
+          "position": {
+            "x": 56,
+            "y": 35
+          }
+        },
+        {
+          "id": "card-8",
+          "color": "red",
+          "shape": "diamond",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 82,
+            "y": 36
+          }
+        }
+      ],
+      "reason": "different color (green, purple, red), different shape (squiggle, oval, diamond), different shading (striped, empty, solid), all 3 number"
+    },
+    {
+      "cards": [
+        {
+          "id": "card-3",
+          "color": "red",
+          "shape": "squiggle",
+          "shading": "striped",
+          "number": 1,
+          "position": {
+            "x": 54,
+            "y": 12
+          }
+        },
+        {
+          "id": "card-9",
+          "color": "purple",
+          "shape": "squiggle",
+          "shading": "solid",
+          "number": 1,
+          "position": {
+            "x": 16,
+            "y": 59
+          }
+        },
+        {
+          "id": "card-10",
+          "color": "green",
+          "shape": "squiggle",
+          "shading": "empty",
+          "number": 1,
+          "position": {
+            "x": 37,
+            "y": 58
+          }
+        }
+      ],
+      "reason": "different color (red, purple, green), all squiggle shape, different shading (striped, solid, empty), all 1 number"
+    },
+    {
+      "cards": [
+        {
+          "id": "card-4",
+          "color": "green",
+          "shape": "diamond",
+          "shading": "empty",
+          "number": 3,
+          "position": {
+            "x": 77,
+            "y": 11
+          }
+        },
+        {
+          "id": "card-6",
+          "color": "purple",
+          "shape": "diamond",
+          "shading": "striped",
+          "number": 2,
+          "position": {
+            "x": 38,
+            "y": 34
+          }
+        },
+        {
+          "id": "card-11",
+          "color": "red",
+          "shape": "diamond",
+          "shading": "solid",
+          "number": 1,
+          "position": {
+            "x": 58,
+            "y": 59
+          }
+        }
+      ],
+      "reason": "different color (green, purple, red), all diamond shape, different shading (empty, striped, solid), different number (3, 2, 1)"
+    },
+    {
+      "cards": [
+        {
+          "id": "card-6",
+          "color": "purple",
+          "shape": "diamond",
+          "shading": "striped",
+          "number": 2,
+          "position": {
+            "x": 38,
+            "y": 34
+          }
+        },
+        {
+          "id": "card-7",
+          "color": "purple",
+          "shape": "oval",
+          "shading": "empty",
+          "number": 3,
+          "position": {
+            "x": 56,
+            "y": 35
+          }
+        },
+        {
+          "id": "card-9",
+          "color": "purple",
+          "shape": "squiggle",
+          "shading": "solid",
+          "number": 1,
+          "position": {
+            "x": 16,
+            "y": 59
+          }
+        }
+      ],
+      "reason": "all purple color, different shape (diamond, oval, squiggle), different shading (striped, empty, solid), different number (2, 3, 1)"
+    }
+  ],
+  "confidence": "high",
+  "notes": "",
+  "totalCards": 12,
+  "totalSets": 5
+}

@@ -16,7 +16,7 @@ import sharp from "sharp"
 import { findAllSets, type SetCard } from "../lib/set-game"
 import { analyzeCard } from "../lib/analyze-card"
 
-const BBOX_MODEL = "google/gemini-2.5-flash"
+const BBOX_MODEL = "google/gemini-2.5-flash-lite"
 const CARD_MODEL = "anthropic/claude-haiku-4-5-20251001"
 
 // Prompt following Gemini's documented bounding box format
@@ -37,26 +37,55 @@ async function analyzeImage(imagePath: string, cropsDir?: string) {
   // Gemini tries to reason about coordinates from scratch rather than using its trained spatial
   // detection model, producing much worse results. The free-form response is clean enough to
   // parse manually.
-  const bboxResult = await generateText({
-    model: BBOX_MODEL,
-    messages: [
-      {
-        role: "user",
-        content: [
-          { type: "text", text: BBOX_PROMPT },
-          { type: "image", image: `data:image/jpeg;base64,${base64}` },
-        ],
-      },
-    ],
-  })
 
-  console.log(`  raw response: ${bboxResult.text}`)
+  type BBox = { label: string; box_2d: [number, number, number, number] }
+  let boxes: BBox[] | null = null
+  const MAX_RETRIES = 3
 
-  // Gemini wraps JSON in markdown code fences even though we didn't ask it to. Annoying.
-  const rawText = bboxResult.text.replace(/^```(?:json)?\n?/, "").replace(/\n?```$/, "").trim()
-  const boxes: { label: string, box_2d: [number, number, number, number] }[] = JSON.parse(rawText)
+  for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+    const bboxResult = await generateText({
+      model: BBOX_MODEL,
+      messages: [
+        {
+          role: "user",
+          content: [
+            { type: "text", text: BBOX_PROMPT },
+            { type: "image", image: `data:image/jpeg;base64,${base64}` },
+          ],
+        },
+      ],
+    })
+
+    console.log(`  raw response (attempt ${attempt}): ${bboxResult.text}`)
+
+    try {
+      // Gemini wraps JSON in markdown code fences even though we didn't ask it to. Annoying.
+      const rawText = bboxResult.text.replace(/^```(?:json)?\n?/, "").replace(/\n?```$/, "").trim()
+      const parsed = JSON.parse(rawText)
+
+      // Validate: must be an array of objects with box_2d arrays
+      if (
+        Array.isArray(parsed) &&
+        parsed.length > 0 &&
+        parsed.every((b: unknown) =>
+          typeof b === "object" && b !== null &&
+          "box_2d" in b && Array.isArray((b as BBox).box_2d) && (b as BBox).box_2d.length === 4
+        )
+      ) {
+        boxes = parsed as BBox[]
+        break
+      } else {
+        console.warn(`  attempt ${attempt}: unexpected format, retrying...`)
+      }
+    } catch (e) {
+      console.warn(`  attempt ${attempt}: failed to parse JSON (${e instanceof Error ? e.message : e}), retrying...`)
+    }
+  }
+
+  if (!boxes) throw new Error(`Failed to get valid bounding boxes after ${MAX_RETRIES} attempts`)
+
   console.log(`  found ${boxes.length} cards`)
-  for (const box of boxes) console.log(`    ${box.label}: ${JSON.stringify(box.box_2d)}`)
+  for (const box of boxes) console.log(`    ${box.label ?? "(no label)"}: ${JSON.stringify(box.box_2d)}`)
 
   // Pass 2: Haiku 4.5 identifies each card from its crop (at original resolution)
   console.log(`  pass 2 (${CARD_MODEL}): identifying cards...`)

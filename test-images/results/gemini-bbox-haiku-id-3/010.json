@@ -1,0 +1,180 @@
+{
+  "cards": [
+    {
+      "id": "card-1",
+      "color": "purple",
+      "shape": "oval",
+      "shading": "empty",
+      "number": 2,
+      "position": {
+        "x": 267,
+        "y": 504
+      }
+    },
+    {
+      "id": "card-2",
+      "color": "red",
+      "shape": "diamond",
+      "shading": "striped",
+      "number": 1,
+      "position": {
+        "x": 810,
+        "y": 532
+      }
+    },
+    {
+      "id": "card-3",
+      "color": "red",
+      "shape": "oval",
+      "shading": "empty",
+      "number": 3,
+      "position": {
+        "x": 1467,
+        "y": 464
+      }
+    },
+    {
+      "id": "card-4",
+      "color": "purple",
+      "shape": "squiggle",
+      "shading": "empty",
+      "number": 2,
+      "position": {
+        "x": 2016,
+        "y": 516
+      }
+    },
+    {
+      "id": "card-5",
+      "color": "purple",
+      "shape": "diamond",
+      "shading": "striped",
+      "number": 3,
+      "position": {
+        "x": 360,
+        "y": 1336
+      }
+    },
+    {
+      "id": "card-6",
+      "color": "green",
+      "shape": "diamond",
+      "shading": "striped",
+      "number": 1,
+      "position": {
+        "x": 876,
+        "y": 1304
+      }
+    },
+    {
+      "id": "card-7",
+      "color": "red",
+      "shape": "squiggle",
+      "shading": "solid",
+      "number": 1,
+      "position": {
+        "x": 1491,
+        "y": 1304
+      }
+    },
+    {
+      "id": "card-8",
+      "color": "green",
+      "shape": "oval",
+      "shading": "striped",
+      "number": 3,
+      "position": {
+        "x": 2109,
+        "y": 1324
+      }
+    },
+    {
+      "id": "card-9",
+      "color": "green",
+      "shape": "oval",
+      "shading": "striped",
+      "number": 2,
+      "position": {
+        "x": 378,
+        "y": 2152
+      }
+    },
+    {
+      "id": "card-10",
+      "color": "red",
+      "shape": "oval",
+      "shading": "striped",
+      "number": 1,
+      "position": {
+        "x": 942,
+        "y": 2124
+      }
+    },
+    {
+      "id": "card-11",
+      "color": "red",
+      "shape": "diamond",
+      "shading": "empty",
+      "number": 1,
+      "position": {
+        "x": 1578,
+        "y": 2120
+      }
+    },
+    {
+      "id": "card-12",
+      "color": "purple",
+      "shape": "oval",
+      "shading": "solid",
+      "number": 2,
+      "position": {
+        "x": 2184,
+        "y": 2128
+      }
+    }
+  ],
+  "validSets": [
+    {
+      "cards": [
+        {
+          "id": "card-7",
+          "color": "red",
+          "shape": "squiggle",
+          "shading": "solid",
+          "number": 1,
+          "position": {
+            "x": 1491,
+            "y": 1304
+          }
+        },
+        {
+          "id": "card-10",
+          "color": "red",
+          "shape": "oval",
+          "shading": "striped",
+          "number": 1,
+          "position": {
+            "x": 942,
+            "y": 2124
+          }
+        },
+        {
+          "id": "card-11",
+          "color": "red",
+          "shape": "diamond",
+          "shading": "empty",
+          "number": 1,
+          "position": {
+            "x": 1578,
+            "y": 2120
+          }
+        }
+      ],
+      "reason": "all red color, different shape (squiggle, oval, diamond), different shading (solid, striped, empty), all 1 number"
+    }
+  ],
+  "confidence": "high",
+  "notes": "",
+  "totalCards": 12,
+  "totalSets": 1
+}
