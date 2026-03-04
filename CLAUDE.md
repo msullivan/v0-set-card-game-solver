@@ -28,12 +28,12 @@ The app uses a two-pass approach for higher accuracy than single-pass AI analysi
 
 1. **Pass 1 — CV card detection** (`lib/detect-cards.ts`): Uses opencv.js (WASM) to locate and crop individual cards from the photo. Pipeline: grayscale → background subtraction (large Gaussian blur) to normalize lighting/shadows → threshold → border clearing → erosion → contour detection filtered by area, aspect ratio, and rectangularity. Processes at 1000px max dimension for speed, crops at full resolution. Falls back to 90-degree rotation if no cards are detected.
 
-2. **Pass 2 — AI card identification** (`app/api/analyze/route.ts`): Sends each cropped card image to Claude Haiku 4.5 in parallel via `generateObject` with a Zod schema. Each card is identified independently (color, shape, shading, number), eliminating counting errors from the single-pass approach.
+2. **Pass 2 — AI card identification** (`app/api/analyze/route.ts`): Sends each cropped card image to Gemini 2.5 Flash Lite in parallel via `generateObject` with a Zod schema. Each card is identified independently (color, shape, shading, number), eliminating counting errors from the single-pass approach.
 
 ### Key layers
 
 - **`app/page.tsx`** — Main client component. All UI state lives here via `useState` (image data, analysis results, errors). No external state management.
-- **`app/api/analyze/route.ts`** — API route. Decodes uploaded image, runs CV detection, sends each crop to Claude Haiku 4.5 in parallel, assembles results and finds valid sets.
+- **`app/api/analyze/route.ts`** — API route. Decodes uploaded image, runs CV detection, sends each crop to Gemini 2.5 Flash Lite in parallel, assembles results and finds valid sets.
 - **`lib/detect-cards.ts`** — CV card detection using opencv.js + sharp. Singleton WASM initialization. Exports `detectCards(imageBuffer)` returning an array of JPEG crop buffers.
 - **`lib/set-game.ts`** — Pure game logic: `isValidSet()`, `findAllSets()` (brute-force O(n³)), type definitions (`SetCard`, `ValidSet`, `CardColor`, `CardShape`, `CardShading`, `CardNumber`).
 - **`components/set-card-display.tsx`** — SVG rendering of cards with diamond/oval/squiggle shapes and solid/striped/empty shading patterns.
@@ -41,7 +41,7 @@ The app uses a two-pass approach for higher accuracy than single-pass AI analysi
 
 ### AI Integration
 
-- Model: `anthropic/claude-haiku-4-5-20251001` (Haiku 4.5 produces identical results to Sonnet 4/4.5/4.6 on all test images at 1/3 the cost; switch to `anthropic/claude-sonnet-4-6` if accuracy issues arise)
+- Model: `google/gemini-2.5-flash-lite` (Flash Lite matches or beats Haiku 4.5 accuracy at ~10x lower cost; upgrade to `google/gemini-3.1-flash-lite` or `anthropic/claude-haiku-4-5-20251001` if accuracy issues arise)
 - Uses `generateObject` from `ai` package (Vercel AI SDK v6) with Zod schema validation
 - Per-card prompt focuses on identifying 4 attributes of a single card (simpler than the old whole-image prompt)
 
