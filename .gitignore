@@ -15,3 +15,5 @@ node_modules/
 *~
 next-env.d.ts
 tsconfig.tsbuildinfo
+test-results/
+playwright-report/
