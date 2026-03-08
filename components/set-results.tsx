@@ -61,6 +61,7 @@ export function SetResults({ cards: initialCards, validSets: initialValidSets, c
     const newCards = cards.map((c) => (c.id === editingCard.id ? editingCard : c))
     setCards(newCards)
     setValidSets(findAllSets(newCards))
+    setHoveredSetIndex(null)
     setEditingCard(null)
   }
 

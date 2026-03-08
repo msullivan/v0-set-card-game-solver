@@ -111,6 +111,10 @@ export function SetCardDisplay({ card, highlighted, size = "md", onClick }: SetC
   return (
     <div
       onClick={onClick}
+      role={onClick ? "button" : undefined}
+      tabIndex={onClick ? 0 : undefined}
+      aria-label={onClick ? `Edit card: ${card.number} ${card.color} ${card.shading} ${card.shape}` : undefined}
+      onKeyDown={onClick ? (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onClick() } } : undefined}
       className={cn(
         "rounded-lg border-2 aspect-[5/7] flex flex-col items-center justify-center transition-all relative",
         bgColorMap[card.color],

@@ -93,7 +93,7 @@ test.describe("Card edit feature", () => {
     await expect(page.getByText("1 valid set found")).toBeVisible()
   })
 
-  test("changing number creates a new valid set configuration", async ({ page }) => {
+  test("changing number attribute breaks the valid set", async ({ page }) => {
     // Change third card from number 1 to number 2 → no longer all-same number, no set
     const grid = page.getByTestId("detected-cards-grid")
     await grid.locator('[class*="cursor-pointer"]').nth(2).click()
