@@ -2,11 +2,13 @@
 
 import { type SetCard } from "@/lib/set-game"
 import { cn } from "@/lib/utils"
+import { Pencil } from "lucide-react"
 
 interface SetCardDisplayProps {
   card: SetCard
   highlighted?: boolean
   size?: "sm" | "md" | "lg"
+  onClick?: () => void
 }
 
 const colorMap = {
@@ -99,7 +101,7 @@ function ShapeRenderer({ shape, shading, color }: { shape: string; shading: stri
   }
 }
 
-export function SetCardDisplay({ card, highlighted, size = "md" }: SetCardDisplayProps) {
+export function SetCardDisplay({ card, highlighted, size = "md", onClick }: SetCardDisplayProps) {
   const sizeClasses = {
     sm: "w-[60px]",
     md: "w-[80px]",
@@ -108,11 +110,13 @@ export function SetCardDisplay({ card, highlighted, size = "md" }: SetCardDispla
 
   return (
     <div
+      onClick={onClick}
       className={cn(
-        "rounded-lg border-2 aspect-[5/7] flex flex-col items-center justify-center transition-all",
+        "rounded-lg border-2 aspect-[5/7] flex flex-col items-center justify-center transition-all relative",
         bgColorMap[card.color],
         sizeClasses[size],
-        highlighted && "ring-2 ring-primary ring-offset-2 scale-105"
+        highlighted && "ring-2 ring-primary ring-offset-2 scale-105",
+        onClick && "cursor-pointer group hover:brightness-95"
       )}
     >
       <div className="flex flex-col items-center gap-0.5">
@@ -125,6 +129,13 @@ export function SetCardDisplay({ card, highlighted, size = "md" }: SetCardDispla
           />
         ))}
       </div>
+      {onClick && (
+        <div className="absolute bottom-1 right-1 opacity-0 group-hover:opacity-100 transition-opacity">
+          <div className="bg-black/40 rounded p-0.5">
+            <Pencil className="w-2.5 h-2.5 text-white" />
+          </div>
+        </div>
+      )}
     </div>
   )
 }
@@ -132,9 +143,10 @@ export function SetCardDisplay({ card, highlighted, size = "md" }: SetCardDispla
 interface CardGridProps {
   cards: SetCard[]
   highlightedIds?: string[]
+  onCardClick?: (card: SetCard) => void
 }
 
-export function CardGrid({ cards, highlightedIds = [] }: CardGridProps) {
+export function CardGrid({ cards, highlightedIds = [], onCardClick }: CardGridProps) {
   const cols = Math.ceil(cards.length / 3)
   return (
     <div className="grid gap-3" style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}>
@@ -143,6 +155,7 @@ export function CardGrid({ cards, highlightedIds = [] }: CardGridProps) {
           key={card.id}
           card={card}
           highlighted={highlightedIds.includes(card.id)}
+          onClick={onCardClick ? () => onCardClick(card) : undefined}
         />
       ))}
     </div>
