@@ -107,7 +107,9 @@ export function SetResults({ cards: initialCards, validSets: initialValidSets, c
           <p className="text-sm text-muted-foreground">Click a card to correct a misidentification</p>
         </CardHeader>
         <CardContent>
-          <CardGrid cards={cards} highlightedIds={highlightedIds} onCardClick={handleCardClick} />
+          <div data-testid="detected-cards-grid">
+            <CardGrid cards={cards} highlightedIds={highlightedIds} onCardClick={handleCardClick} />
+          </div>
         </CardContent>
       </Card>
 
