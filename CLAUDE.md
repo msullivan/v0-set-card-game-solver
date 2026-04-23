@@ -18,6 +18,10 @@ npm run start         # Production server
 
 No unit test framework is configured. Manual testing uses sample images in `test-images/`.
 
+### Test image notes
+
+- `test-images/fixed/021.jpg` is "hard mode" — shot under strong orange light, which biases per-card crops to call everything `red`. Gemini Flash Lite and Sonnet 4.6 both get 4 cards wrong; only Opus 4.7's full-image visual pass handles it. Feel free to exclude from evals when you want a clean-lighting accuracy signal.
+
 ## Architecture
 
 **Data flow:** Image upload (client) → POST `/api/analyze` → CV card detection → parallel AI analysis per card → `findAllSets()` game logic → results displayed
