@@ -192,21 +192,27 @@ async function detectCardsFromBuffer(imageBuffer: Buffer, debugDir?: string): Pr
     const area = cv.contourArea(contour)
     const rect = cv.boundingRect(contour)
 
-    const areaRatio = area / imgArea
     const aspect = rect.height / rect.width
     const rectArea = rect.width * rect.height
+    const bboxAreaRatio = rectArea / imgArea
     const rectangularity = area / rectArea
 
-    if (debugDir) {
-      const dominated = areaRatio >= 0.005 && areaRatio <= 0.08
-      if (dominated || areaRatio >= 0.002) {
-        console.log(`  contour ${i}: area=${areaRatio.toFixed(4)} aspect=${aspect.toFixed(2)} rect=${rectangularity.toFixed(2)} ${rect.width}x${rect.height} at (${rect.x},${rect.y})${areaRatio < 0.005 || areaRatio > 0.08 ? ' REJECT:area' : aspect < 0.9 || aspect > 2.2 ? ' REJECT:aspect' : rectangularity < 0.25 ? ' REJECT:rect' : ' OK'}`)
-      }
+    // Accept either a clean rectangular contour OR a ragged-but-card-shaped one.
+    // Striped shading can fragment a card's interior, leaving a ring/broken
+    // contour with very low rectangularity but a correct bounding box.
+    const cleanCard = rectangularity >= 0.25 && aspect >= 0.9 && aspect <= 2.2
+    const raggedCard = rectangularity >= 0.08 && aspect >= 1.2 && aspect <= 1.8
+    const accepted = (cleanCard || raggedCard) && bboxAreaRatio >= 0.015 && bboxAreaRatio <= 0.08
+
+    if (debugDir && bboxAreaRatio >= 0.005) {
+      const reason = accepted ? ' OK'
+        : bboxAreaRatio < 0.015 || bboxAreaRatio > 0.08 ? ' REJECT:bbox-area'
+        : rectangularity < 0.08 ? ' REJECT:rect'
+        : ' REJECT:shape'
+      console.log(`  contour ${i}: bbox=${bboxAreaRatio.toFixed(4)} aspect=${aspect.toFixed(2)} rect=${rectangularity.toFixed(2)} ${rect.width}x${rect.height} at (${rect.x},${rect.y})${reason}`)
     }
 
-    if (areaRatio < 0.005 || areaRatio > 0.08) continue
-    if (aspect < 0.9 || aspect > 2.2) continue
-    if (rectangularity < 0.25) continue
+    if (!accepted) continue
 
     rects.push({ x: rect.x, y: rect.y, w: rect.width, h: rect.height })
   }
