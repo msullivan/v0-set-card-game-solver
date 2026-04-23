@@ -1,0 +1,2164 @@
+{
+  "source": "canonical (position-matched to CV crop order)",
+  "note": "021 and 024 canonicals were built from Opus full-image analysis, not CV crops — card-to-position mapping may differ from other images. Eyeball those before trusting.",
+  "summary": {
+    "001": {
+      "cards": 12,
+      "canonical_cards": 12,
+      "matched": true
+    },
+    "002": {
+      "cards": 12,
+      "canonical_cards": 12,
+      "matched": true
+    },
+    "003": {
+      "cards": 12,
+      "canonical_cards": 12,
+      "matched": true
+    },
+    "005": {
+      "cards": 12,
+      "canonical_cards": 12,
+      "matched": true
+    },
+    "006": {
+      "cards": 12,
+      "canonical_cards": 12,
+      "matched": true
+    },
+    "007": {
+      "cards": 12,
+      "canonical_cards": 12,
+      "matched": true
+    },
+    "008": {
+      "cards": 12,
+      "canonical_cards": 12,
+      "matched": true
+    },
+    "009": {
+      "cards": 12,
+      "canonical_cards": 12,
+      "matched": true
+    },
+    "010": {
+      "cards": 12,
+      "canonical_cards": 12,
+      "matched": true
+    },
+    "011": {
+      "cards": 12,
+      "canonical_cards": 12,
+      "matched": true
+    },
+    "012": {
+      "cards": 12,
+      "canonical_cards": 12,
+      "matched": true
+    },
+    "013": {
+      "cards": 12,
+      "canonical_cards": 12,
+      "matched": true
+    },
+    "014": {
+      "cards": 12,
+      "canonical_cards": 12,
+      "matched": true
+    },
+    "015": {
+      "cards": 12,
+      "canonical_cards": 12,
+      "matched": true
+    },
+    "016": {
+      "cards": 12,
+      "canonical_cards": 12,
+      "matched": true
+    },
+    "017": {
+      "cards": 12,
+      "canonical_cards": 12,
+      "matched": true
+    },
+    "018": {
+      "cards": 12,
+      "canonical_cards": 12,
+      "matched": true
+    },
+    "019": {
+      "cards": 12,
+      "canonical_cards": 12,
+      "matched": true
+    },
+    "020": {
+      "cards": 12,
+      "canonical_cards": 12,
+      "matched": true
+    },
+    "021": {
+      "cards": 12,
+      "canonical_cards": 12,
+      "matched": true
+    },
+    "022": {
+      "cards": 12,
+      "canonical_cards": 12,
+      "matched": true
+    },
+    "023": {
+      "cards": 12,
+      "canonical_cards": 12,
+      "matched": true
+    },
+    "024": {
+      "cards": 12,
+      "canonical_cards": 12,
+      "matched": true
+    },
+    "025": {
+      "cards": 12,
+      "canonical_cards": 12,
+      "matched": true
+    },
+    "026": {
+      "cards": 12,
+      "canonical_cards": 12,
+      "matched": true
+    },
+    "027": {
+      "cards": 12,
+      "canonical_cards": 12,
+      "matched": true
+    },
+    "028": {
+      "cards": 12,
+      "canonical_cards": 12,
+      "matched": true
+    },
+    "029": {
+      "cards": 12,
+      "canonical_cards": 12,
+      "matched": true
+    }
+  },
+  "labels": {
+    "001/card-01.jpg": {
+      "color": "purple",
+      "shape": "squiggle",
+      "shading": "empty",
+      "number": 2
+    },
+    "001/card-02.jpg": {
+      "color": "red",
+      "shape": "oval",
+      "shading": "empty",
+      "number": 3
+    },
+    "001/card-03.jpg": {
+      "color": "green",
+      "shape": "squiggle",
+      "shading": "empty",
+      "number": 2
+    },
+    "001/card-04.jpg": {
+      "color": "red",
+      "shape": "oval",
+      "shading": "solid",
+      "number": 2
+    },
+    "001/card-05.jpg": {
+      "color": "purple",
+      "shape": "diamond",
+      "shading": "striped",
+      "number": 3
+    },
+    "001/card-06.jpg": {
+      "color": "red",
+      "shape": "diamond",
+      "shading": "solid",
+      "number": 2
+    },
+    "001/card-07.jpg": {
+      "color": "green",
+      "shape": "squiggle",
+      "shading": "striped",
+      "number": 1
+    },
+    "001/card-08.jpg": {
+      "color": "purple",
+      "shape": "squiggle",
+      "shading": "empty",
+      "number": 1
+    },
+    "001/card-09.jpg": {
+      "color": "purple",
+      "shape": "oval",
+      "shading": "empty",
+      "number": 3
+    },
+    "001/card-10.jpg": {
+      "color": "purple",
+      "shape": "squiggle",
+      "shading": "striped",
+      "number": 1
+    },
+    "001/card-11.jpg": {
+      "color": "red",
+      "shape": "diamond",
+      "shading": "striped",
+      "number": 1
+    },
+    "001/card-12.jpg": {
+      "color": "red",
+      "shape": "diamond",
+      "shading": "solid",
+      "number": 3
+    },
+    "002/card-01.jpg": {
+      "color": "purple",
+      "shape": "diamond",
+      "shading": "striped",
+      "number": 2
+    },
+    "002/card-02.jpg": {
+      "color": "purple",
+      "shape": "squiggle",
+      "shading": "solid",
+      "number": 1
+    },
+    "002/card-03.jpg": {
+      "color": "purple",
+      "shape": "diamond",
+      "shading": "solid",
+      "number": 3
+    },
+    "002/card-04.jpg": {
+      "color": "green",
+      "shape": "diamond",
+      "shading": "empty",
+      "number": 3
+    },
+    "002/card-05.jpg": {
+      "color": "red",
+      "shape": "squiggle",
+      "shading": "striped",
+      "number": 1
+    },
+    "002/card-06.jpg": {
+      "color": "green",
+      "shape": "squiggle",
+      "shading": "striped",
+      "number": 3
+    },
+    "002/card-07.jpg": {
+      "color": "green",
+      "shape": "oval",
+      "shading": "empty",
+      "number": 1
+    },
+    "002/card-08.jpg": {
+      "color": "purple",
+      "shape": "oval",
+      "shading": "empty",
+      "number": 1
+    },
+    "002/card-09.jpg": {
+      "color": "purple",
+      "shape": "squiggle",
+      "shading": "striped",
+      "number": 3
+    },
+    "002/card-10.jpg": {
+      "color": "red",
+      "shape": "oval",
+      "shading": "solid",
+      "number": 1
+    },
+    "002/card-11.jpg": {
+      "color": "red",
+      "shape": "diamond",
+      "shading": "empty",
+      "number": 2
+    },
+    "002/card-12.jpg": {
+      "color": "purple",
+      "shape": "diamond",
+      "shading": "empty",
+      "number": 1
+    },
+    "003/card-01.jpg": {
+      "color": "purple",
+      "shape": "squiggle",
+      "shading": "solid",
+      "number": 2
+    },
+    "003/card-02.jpg": {
+      "color": "purple",
+      "shape": "diamond",
+      "shading": "solid",
+      "number": 2
+    },
+    "003/card-03.jpg": {
+      "color": "purple",
+      "shape": "squiggle",
+      "shading": "striped",
+      "number": 2
+    },
+    "003/card-04.jpg": {
+      "color": "purple",
+      "shape": "oval",
+      "shading": "empty",
+      "number": 2
+    },
+    "003/card-05.jpg": {
+      "color": "purple",
+      "shape": "diamond",
+      "shading": "empty",
+      "number": 3
+    },
+    "003/card-06.jpg": {
+      "color": "red",
+      "shape": "diamond",
+      "shading": "striped",
+      "number": 3
+    },
+    "003/card-07.jpg": {
+      "color": "purple",
+      "shape": "diamond",
+      "shading": "empty",
+      "number": 2
+    },
+    "003/card-08.jpg": {
+      "color": "green",
+      "shape": "squiggle",
+      "shading": "empty",
+      "number": 3
+    },
+    "003/card-09.jpg": {
+      "color": "red",
+      "shape": "squiggle",
+      "shading": "solid",
+      "number": 3
+    },
+    "003/card-10.jpg": {
+      "color": "red",
+      "shape": "diamond",
+      "shading": "striped",
+      "number": 2
+    },
+    "003/card-11.jpg": {
+      "color": "red",
+      "shape": "diamond",
+      "shading": "empty",
+      "number": 3
+    },
+    "003/card-12.jpg": {
+      "color": "green",
+      "shape": "diamond",
+      "shading": "solid",
+      "number": 2
+    },
+    "005/card-01.jpg": {
+      "color": "red",
+      "shape": "squiggle",
+      "shading": "empty",
+      "number": 2
+    },
+    "005/card-02.jpg": {
+      "color": "purple",
+      "shape": "oval",
+      "shading": "striped",
+      "number": 1
+    },
+    "005/card-03.jpg": {
+      "color": "red",
+      "shape": "oval",
+      "shading": "empty",
+      "number": 2
+    },
+    "005/card-04.jpg": {
+      "color": "red",
+      "shape": "oval",
+      "shading": "solid",
+      "number": 3
+    },
+    "005/card-05.jpg": {
+      "color": "red",
+      "shape": "oval",
+      "shading": "empty",
+      "number": 1
+    },
+    "005/card-06.jpg": {
+      "color": "green",
+      "shape": "diamond",
+      "shading": "empty",
+      "number": 2
+    },
+    "005/card-07.jpg": {
+      "color": "green",
+      "shape": "squiggle",
+      "shading": "solid",
+      "number": 2
+    },
+    "005/card-08.jpg": {
+      "color": "red",
+      "shape": "diamond",
+      "shading": "solid",
+      "number": 2
+    },
+    "005/card-09.jpg": {
+      "color": "purple",
+      "shape": "squiggle",
+      "shading": "solid",
+      "number": 3
+    },
+    "005/card-10.jpg": {
+      "color": "green",
+      "shape": "diamond",
+      "shading": "empty",
+      "number": 1
+    },
+    "005/card-11.jpg": {
+      "color": "purple",
+      "shape": "squiggle",
+      "shading": "striped",
+      "number": 3
+    },
+    "005/card-12.jpg": {
+      "color": "green",
+      "shape": "oval",
+      "shading": "solid",
+      "number": 1
+    },
+    "006/card-01.jpg": {
+      "color": "red",
+      "shape": "squiggle",
+      "shading": "empty",
+      "number": 1
+    },
+    "006/card-02.jpg": {
+      "color": "purple",
+      "shape": "squiggle",
+      "shading": "solid",
+      "number": 2
+    },
+    "006/card-03.jpg": {
+      "color": "purple",
+      "shape": "diamond",
+      "shading": "empty",
+      "number": 3
+    },
+    "006/card-04.jpg": {
+      "color": "green",
+      "shape": "diamond",
+      "shading": "solid",
+      "number": 2
+    },
+    "006/card-05.jpg": {
+      "color": "purple",
+      "shape": "diamond",
+      "shading": "empty",
+      "number": 2
+    },
+    "006/card-06.jpg": {
+      "color": "green",
+      "shape": "squiggle",
+      "shading": "striped",
+      "number": 2
+    },
+    "006/card-07.jpg": {
+      "color": "green",
+      "shape": "squiggle",
+      "shading": "empty",
+      "number": 3
+    },
+    "006/card-08.jpg": {
+      "color": "red",
+      "shape": "diamond",
+      "shading": "striped",
+      "number": 3
+    },
+    "006/card-09.jpg": {
+      "color": "red",
+      "shape": "oval",
+      "shading": "solid",
+      "number": 1
+    },
+    "006/card-10.jpg": {
+      "color": "red",
+      "shape": "diamond",
+      "shading": "empty",
+      "number": 3
+    },
+    "006/card-11.jpg": {
+      "color": "green",
+      "shape": "squiggle",
+      "shading": "striped",
+      "number": 1
+    },
+    "006/card-12.jpg": {
+      "color": "red",
+      "shape": "squiggle",
+      "shading": "solid",
+      "number": 2
+    },
+    "007/card-01.jpg": {
+      "color": "green",
+      "shape": "oval",
+      "shading": "empty",
+      "number": 1
+    },
+    "007/card-02.jpg": {
+      "color": "green",
+      "shape": "squiggle",
+      "shading": "striped",
+      "number": 3
+    },
+    "007/card-03.jpg": {
+      "color": "red",
+      "shape": "squiggle",
+      "shading": "striped",
+      "number": 1
+    },
+    "007/card-04.jpg": {
+      "color": "green",
+      "shape": "diamond",
+      "shading": "empty",
+      "number": 3
+    },
+    "007/card-05.jpg": {
+      "color": "green",
+      "shape": "oval",
+      "shading": "solid",
+      "number": 3
+    },
+    "007/card-06.jpg": {
+      "color": "purple",
+      "shape": "diamond",
+      "shading": "striped",
+      "number": 2
+    },
+    "007/card-07.jpg": {
+      "color": "purple",
+      "shape": "oval",
+      "shading": "empty",
+      "number": 3
+    },
+    "007/card-08.jpg": {
+      "color": "red",
+      "shape": "diamond",
+      "shading": "solid",
+      "number": 3
+    },
+    "007/card-09.jpg": {
+      "color": "purple",
+      "shape": "squiggle",
+      "shading": "solid",
+      "number": 1
+    },
+    "007/card-10.jpg": {
+      "color": "green",
+      "shape": "squiggle",
+      "shading": "empty",
+      "number": 1
+    },
+    "007/card-11.jpg": {
+      "color": "red",
+      "shape": "diamond",
+      "shading": "solid",
+      "number": 1
+    },
+    "007/card-12.jpg": {
+      "color": "purple",
+      "shape": "diamond",
+      "shading": "solid",
+      "number": 3
+    },
+    "008/card-01.jpg": {
+      "color": "purple",
+      "shape": "squiggle",
+      "shading": "striped",
+      "number": 1
+    },
+    "008/card-02.jpg": {
+      "color": "green",
+      "shape": "squiggle",
+      "shading": "solid",
+      "number": 1
+    },
+    "008/card-03.jpg": {
+      "color": "green",
+      "shape": "oval",
+      "shading": "empty",
+      "number": 3
+    },
+    "008/card-04.jpg": {
+      "color": "purple",
+      "shape": "oval",
+      "shading": "solid",
+      "number": 1
+    },
+    "008/card-05.jpg": {
+      "color": "purple",
+      "shape": "oval",
+      "shading": "empty",
+      "number": 1
+    },
+    "008/card-06.jpg": {
+      "color": "purple",
+      "shape": "diamond",
+      "shading": "striped",
+      "number": 1
+    },
+    "008/card-07.jpg": {
+      "color": "green",
+      "shape": "oval",
+      "shading": "empty",
+      "number": 2
+    },
+    "008/card-08.jpg": {
+      "color": "red",
+      "shape": "oval",
+      "shading": "solid",
+      "number": 2
+    },
+    "008/card-09.jpg": {
+      "color": "purple",
+      "shape": "diamond",
+      "shading": "empty",
+      "number": 1
+    },
+    "008/card-10.jpg": {
+      "color": "red",
+      "shape": "diamond",
+      "shading": "empty",
+      "number": 2
+    },
+    "008/card-11.jpg": {
+      "color": "green",
+      "shape": "diamond",
+      "shading": "solid",
+      "number": 3
+    },
+    "008/card-12.jpg": {
+      "color": "red",
+      "shape": "diamond",
+      "shading": "striped",
+      "number": 2
+    },
+    "009/card-01.jpg": {
+      "color": "red",
+      "shape": "squiggle",
+      "shading": "solid",
+      "number": 3
+    },
+    "009/card-02.jpg": {
+      "color": "green",
+      "shape": "diamond",
+      "shading": "solid",
+      "number": 1
+    },
+    "009/card-03.jpg": {
+      "color": "purple",
+      "shape": "diamond",
+      "shading": "solid",
+      "number": 2
+    },
+    "009/card-04.jpg": {
+      "color": "green",
+      "shape": "diamond",
+      "shading": "striped",
+      "number": 2
+    },
+    "009/card-05.jpg": {
+      "color": "purple",
+      "shape": "squiggle",
+      "shading": "striped",
+      "number": 2
+    },
+    "009/card-06.jpg": {
+      "color": "red",
+      "shape": "squiggle",
+      "shading": "striped",
+      "number": 2
+    },
+    "009/card-07.jpg": {
+      "color": "purple",
+      "shape": "squiggle",
+      "shading": "empty",
+      "number": 3
+    },
+    "009/card-08.jpg": {
+      "color": "green",
+      "shape": "oval",
+      "shading": "solid",
+      "number": 2
+    },
+    "009/card-09.jpg": {
+      "color": "green",
+      "shape": "squiggle",
+      "shading": "empty",
+      "number": 2
+    },
+    "009/card-10.jpg": {
+      "color": "purple",
+      "shape": "oval",
+      "shading": "striped",
+      "number": 3
+    },
+    "009/card-11.jpg": {
+      "color": "green",
+      "shape": "diamond",
+      "shading": "striped",
+      "number": 3
+    },
+    "009/card-12.jpg": {
+      "color": "red",
+      "shape": "squiggle",
+      "shading": "empty",
+      "number": 3
+    },
+    "010/card-01.jpg": {
+      "color": "purple",
+      "shape": "oval",
+      "shading": "empty",
+      "number": 2
+    },
+    "010/card-02.jpg": {
+      "color": "red",
+      "shape": "diamond",
+      "shading": "striped",
+      "number": 1
+    },
+    "010/card-03.jpg": {
+      "color": "red",
+      "shape": "oval",
+      "shading": "empty",
+      "number": 3
+    },
+    "010/card-04.jpg": {
+      "color": "purple",
+      "shape": "squiggle",
+      "shading": "empty",
+      "number": 2
+    },
+    "010/card-05.jpg": {
+      "color": "purple",
+      "shape": "diamond",
+      "shading": "striped",
+      "number": 3
+    },
+    "010/card-06.jpg": {
+      "color": "green",
+      "shape": "diamond",
+      "shading": "striped",
+      "number": 1
+    },
+    "010/card-07.jpg": {
+      "color": "red",
+      "shape": "squiggle",
+      "shading": "solid",
+      "number": 1
+    },
+    "010/card-08.jpg": {
+      "color": "green",
+      "shape": "oval",
+      "shading": "striped",
+      "number": 3
+    },
+    "010/card-09.jpg": {
+      "color": "green",
+      "shape": "oval",
+      "shading": "striped",
+      "number": 2
+    },
+    "010/card-10.jpg": {
+      "color": "red",
+      "shape": "oval",
+      "shading": "striped",
+      "number": 1
+    },
+    "010/card-11.jpg": {
+      "color": "red",
+      "shape": "diamond",
+      "shading": "empty",
+      "number": 1
+    },
+    "010/card-12.jpg": {
+      "color": "purple",
+      "shape": "oval",
+      "shading": "solid",
+      "number": 2
+    },
+    "011/card-01.jpg": {
+      "color": "green",
+      "shape": "oval",
+      "shading": "striped",
+      "number": 1
+    },
+    "011/card-02.jpg": {
+      "color": "red",
+      "shape": "squiggle",
+      "shading": "striped",
+      "number": 2
+    },
+    "011/card-03.jpg": {
+      "color": "green",
+      "shape": "diamond",
+      "shading": "striped",
+      "number": 3
+    },
+    "011/card-04.jpg": {
+      "color": "red",
+      "shape": "squiggle",
+      "shading": "empty",
+      "number": 3
+    },
+    "011/card-05.jpg": {
+      "color": "purple",
+      "shape": "diamond",
+      "shading": "solid",
+      "number": 1
+    },
+    "011/card-06.jpg": {
+      "color": "purple",
+      "shape": "oval",
+      "shading": "solid",
+      "number": 3
+    },
+    "011/card-07.jpg": {
+      "color": "red",
+      "shape": "oval",
+      "shading": "striped",
+      "number": 2
+    },
+    "011/card-08.jpg": {
+      "color": "red",
+      "shape": "oval",
+      "shading": "striped",
+      "number": 3
+    },
+    "011/card-09.jpg": {
+      "color": "purple",
+      "shape": "squiggle",
+      "shading": "empty",
+      "number": 1
+    },
+    "011/card-10.jpg": {
+      "color": "green",
+      "shape": "squiggle",
+      "shading": "solid",
+      "number": 3
+    },
+    "011/card-11.jpg": {
+      "color": "purple",
+      "shape": "oval",
+      "shading": "striped",
+      "number": 2
+    },
+    "011/card-12.jpg": {
+      "color": "red",
+      "shape": "squiggle",
+      "shading": "striped",
+      "number": 3
+    },
+    "012/card-01.jpg": {
+      "color": "green",
+      "shape": "squiggle",
+      "shading": "solid",
+      "number": 1
+    },
+    "012/card-02.jpg": {
+      "color": "green",
+      "shape": "oval",
+      "shading": "solid",
+      "number": 2
+    },
+    "012/card-03.jpg": {
+      "color": "green",
+      "shape": "oval",
+      "shading": "striped",
+      "number": 3
+    },
+    "012/card-04.jpg": {
+      "color": "purple",
+      "shape": "oval",
+      "shading": "solid",
+      "number": 1
+    },
+    "012/card-05.jpg": {
+      "color": "purple",
+      "shape": "squiggle",
+      "shading": "empty",
+      "number": 1
+    },
+    "012/card-06.jpg": {
+      "color": "red",
+      "shape": "oval",
+      "shading": "empty",
+      "number": 3
+    },
+    "012/card-07.jpg": {
+      "color": "red",
+      "shape": "squiggle",
+      "shading": "solid",
+      "number": 3
+    },
+    "012/card-08.jpg": {
+      "color": "green",
+      "shape": "diamond",
+      "shading": "solid",
+      "number": 2
+    },
+    "012/card-09.jpg": {
+      "color": "purple",
+      "shape": "oval",
+      "shading": "empty",
+      "number": 3
+    },
+    "012/card-10.jpg": {
+      "color": "red",
+      "shape": "oval",
+      "shading": "empty",
+      "number": 1
+    },
+    "012/card-11.jpg": {
+      "color": "red",
+      "shape": "diamond",
+      "shading": "striped",
+      "number": 1
+    },
+    "012/card-12.jpg": {
+      "color": "purple",
+      "shape": "squiggle",
+      "shading": "empty",
+      "number": 2
+    },
+    "013/card-01.jpg": {
+      "color": "purple",
+      "shape": "diamond",
+      "shading": "solid",
+      "number": 2
+    },
+    "013/card-02.jpg": {
+      "color": "green",
+      "shape": "squiggle",
+      "shading": "empty",
+      "number": 1
+    },
+    "013/card-03.jpg": {
+      "color": "red",
+      "shape": "diamond",
+      "shading": "empty",
+      "number": 3
+    },
+    "013/card-04.jpg": {
+      "color": "green",
+      "shape": "squiggle",
+      "shading": "solid",
+      "number": 3
+    },
+    "013/card-05.jpg": {
+      "color": "red",
+      "shape": "squiggle",
+      "shading": "empty",
+      "number": 2
+    },
+    "013/card-06.jpg": {
+      "color": "purple",
+      "shape": "diamond",
+      "shading": "solid",
+      "number": 1
+    },
+    "013/card-07.jpg": {
+      "color": "red",
+      "shape": "squiggle",
+      "shading": "solid",
+      "number": 3
+    },
+    "013/card-08.jpg": {
+      "color": "red",
+      "shape": "squiggle",
+      "shading": "solid",
+      "number": 2
+    },
+    "013/card-09.jpg": {
+      "color": "red",
+      "shape": "oval",
+      "shading": "striped",
+      "number": 2
+    },
+    "013/card-10.jpg": {
+      "color": "purple",
+      "shape": "oval",
+      "shading": "empty",
+      "number": 2
+    },
+    "013/card-11.jpg": {
+      "color": "green",
+      "shape": "oval",
+      "shading": "solid",
+      "number": 3
+    },
+    "013/card-12.jpg": {
+      "color": "purple",
+      "shape": "diamond",
+      "shading": "striped",
+      "number": 2
+    },
+    "014/card-01.jpg": {
+      "color": "green",
+      "shape": "squiggle",
+      "shading": "solid",
+      "number": 1
+    },
+    "014/card-02.jpg": {
+      "color": "green",
+      "shape": "oval",
+      "shading": "solid",
+      "number": 2
+    },
+    "014/card-03.jpg": {
+      "color": "green",
+      "shape": "oval",
+      "shading": "striped",
+      "number": 3
+    },
+    "014/card-04.jpg": {
+      "color": "purple",
+      "shape": "oval",
+      "shading": "solid",
+      "number": 1
+    },
+    "014/card-05.jpg": {
+      "color": "purple",
+      "shape": "squiggle",
+      "shading": "empty",
+      "number": 1
+    },
+    "014/card-06.jpg": {
+      "color": "red",
+      "shape": "oval",
+      "shading": "empty",
+      "number": 3
+    },
+    "014/card-07.jpg": {
+      "color": "red",
+      "shape": "squiggle",
+      "shading": "solid",
+      "number": 3
+    },
+    "014/card-08.jpg": {
+      "color": "green",
+      "shape": "diamond",
+      "shading": "solid",
+      "number": 2
+    },
+    "014/card-09.jpg": {
+      "color": "purple",
+      "shape": "oval",
+      "shading": "empty",
+      "number": 3
+    },
+    "014/card-10.jpg": {
+      "color": "red",
+      "shape": "oval",
+      "shading": "empty",
+      "number": 1
+    },
+    "014/card-11.jpg": {
+      "color": "red",
+      "shape": "diamond",
+      "shading": "striped",
+      "number": 1
+    },
+    "014/card-12.jpg": {
+      "color": "purple",
+      "shape": "squiggle",
+      "shading": "empty",
+      "number": 2
+    },
+    "015/card-01.jpg": {
+      "color": "green",
+      "shape": "squiggle",
+      "shading": "solid",
+      "number": 1
+    },
+    "015/card-02.jpg": {
+      "color": "green",
+      "shape": "oval",
+      "shading": "solid",
+      "number": 2
+    },
+    "015/card-03.jpg": {
+      "color": "green",
+      "shape": "oval",
+      "shading": "striped",
+      "number": 3
+    },
+    "015/card-04.jpg": {
+      "color": "purple",
+      "shape": "oval",
+      "shading": "solid",
+      "number": 1
+    },
+    "015/card-05.jpg": {
+      "color": "purple",
+      "shape": "squiggle",
+      "shading": "empty",
+      "number": 1
+    },
+    "015/card-06.jpg": {
+      "color": "red",
+      "shape": "oval",
+      "shading": "empty",
+      "number": 3
+    },
+    "015/card-07.jpg": {
+      "color": "red",
+      "shape": "squiggle",
+      "shading": "solid",
+      "number": 3
+    },
+    "015/card-08.jpg": {
+      "color": "green",
+      "shape": "diamond",
+      "shading": "solid",
+      "number": 2
+    },
+    "015/card-09.jpg": {
+      "color": "purple",
+      "shape": "oval",
+      "shading": "empty",
+      "number": 3
+    },
+    "015/card-10.jpg": {
+      "color": "red",
+      "shape": "oval",
+      "shading": "empty",
+      "number": 1
+    },
+    "015/card-11.jpg": {
+      "color": "red",
+      "shape": "diamond",
+      "shading": "striped",
+      "number": 1
+    },
+    "015/card-12.jpg": {
+      "color": "purple",
+      "shape": "squiggle",
+      "shading": "empty",
+      "number": 2
+    },
+    "016/card-01.jpg": {
+      "color": "green",
+      "shape": "diamond",
+      "shading": "striped",
+      "number": 1
+    },
+    "016/card-02.jpg": {
+      "color": "purple",
+      "shape": "diamond",
+      "shading": "empty",
+      "number": 3
+    },
+    "016/card-03.jpg": {
+      "color": "red",
+      "shape": "diamond",
+      "shading": "empty",
+      "number": 2
+    },
+    "016/card-04.jpg": {
+      "color": "purple",
+      "shape": "oval",
+      "shading": "striped",
+      "number": 2
+    },
+    "016/card-05.jpg": {
+      "color": "green",
+      "shape": "squiggle",
+      "shading": "striped",
+      "number": 3
+    },
+    "016/card-06.jpg": {
+      "color": "red",
+      "shape": "diamond",
+      "shading": "empty",
+      "number": 1
+    },
+    "016/card-07.jpg": {
+      "color": "purple",
+      "shape": "diamond",
+      "shading": "striped",
+      "number": 1
+    },
+    "016/card-08.jpg": {
+      "color": "red",
+      "shape": "diamond",
+      "shading": "solid",
+      "number": 2
+    },
+    "016/card-09.jpg": {
+      "color": "purple",
+      "shape": "diamond",
+      "shading": "empty",
+      "number": 1
+    },
+    "016/card-10.jpg": {
+      "color": "green",
+      "shape": "diamond",
+      "shading": "solid",
+      "number": 3
+    },
+    "016/card-11.jpg": {
+      "color": "green",
+      "shape": "oval",
+      "shading": "solid",
+      "number": 3
+    },
+    "016/card-12.jpg": {
+      "color": "purple",
+      "shape": "oval",
+      "shading": "solid",
+      "number": 2
+    },
+    "017/card-01.jpg": {
+      "color": "green",
+      "shape": "oval",
+      "shading": "solid",
+      "number": 1
+    },
+    "017/card-02.jpg": {
+      "color": "red",
+      "shape": "squiggle",
+      "shading": "solid",
+      "number": 2
+    },
+    "017/card-03.jpg": {
+      "color": "purple",
+      "shape": "squiggle",
+      "shading": "empty",
+      "number": 3
+    },
+    "017/card-04.jpg": {
+      "color": "purple",
+      "shape": "diamond",
+      "shading": "empty",
+      "number": 2
+    },
+    "017/card-05.jpg": {
+      "color": "red",
+      "shape": "oval",
+      "shading": "empty",
+      "number": 2
+    },
+    "017/card-06.jpg": {
+      "color": "green",
+      "shape": "squiggle",
+      "shading": "striped",
+      "number": 1
+    },
+    "017/card-07.jpg": {
+      "color": "green",
+      "shape": "diamond",
+      "shading": "empty",
+      "number": 1
+    },
+    "017/card-08.jpg": {
+      "color": "purple",
+      "shape": "oval",
+      "shading": "empty",
+      "number": 1
+    },
+    "017/card-09.jpg": {
+      "color": "green",
+      "shape": "squiggle",
+      "shading": "empty",
+      "number": 2
+    },
+    "017/card-10.jpg": {
+      "color": "purple",
+      "shape": "squiggle",
+      "shading": "striped",
+      "number": 2
+    },
+    "017/card-11.jpg": {
+      "color": "red",
+      "shape": "oval",
+      "shading": "solid",
+      "number": 2
+    },
+    "017/card-12.jpg": {
+      "color": "red",
+      "shape": "diamond",
+      "shading": "solid",
+      "number": 3
+    },
+    "018/card-01.jpg": {
+      "color": "red",
+      "shape": "oval",
+      "shading": "striped",
+      "number": 3
+    },
+    "018/card-02.jpg": {
+      "color": "green",
+      "shape": "squiggle",
+      "shading": "solid",
+      "number": 2
+    },
+    "018/card-03.jpg": {
+      "color": "purple",
+      "shape": "squiggle",
+      "shading": "solid",
+      "number": 3
+    },
+    "018/card-04.jpg": {
+      "color": "red",
+      "shape": "diamond",
+      "shading": "striped",
+      "number": 2
+    },
+    "018/card-05.jpg": {
+      "color": "purple",
+      "shape": "squiggle",
+      "shading": "striped",
+      "number": 3
+    },
+    "018/card-06.jpg": {
+      "color": "purple",
+      "shape": "diamond",
+      "shading": "striped",
+      "number": 3
+    },
+    "018/card-07.jpg": {
+      "color": "red",
+      "shape": "squiggle",
+      "shading": "striped",
+      "number": 3
+    },
+    "018/card-08.jpg": {
+      "color": "red",
+      "shape": "diamond",
+      "shading": "striped",
+      "number": 3
+    },
+    "018/card-09.jpg": {
+      "color": "green",
+      "shape": "diamond",
+      "shading": "solid",
+      "number": 1
+    },
+    "018/card-10.jpg": {
+      "color": "green",
+      "shape": "diamond",
+      "shading": "empty",
+      "number": 3
+    },
+    "018/card-11.jpg": {
+      "color": "green",
+      "shape": "diamond",
+      "shading": "striped",
+      "number": 2
+    },
+    "018/card-12.jpg": {
+      "color": "purple",
+      "shape": "oval",
+      "shading": "striped",
+      "number": 3
+    },
+    "019/card-01.jpg": {
+      "color": "green",
+      "shape": "oval",
+      "shading": "solid",
+      "number": 2
+    },
+    "019/card-02.jpg": {
+      "color": "green",
+      "shape": "diamond",
+      "shading": "solid",
+      "number": 2
+    },
+    "019/card-03.jpg": {
+      "color": "purple",
+      "shape": "squiggle",
+      "shading": "solid",
+      "number": 2
+    },
+    "019/card-04.jpg": {
+      "color": "green",
+      "shape": "squiggle",
+      "shading": "solid",
+      "number": 1
+    },
+    "019/card-05.jpg": {
+      "color": "purple",
+      "shape": "oval",
+      "shading": "striped",
+      "number": 1
+    },
+    "019/card-06.jpg": {
+      "color": "purple",
+      "shape": "squiggle",
+      "shading": "empty",
+      "number": 1
+    },
+    "019/card-07.jpg": {
+      "color": "green",
+      "shape": "squiggle",
+      "shading": "empty",
+      "number": 3
+    },
+    "019/card-08.jpg": {
+      "color": "red",
+      "shape": "diamond",
+      "shading": "striped",
+      "number": 1
+    },
+    "019/card-09.jpg": {
+      "color": "red",
+      "shape": "squiggle",
+      "shading": "empty",
+      "number": 3
+    },
+    "019/card-10.jpg": {
+      "color": "purple",
+      "shape": "diamond",
+      "shading": "solid",
+      "number": 3
+    },
+    "019/card-11.jpg": {
+      "color": "red",
+      "shape": "squiggle",
+      "shading": "striped",
+      "number": 1
+    },
+    "019/card-12.jpg": {
+      "color": "purple",
+      "shape": "diamond",
+      "shading": "solid",
+      "number": 1
+    },
+    "020/card-01.jpg": {
+      "color": "purple",
+      "shape": "oval",
+      "shading": "solid",
+      "number": 1
+    },
+    "020/card-02.jpg": {
+      "color": "green",
+      "shape": "oval",
+      "shading": "striped",
+      "number": 3
+    },
+    "020/card-03.jpg": {
+      "color": "purple",
+      "shape": "oval",
+      "shading": "empty",
+      "number": 3
+    },
+    "020/card-04.jpg": {
+      "color": "red",
+      "shape": "oval",
+      "shading": "solid",
+      "number": 3
+    },
+    "020/card-05.jpg": {
+      "color": "green",
+      "shape": "diamond",
+      "shading": "striped",
+      "number": 3
+    },
+    "020/card-06.jpg": {
+      "color": "red",
+      "shape": "squiggle",
+      "shading": "solid",
+      "number": 3
+    },
+    "020/card-07.jpg": {
+      "color": "red",
+      "shape": "oval",
+      "shading": "empty",
+      "number": 1
+    },
+    "020/card-08.jpg": {
+      "color": "green",
+      "shape": "oval",
+      "shading": "striped",
+      "number": 1
+    },
+    "020/card-09.jpg": {
+      "color": "purple",
+      "shape": "squiggle",
+      "shading": "striped",
+      "number": 1
+    },
+    "020/card-10.jpg": {
+      "color": "red",
+      "shape": "oval",
+      "shading": "empty",
+      "number": 3
+    },
+    "020/card-11.jpg": {
+      "color": "red",
+      "shape": "oval",
+      "shading": "solid",
+      "number": 1
+    },
+    "020/card-12.jpg": {
+      "color": "purple",
+      "shape": "squiggle",
+      "shading": "empty",
+      "number": 2
+    },
+    "021/card-01.jpg": {
+      "color": "green",
+      "shape": "diamond",
+      "shading": "empty",
+      "number": 2
+    },
+    "021/card-02.jpg": {
+      "color": "purple",
+      "shape": "diamond",
+      "shading": "solid",
+      "number": 2
+    },
+    "021/card-03.jpg": {
+      "color": "purple",
+      "shape": "oval",
+      "shading": "solid",
+      "number": 3
+    },
+    "021/card-04.jpg": {
+      "color": "green",
+      "shape": "squiggle",
+      "shading": "solid",
+      "number": 3
+    },
+    "021/card-05.jpg": {
+      "color": "red",
+      "shape": "squiggle",
+      "shading": "empty",
+      "number": 1
+    },
+    "021/card-06.jpg": {
+      "color": "red",
+      "shape": "oval",
+      "shading": "striped",
+      "number": 1
+    },
+    "021/card-07.jpg": {
+      "color": "red",
+      "shape": "squiggle",
+      "shading": "empty",
+      "number": 2
+    },
+    "021/card-08.jpg": {
+      "color": "red",
+      "shape": "oval",
+      "shading": "empty",
+      "number": 2
+    },
+    "021/card-09.jpg": {
+      "color": "red",
+      "shape": "diamond",
+      "shading": "striped",
+      "number": 2
+    },
+    "021/card-10.jpg": {
+      "color": "red",
+      "shape": "squiggle",
+      "shading": "striped",
+      "number": 2
+    },
+    "021/card-11.jpg": {
+      "color": "green",
+      "shape": "oval",
+      "shading": "striped",
+      "number": 2
+    },
+    "021/card-12.jpg": {
+      "color": "red",
+      "shape": "diamond",
+      "shading": "solid",
+      "number": 1
+    },
+    "022/card-01.jpg": {
+      "color": "purple",
+      "shape": "oval",
+      "shading": "striped",
+      "number": 3
+    },
+    "022/card-02.jpg": {
+      "color": "purple",
+      "shape": "squiggle",
+      "shading": "empty",
+      "number": 3
+    },
+    "022/card-03.jpg": {
+      "color": "red",
+      "shape": "oval",
+      "shading": "empty",
+      "number": 2
+    },
+    "022/card-04.jpg": {
+      "color": "green",
+      "shape": "squiggle",
+      "shading": "striped",
+      "number": 1
+    },
+    "022/card-05.jpg": {
+      "color": "green",
+      "shape": "squiggle",
+      "shading": "striped",
+      "number": 2
+    },
+    "022/card-06.jpg": {
+      "color": "red",
+      "shape": "squiggle",
+      "shading": "solid",
+      "number": 1
+    },
+    "022/card-07.jpg": {
+      "color": "red",
+      "shape": "oval",
+      "shading": "striped",
+      "number": 2
+    },
+    "022/card-08.jpg": {
+      "color": "green",
+      "shape": "squiggle",
+      "shading": "empty",
+      "number": 1
+    },
+    "022/card-09.jpg": {
+      "color": "purple",
+      "shape": "squiggle",
+      "shading": "solid",
+      "number": 1
+    },
+    "022/card-10.jpg": {
+      "color": "green",
+      "shape": "oval",
+      "shading": "empty",
+      "number": 1
+    },
+    "022/card-11.jpg": {
+      "color": "green",
+      "shape": "oval",
+      "shading": "empty",
+      "number": 3
+    },
+    "022/card-12.jpg": {
+      "color": "green",
+      "shape": "oval",
+      "shading": "empty",
+      "number": 2
+    },
+    "023/card-01.jpg": {
+      "color": "purple",
+      "shape": "oval",
+      "shading": "solid",
+      "number": 1
+    },
+    "023/card-02.jpg": {
+      "color": "green",
+      "shape": "oval",
+      "shading": "striped",
+      "number": 3
+    },
+    "023/card-03.jpg": {
+      "color": "red",
+      "shape": "oval",
+      "shading": "solid",
+      "number": 3
+    },
+    "023/card-04.jpg": {
+      "color": "green",
+      "shape": "diamond",
+      "shading": "striped",
+      "number": 3
+    },
+    "023/card-05.jpg": {
+      "color": "green",
+      "shape": "oval",
+      "shading": "solid",
+      "number": 2
+    },
+    "023/card-06.jpg": {
+      "color": "red",
+      "shape": "oval",
+      "shading": "solid",
+      "number": 1
+    },
+    "023/card-07.jpg": {
+      "color": "green",
+      "shape": "oval",
+      "shading": "striped",
+      "number": 1
+    },
+    "023/card-08.jpg": {
+      "color": "purple",
+      "shape": "oval",
+      "shading": "empty",
+      "number": 3
+    },
+    "023/card-09.jpg": {
+      "color": "purple",
+      "shape": "oval",
+      "shading": "empty",
+      "number": 1
+    },
+    "023/card-10.jpg": {
+      "color": "green",
+      "shape": "squiggle",
+      "shading": "solid",
+      "number": 1
+    },
+    "023/card-11.jpg": {
+      "color": "green",
+      "shape": "diamond",
+      "shading": "empty",
+      "number": 1
+    },
+    "023/card-12.jpg": {
+      "color": "red",
+      "shape": "diamond",
+      "shading": "empty",
+      "number": 3
+    },
+    "024/card-01.jpg": {
+      "color": "red",
+      "shape": "diamond",
+      "shading": "striped",
+      "number": 1
+    },
+    "024/card-02.jpg": {
+      "color": "red",
+      "shape": "squiggle",
+      "shading": "empty",
+      "number": 3
+    },
+    "024/card-03.jpg": {
+      "color": "purple",
+      "shape": "diamond",
+      "shading": "solid",
+      "number": 3
+    },
+    "024/card-04.jpg": {
+      "color": "purple",
+      "shape": "squiggle",
+      "shading": "solid",
+      "number": 3
+    },
+    "024/card-05.jpg": {
+      "color": "purple",
+      "shape": "squiggle",
+      "shading": "striped",
+      "number": 2
+    },
+    "024/card-06.jpg": {
+      "color": "green",
+      "shape": "squiggle",
+      "shading": "empty",
+      "number": 2
+    },
+    "024/card-07.jpg": {
+      "color": "red",
+      "shape": "squiggle",
+      "shading": "striped",
+      "number": 3
+    },
+    "024/card-08.jpg": {
+      "color": "red",
+      "shape": "squiggle",
+      "shading": "striped",
+      "number": 1
+    },
+    "024/card-09.jpg": {
+      "color": "red",
+      "shape": "oval",
+      "shading": "striped",
+      "number": 3
+    },
+    "024/card-10.jpg": {
+      "color": "red",
+      "shape": "diamond",
+      "shading": "striped",
+      "number": 2
+    },
+    "024/card-11.jpg": {
+      "color": "red",
+      "shape": "diamond",
+      "shading": "solid",
+      "number": 3
+    },
+    "024/card-12.jpg": {
+      "color": "red",
+      "shape": "oval",
+      "shading": "solid",
+      "number": 2
+    },
+    "025/card-01.jpg": {
+      "color": "purple",
+      "shape": "diamond",
+      "shading": "empty",
+      "number": 1
+    },
+    "025/card-02.jpg": {
+      "color": "green",
+      "shape": "squiggle",
+      "shading": "empty",
+      "number": 1
+    },
+    "025/card-03.jpg": {
+      "color": "red",
+      "shape": "squiggle",
+      "shading": "solid",
+      "number": 1
+    },
+    "025/card-04.jpg": {
+      "color": "green",
+      "shape": "oval",
+      "shading": "empty",
+      "number": 3
+    },
+    "025/card-05.jpg": {
+      "color": "green",
+      "shape": "diamond",
+      "shading": "striped",
+      "number": 1
+    },
+    "025/card-06.jpg": {
+      "color": "purple",
+      "shape": "oval",
+      "shading": "striped",
+      "number": 2
+    },
+    "025/card-07.jpg": {
+      "color": "green",
+      "shape": "diamond",
+      "shading": "solid",
+      "number": 3
+    },
+    "025/card-08.jpg": {
+      "color": "green",
+      "shape": "oval",
+      "shading": "solid",
+      "number": 3
+    },
+    "025/card-09.jpg": {
+      "color": "purple",
+      "shape": "diamond",
+      "shading": "striped",
+      "number": 3
+    },
+    "025/card-10.jpg": {
+      "color": "purple",
+      "shape": "squiggle",
+      "shading": "striped",
+      "number": 3
+    },
+    "025/card-11.jpg": {
+      "color": "red",
+      "shape": "diamond",
+      "shading": "striped",
+      "number": 3
+    },
+    "025/card-12.jpg": {
+      "color": "red",
+      "shape": "diamond",
+      "shading": "empty",
+      "number": 2
+    },
+    "026/card-01.jpg": {
+      "color": "purple",
+      "shape": "diamond",
+      "shading": "striped",
+      "number": 1
+    },
+    "026/card-02.jpg": {
+      "color": "red",
+      "shape": "diamond",
+      "shading": "solid",
+      "number": 2
+    },
+    "026/card-03.jpg": {
+      "color": "green",
+      "shape": "squiggle",
+      "shading": "striped",
+      "number": 3
+    },
+    "026/card-04.jpg": {
+      "color": "green",
+      "shape": "diamond",
+      "shading": "empty",
+      "number": 2
+    },
+    "026/card-05.jpg": {
+      "color": "red",
+      "shape": "squiggle",
+      "shading": "solid",
+      "number": 2
+    },
+    "026/card-06.jpg": {
+      "color": "green",
+      "shape": "oval",
+      "shading": "solid",
+      "number": 1
+    },
+    "026/card-07.jpg": {
+      "color": "purple",
+      "shape": "oval",
+      "shading": "solid",
+      "number": 2
+    },
+    "026/card-08.jpg": {
+      "color": "red",
+      "shape": "diamond",
+      "shading": "empty",
+      "number": 1
+    },
+    "026/card-09.jpg": {
+      "color": "green",
+      "shape": "oval",
+      "shading": "empty",
+      "number": 1
+    },
+    "026/card-10.jpg": {
+      "color": "purple",
+      "shape": "squiggle",
+      "shading": "solid",
+      "number": 1
+    },
+    "026/card-11.jpg": {
+      "color": "green",
+      "shape": "oval",
+      "shading": "empty",
+      "number": 2
+    },
+    "026/card-12.jpg": {
+      "color": "purple",
+      "shape": "diamond",
+      "shading": "empty",
+      "number": 2
+    },
+    "027/card-01.jpg": {
+      "color": "red",
+      "shape": "diamond",
+      "shading": "solid",
+      "number": 1
+    },
+    "027/card-02.jpg": {
+      "color": "green",
+      "shape": "oval",
+      "shading": "striped",
+      "number": 2
+    },
+    "027/card-03.jpg": {
+      "color": "green",
+      "shape": "squiggle",
+      "shading": "striped",
+      "number": 2
+    },
+    "027/card-04.jpg": {
+      "color": "purple",
+      "shape": "diamond",
+      "shading": "striped",
+      "number": 2
+    },
+    "027/card-05.jpg": {
+      "color": "purple",
+      "shape": "diamond",
+      "shading": "solid",
+      "number": 1
+    },
+    "027/card-06.jpg": {
+      "color": "purple",
+      "shape": "diamond",
+      "shading": "solid",
+      "number": 2
+    },
+    "027/card-07.jpg": {
+      "color": "purple",
+      "shape": "oval",
+      "shading": "solid",
+      "number": 3
+    },
+    "027/card-08.jpg": {
+      "color": "red",
+      "shape": "squiggle",
+      "shading": "striped",
+      "number": 2
+    },
+    "027/card-09.jpg": {
+      "color": "red",
+      "shape": "squiggle",
+      "shading": "solid",
+      "number": 3
+    },
+    "027/card-10.jpg": {
+      "color": "green",
+      "shape": "squiggle",
+      "shading": "solid",
+      "number": 3
+    },
+    "027/card-11.jpg": {
+      "color": "purple",
+      "shape": "diamond",
+      "shading": "empty",
+      "number": 3
+    },
+    "027/card-12.jpg": {
+      "color": "green",
+      "shape": "diamond",
+      "shading": "solid",
+      "number": 2
+    },
+    "028/card-01.jpg": {
+      "color": "green",
+      "shape": "diamond",
+      "shading": "striped",
+      "number": 2
+    },
+    "028/card-02.jpg": {
+      "color": "green",
+      "shape": "diamond",
+      "shading": "solid",
+      "number": 1
+    },
+    "028/card-03.jpg": {
+      "color": "red",
+      "shape": "squiggle",
+      "shading": "empty",
+      "number": 1
+    },
+    "028/card-04.jpg": {
+      "color": "green",
+      "shape": "diamond",
+      "shading": "empty",
+      "number": 3
+    },
+    "028/card-05.jpg": {
+      "color": "red",
+      "shape": "oval",
+      "shading": "empty",
+      "number": 2
+    },
+    "028/card-06.jpg": {
+      "color": "red",
+      "shape": "oval",
+      "shading": "striped",
+      "number": 1
+    },
+    "028/card-07.jpg": {
+      "color": "red",
+      "shape": "oval",
+      "shading": "striped",
+      "number": 2
+    },
+    "028/card-08.jpg": {
+      "color": "red",
+      "shape": "squiggle",
+      "shading": "empty",
+      "number": 2
+    },
+    "028/card-09.jpg": {
+      "color": "purple",
+      "shape": "squiggle",
+      "shading": "empty",
+      "number": 3
+    },
+    "028/card-10.jpg": {
+      "color": "green",
+      "shape": "squiggle",
+      "shading": "striped",
+      "number": 1
+    },
+    "028/card-11.jpg": {
+      "color": "purple",
+      "shape": "oval",
+      "shading": "striped",
+      "number": 3
+    },
+    "028/card-12.jpg": {
+      "color": "purple",
+      "shape": "oval",
+      "shading": "empty",
+      "number": 2
+    },
+    "029/card-01.jpg": {
+      "color": "red",
+      "shape": "oval",
+      "shading": "empty",
+      "number": 1
+    },
+    "029/card-02.jpg": {
+      "color": "red",
+      "shape": "squiggle",
+      "shading": "empty",
+      "number": 2
+    },
+    "029/card-03.jpg": {
+      "color": "green",
+      "shape": "squiggle",
+      "shading": "striped",
+      "number": 1
+    },
+    "029/card-04.jpg": {
+      "color": "purple",
+      "shape": "squiggle",
+      "shading": "empty",
+      "number": 3
+    },
+    "029/card-05.jpg": {
+      "color": "purple",
+      "shape": "squiggle",
+      "shading": "empty",
+      "number": 1
+    },
+    "029/card-06.jpg": {
+      "color": "green",
+      "shape": "squiggle",
+      "shading": "empty",
+      "number": 3
+    },
+    "029/card-07.jpg": {
+      "color": "purple",
+      "shape": "oval",
+      "shading": "striped",
+      "number": 1
+    },
+    "029/card-08.jpg": {
+      "color": "purple",
+      "shape": "squiggle",
+      "shading": "striped",
+      "number": 1
+    },
+    "029/card-09.jpg": {
+      "color": "green",
+      "shape": "squiggle",
+      "shading": "solid",
+      "number": 2
+    },
+    "029/card-10.jpg": {
+      "color": "purple",
+      "shape": "squiggle",
+      "shading": "empty",
+      "number": 2
+    },
+    "029/card-11.jpg": {
+      "color": "red",
+      "shape": "oval",
+      "shading": "empty",
+      "number": 3
+    },
+    "029/card-12.jpg": {
+      "color": "purple",
+      "shape": "squiggle",
+      "shading": "solid",
+      "number": 2
+    }
+  }
+}

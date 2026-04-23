@@ -1,0 +1,35 @@
+{
+  "model": "anthropic/claude-haiku-4-5-20251001",
+  "disagreements": [
+    {
+      "path": "014/card-01.jpg",
+      "canonical": "1 green squiggle solid",
+      "predicted": "1 green squiggle striped"
+    },
+    {
+      "path": "021/card-01.jpg",
+      "canonical": "2 green diamond empty",
+      "predicted": "2 red diamond empty"
+    },
+    {
+      "path": "021/card-02.jpg",
+      "canonical": "2 purple diamond solid",
+      "predicted": "2 red diamond solid"
+    },
+    {
+      "path": "021/card-03.jpg",
+      "canonical": "3 purple oval solid",
+      "predicted": "3 red oval solid"
+    },
+    {
+      "path": "021/card-04.jpg",
+      "canonical": "3 green squiggle solid",
+      "predicted": "3 red squiggle solid"
+    },
+    {
+      "path": "021/card-11.jpg",
+      "canonical": "2 green oval striped",
+      "predicted": "2 red oval striped"
+    }
+  ]
+}
