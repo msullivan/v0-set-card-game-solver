@@ -1,4 +1,4 @@
-import { generateObject } from "ai"
+import { generateText, Output } from "ai"
 import { z } from "zod"
 
 export const SingleCardSchema = z.object({
@@ -23,9 +23,9 @@ Look carefully at the shading:
 export async function analyzeCard(cropBuffer: Buffer, model: string) {
   const base64 = cropBuffer.toString("base64")
 
-  const result = await generateObject({
+  const result = await generateText({
     model,
-    schema: SingleCardSchema,
+    output: Output.object({ schema: SingleCardSchema }),
     messages: [
       {
         role: "user",
@@ -37,5 +37,5 @@ export async function analyzeCard(cropBuffer: Buffer, model: string) {
     ],
   })
 
-  return result.object
+  return result.output
 }

@@ -69,7 +69,7 @@ async function analyzeImage(imagePath: string, model: string) {
 
   const result = await generateText({
     model,
-    output: Output.json(),
+    output: Output.object({ schema: ResponseSchema }),
     messages: [
       {
         role: "user",
