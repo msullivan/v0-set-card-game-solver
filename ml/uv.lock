@@ -1315,7 +1315,7 @@ wheels = [
 [[package]]
 name = "set-classifier"
 version = "0.1.0"
-source = { editable = "." }
+source = { virtual = "." }
 dependencies = [
     { name = "albumentations" },
     { name = "numpy" },
