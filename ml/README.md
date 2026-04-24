@@ -6,24 +6,22 @@ per-crop LLM classification step in the main app.
 
 ## Setup
 
-```bash
-uv sync
-```
-
-On a ROCm box, swap torch after the initial sync:
+Pick the extra that matches the machine (they're mutually exclusive — the
+`conflicts` block in `pyproject.toml` enforces it):
 
 ```bash
-uv pip install --reinstall torch torchvision \
-  --index-url https://download.pytorch.org/whl/rocm6.2
+uv sync --extra cpu     # local dev / smoke tests
+uv sync --extra gpu     # CUDA 12.8
+uv sync --extra rocm    # ROCm 7.2 (Linux only)
 ```
 
-(Adjust `rocm6.2` to match the box's ROCm version.) The CPU wheels from PyPI
-are fine for smoke-testing and code edits locally.
+Each extra routes `torch` to the matching PyTorch wheel index. Default groups
+are empty, so nothing installs implicitly — add `--group dev` to pull in ruff.
 
 ## Smoke test
 
 ```bash
-uv run python src/smoke.py
+uv run python -m set_id.smoke
 ```
 
 Runs both architectures on a tiny CPU subset, verifies the split has disjoint
@@ -33,8 +31,8 @@ seconds.
 ## Training
 
 ```bash
-uv run python src/train.py --arch resnet18
-uv run python src/train.py --arch small
+uv run python -m set_id.train --arch resnet18
+uv run python -m set_id.train --arch small
 ```
 
 Useful flags:
@@ -53,7 +51,8 @@ Best checkpoint (by mean per-attribute val accuracy) saves to
 ## Layout
 
 ```
-src/
+set_id/
+  __init__.py
   labels_schema.py    canonical attr -> class id
   dataset.py          labels.json loader + stratified-by-identity split
   augment.py          Albumentations train/val pipelines

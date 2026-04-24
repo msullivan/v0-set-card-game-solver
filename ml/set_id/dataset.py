@@ -16,7 +16,7 @@ import numpy as np
 from PIL import Image
 from torch.utils.data import Dataset
 
-from labels_schema import IDX
+from set_id.labels_schema import IDX
 
 
 @dataclass(frozen=True)

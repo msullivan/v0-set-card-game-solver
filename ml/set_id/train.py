@@ -11,23 +11,18 @@ from __future__ import annotations
 
 import argparse
 import math
-import sys
 from dataclasses import dataclass
 from pathlib import Path
 
 import torch
-import torch.nn as nn
 import torch.nn.functional as F
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 
-HERE = Path(__file__).resolve().parent
-sys.path.insert(0, str(HERE))
-
-from augment import train_transform, val_transform
-from dataset import CardDataset, load_samples, stratified_split
-from metrics import AccMeter
-from model import build_model, param_count
+from set_id.augment import train_transform, val_transform
+from set_id.dataset import CardDataset, load_samples, stratified_split
+from set_id.metrics import AccMeter
+from set_id.model import build_model, param_count
 
 ATTRS = ("number", "color", "shape", "shading")
 
