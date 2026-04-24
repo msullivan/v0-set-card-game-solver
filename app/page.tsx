@@ -116,7 +116,7 @@ export default function SetSolverPage() {
             </div>
             <div>
               <h1 className="text-xl font-bold text-foreground">Set Solver</h1>
-              <p className="text-sm text-muted-foreground">Find sets with AI and some vibecoded CV</p>
+              <p className="text-sm text-muted-foreground">Find sets with CV + a local neural net</p>
             </div>
           </div>
           <Dialog>

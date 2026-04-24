@@ -1,49 +1,67 @@
-// Talks to the Python inference server's /predict endpoint.
+// Local card classifier using ONNX inference in the browser.
+// Replaces the previous HTTP-based path that talked to a Python server.
 
-import type { SetCard } from "./set-game"
+import * as ort from "onnxruntime-web"
 
-const DEFAULT_URL = process.env.NEXT_PUBLIC_SET_ID_URL || "http://127.0.0.1:8001"
+import {
+  loadSetIdModel,
+  classifyCards,
+  type SetIdSession,
+  type ModelMeta,
+  type RGBImage,
+} from "./analyze-card-local"
 
-export type CardLogits = {
-  number: Record<string, number>
-  color: Record<string, number>
-  shape: Record<string, number>
-  shading: Record<string, number>
-}
+ort.env.wasm.wasmPaths = "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.24.3/dist/"
 
-type PredictResponse = {
-  predictions: {
-    color: SetCard["color"]
-    shape: SetCard["shape"]
-    shading: SetCard["shading"]
-    number: "1" | "2" | "3"
-    logits: CardLogits
-  }[]
-}
+export type { CardLogits, LocalCardPrediction as CardPrediction } from "./analyze-card-local"
 
-async function blobToBase64(blob: Blob): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader()
-    reader.onload = () => {
-      const s = reader.result as string
-      const comma = s.indexOf(",")
-      resolve(comma >= 0 ? s.slice(comma + 1) : s)
-    }
-    reader.onerror = () => reject(reader.error)
-    reader.readAsDataURL(blob)
-  })
-}
+const MODEL_URL = "/models/set_id_smaller.onnx"
+const META_URL = "/models/set_id_smaller.json"
 
-export async function classifyCrops(crops: Blob[], serverUrl: string = DEFAULT_URL) {
-  if (crops.length === 0) return { predictions: [] as PredictResponse["predictions"] }
-  const images = await Promise.all(crops.map(blobToBase64))
-  const resp = await fetch(`${serverUrl}/predict`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ images }),
-  })
-  if (!resp.ok) {
-    throw new Error(`classifier ${resp.status}: ${await resp.text()}`)
+let modelPromise: Promise<SetIdSession> | null = null
+
+function getModel(): Promise<SetIdSession> {
+  if (!modelPromise) {
+    modelPromise = (async () => {
+      const [modelBuf, metaResp] = await Promise.all([
+        fetch(MODEL_URL).then((r) => {
+          if (!r.ok) throw new Error(`Failed to load model: ${r.status}`)
+          return r.arrayBuffer()
+        }),
+        fetch(META_URL).then((r) => (r.ok ? r.json() : undefined)),
+      ])
+      return loadSetIdModel(modelBuf, {
+        meta: metaResp as ModelMeta | undefined,
+      })
+    })()
   }
-  return (await resp.json()) as PredictResponse
+  return modelPromise
+}
+
+async function blobToRGB(blob: Blob): Promise<RGBImage> {
+  const bmp = await createImageBitmap(blob)
+  const canvas = new OffscreenCanvas(bmp.width, bmp.height)
+  const ctx = canvas.getContext("2d")!
+  ctx.drawImage(bmp, 0, 0)
+  bmp.close()
+  const { data, width, height } = ctx.getImageData(0, 0, canvas.width, canvas.height)
+
+  // Strip alpha: RGBA → RGB
+  const rgb = new Uint8Array(width * height * 3)
+  for (let i = 0, j = 0; i < data.length; i += 4, j += 3) {
+    rgb[j] = data[i]
+    rgb[j + 1] = data[i + 1]
+    rgb[j + 2] = data[i + 2]
+  }
+  return { data: rgb, width, height }
+}
+
+export async function classifyCrops(crops: Blob[]) {
+  if (crops.length === 0) return { predictions: [] }
+  const [model, images] = await Promise.all([
+    getModel(),
+    Promise.all(crops.map(blobToRGB)),
+  ])
+  const predictions = await classifyCards(model, images)
+  return { predictions }
 }
