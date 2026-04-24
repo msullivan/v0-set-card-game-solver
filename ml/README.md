@@ -48,6 +48,19 @@ Useful flags:
 Best checkpoint (by mean per-attribute val accuracy) saves to
 `checkpoints/{arch}_best.pt`.
 
+## Serving
+
+```bash
+uv run python -m set_id.serve
+```
+
+FastAPI app on `127.0.0.1:8000`. `POST /predict` takes
+`{"images": ["<base64>", ...]}` (data-URL prefix tolerated) and returns
+`{"predictions": [{"color","shape","shading","number"}, ...]}` — the same
+shape `lib/analyze-card.ts` returns. Env overrides: `SET_ID_CKPT`,
+`SET_ID_ARCH`, `SET_ID_IMG_SIZE`, `SET_ID_HOST`, `SET_ID_PORT`. `arch` and
+`img_size` default to whatever the checkpoint was trained with.
+
 ## Layout
 
 ```
@@ -59,6 +72,7 @@ set_id/
   model.py            ResNet18Net + SmallNet, both with 4 heads
   metrics.py          per-attr + full-card accuracy meter
   train.py            phased training loop + wandb
+  serve.py            FastAPI batched inference endpoint
   smoke.py            CPU end-to-end sanity run
 ```
 

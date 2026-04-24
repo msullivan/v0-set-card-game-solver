@@ -13,6 +13,8 @@ dependencies = [
     "tqdm>=4.66",
     "wandb>=0.17",
     "pillow>=10",
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.32",
 ]
 
 [dependency-groups]
