@@ -2,7 +2,7 @@ import { readFileSync, writeFileSync, mkdirSync, readdirSync } from "fs"
 import { join, dirname, basename } from "path"
 import { fileURLToPath } from "url"
 
-import { detectCards } from "../lib/detect-cards"
+import { detectCards } from "../lib/detect-cards-node"
 import { findAllSets, type SetCard } from "../lib/set-game"
 
 const __dirname = dirname(fileURLToPath(import.meta.url))

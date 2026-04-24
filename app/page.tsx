@@ -6,7 +6,9 @@ import { SetResults } from "@/components/set-results"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Loader2, Sparkles, RefreshCw, HelpCircle } from "lucide-react"
-import { type SetCard, type ValidSet } from "@/lib/set-game"
+import { findAllSets, type SetCard, type ValidSet } from "@/lib/set-game"
+import { detectCards } from "@/lib/detect-cards"
+import { classifyCrops } from "@/lib/classify-cards"
 import {
   Dialog,
   DialogContent,
@@ -53,20 +55,42 @@ export default function SetSolverPage() {
 
     try {
       const start = performance.now()
-      const response = await fetch("/api/analyze", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ image: imageData }),
-      })
 
-      if (!response.ok) {
-        const data = await response.json()
-        throw new Error(data.error || "Failed to analyze image")
+      const { crops, timing: cvTiming } = await detectCards(imageData)
+      if (crops.length === 0) {
+        throw new Error("No cards detected in the image. Please try a clearer photo.")
       }
 
-      const data = await response.json()
+      const aiStart = performance.now()
+      const { predictions } = await classifyCrops(crops)
+      const ai = performance.now() - aiStart
+
+      const cards: SetCard[] = predictions.map((p, i) => ({
+        id: `card-${i + 1}`,
+        color: p.color,
+        shape: p.shape,
+        shading: p.shading,
+        number: parseInt(p.number, 10) as 1 | 2 | 3,
+        position: { x: 0, y: 0 },
+      }))
+
+      const setsStart = performance.now()
+      const validSets = findAllSets(cards)
+      const sets = performance.now() - setsStart
+
       setElapsed(Math.round(performance.now() - start))
-      setResult(data)
+      setResult({
+        cards,
+        validSets,
+        confidence: "high",
+        notes: "",
+        timing: {
+          cvInit: Math.round(cvTiming.cvInit),
+          cvProcess: Math.round(cvTiming.cvProcess),
+          ai: Math.round(ai),
+          sets: Math.round(sets),
+        },
+      })
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred")
     } finally {
@@ -191,14 +215,11 @@ export default function SetSolverPage() {
                   <span>OpenCV init: {(result.timing.cvInit / 1000).toFixed(1)}s</span>
                 )}
                 <span>CV detection: {(result.timing.cvProcess / 1000).toFixed(1)}s</span>
-                <span>AI analysis: {(result.timing.ai / 1000).toFixed(1)}s</span>
+                <span>Classifier: {(result.timing.ai / 1000).toFixed(1)}s</span>
                 <span>Set finding: {result.timing.sets < 1 ? "<1ms" : `${result.timing.sets}ms`}</span>
-                <span className="font-medium">
-                  Server: {((result.timing.cvInit + result.timing.cvProcess + result.timing.ai + result.timing.sets) / 1000).toFixed(1)}s
-                </span>
                 {elapsed !== null && (
                   <span className="font-medium">
-                    Round-trip: {(elapsed / 1000).toFixed(1)}s
+                    Total: {(elapsed / 1000).toFixed(1)}s
                   </span>
                 )}
               </div>

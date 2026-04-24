@@ -11,7 +11,7 @@ for (const line of readFileSync(envPath, "utf-8").split("\n")) {
   if (match) process.env[match[1]] = match[2]
 }
 
-import { detectCards } from "../lib/detect-cards"
+import { detectCards } from "../lib/detect-cards-node"
 import { analyzeCard } from "../lib/analyze-card"
 import { findAllSets, type SetCard } from "../lib/set-game"
 

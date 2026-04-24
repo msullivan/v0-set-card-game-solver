@@ -1,7 +1,10 @@
 import React from "react"
 import type { Metadata } from 'next'
+import Script from 'next/script'
 
 import './globals.css'
+
+const OPENCV_URL = "https://cdn.jsdelivr.net/npm/@techstark/opencv-js@4.12.0-release.1/dist/opencv.js"
 
 export const metadata: Metadata = {
   title: 'Set Solver - Find Sets in Your Cards',
@@ -16,7 +19,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="font-sans antialiased">{children}</body>
+      <body className="font-sans antialiased">
+        <Script src={OPENCV_URL} strategy="afterInteractive" />
+        {children}
+      </body>
     </html>
   )
 }

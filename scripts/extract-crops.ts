@@ -4,7 +4,7 @@ import { fileURLToPath } from "url"
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
-import { detectCards } from "../lib/detect-cards"
+import { detectCards } from "../lib/detect-cards-node"
 import type { SetCard } from "../lib/set-game"
 
 type Label = {
