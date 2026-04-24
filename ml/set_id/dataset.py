@@ -22,6 +22,7 @@ from set_id.labels_schema import IDX
 @dataclass(frozen=True)
 class Sample:
     path: Path
+    source_image: str
     number: int
     color: int
     shape: int
@@ -32,14 +33,21 @@ class Sample:
         return (self.number, self.color, self.shape, self.shading)
 
 
-def load_samples(crops_dir: Path) -> list[Sample]:
+def load_samples(
+    crops_dir: Path,
+    exclude_sources: Sequence[str] = (),
+) -> list[Sample]:
     labels_path = crops_dir / "labels.json"
     data = json.loads(labels_path.read_text())
+    excluded = set(exclude_sources)
     out: list[Sample] = []
     for fname, lab in data["labels"].items():
+        if lab["source_image"] in excluded:
+            continue
         out.append(
             Sample(
                 path=crops_dir / fname,
+                source_image=lab["source_image"],
                 number=IDX["number"][lab["number"]],
                 color=IDX["color"][lab["color"]],
                 shape=IDX["shape"][lab["shape"]],

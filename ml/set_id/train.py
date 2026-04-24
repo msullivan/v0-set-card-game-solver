@@ -48,10 +48,13 @@ class TrainConfig:
     run_name: str | None = None
     crops_dir: Path = Path(__file__).resolve().parents[2] / "test-images" / "crops"
     out_dir: Path = Path(__file__).resolve().parents[1] / "checkpoints"
+    # 021 is shot under orange light — pixel colors disagree with labels;
+    # those crops poison training more than they help.
+    exclude_sources: tuple[str, ...] = ("021",)
 
 
 def build_loaders(cfg: TrainConfig) -> tuple[DataLoader, DataLoader]:
-    samples = load_samples(cfg.crops_dir)
+    samples = load_samples(cfg.crops_dir, exclude_sources=cfg.exclude_sources)
     train, val = stratified_split(samples, cfg.holdout_identities, cfg.seed)
     train_ds = CardDataset(train, train_transform(cfg.img_size))
     val_ds = CardDataset(val, val_transform(cfg.img_size))
@@ -272,6 +275,12 @@ def parse_args() -> TrainConfig:
     p.add_argument("--wandb-mode", choices=("online", "offline", "disabled"), default="online")
     p.add_argument("--run-name", default=None)
     p.add_argument("--crops-dir", default=None)
+    p.add_argument(
+        "--exclude-sources",
+        default=None,
+        help="Comma-separated source image ids to drop (e.g. '021,024'). "
+        "Pass empty string to include all. Default excludes '021' (orange-cast).",
+    )
     args = p.parse_args()
     cfg = TrainConfig(
         arch=args.arch,
@@ -288,6 +297,8 @@ def parse_args() -> TrainConfig:
     )
     if args.crops_dir:
         cfg.crops_dir = Path(args.crops_dir)
+    if args.exclude_sources is not None:
+        cfg.exclude_sources = tuple(s for s in args.exclude_sources.split(",") if s)
     return cfg
 
 
