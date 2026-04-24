@@ -95,10 +95,10 @@ class SmallerNet(Freezable):
         super().__init__()
         del pretrained  # no pretrained weights for custom backbone
         self.features = nn.Sequential(
-            _ConvBlock(3, 32),
+            _ConvBlock(3, 16),
+            _ConvBlock(16, 32),
             _ConvBlock(32, 64),
             _ConvBlock(64, 128),
-            _ConvBlock(128, 128),
             nn.AdaptiveAvgPool2d(1),
         )
         self.heads = _Heads(self.feature_dim)

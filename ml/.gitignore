@@ -1,7 +1,7 @@
 .venv/
 __pycache__/
 *.pyc
-checkpoints/*.pt
+#checkpoints/*.pt
 checkpoints/*.onnx
 wandb/
 .ruff_cache/
