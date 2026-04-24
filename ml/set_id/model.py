@@ -22,7 +22,17 @@ class _Heads(nn.Module):
         return self.number(f), self.color(f), self.shape(f), self.shading(f)
 
 
-class ResNet18Net(nn.Module):
+class Freezable(nn.Module):
+    def freeze_backbone(self) -> None:
+        for p in self.features.parameters():
+            p.requires_grad = False
+
+    def unfreeze_backbone(self) -> None:
+        for p in self.features.parameters():
+            p.requires_grad = True
+
+
+class ResNet18Net(Freezable):
     feature_dim = 512
 
     def __init__(self, pretrained: bool = True):
@@ -35,14 +45,6 @@ class ResNet18Net(nn.Module):
     def forward(self, x: torch.Tensor):
         f = self.features(x).flatten(1)
         return self.heads(f)
-
-    def freeze_backbone(self) -> None:
-        for p in self.features.parameters():
-            p.requires_grad = False
-
-    def unfreeze_backbone(self) -> None:
-        for p in self.features.parameters():
-            p.requires_grad = True
 
 
 class _ConvBlock(nn.Module):
@@ -62,8 +64,8 @@ class _ConvBlock(nn.Module):
         return self.net(x)
 
 
-class SmallNet(nn.Module):
-    """~300K-param custom CNN intended for browser deployment."""
+class SmallNet(Freezable):
+    """~1.5M??-param custom CNN intended for browser deployment."""
 
     feature_dim = 256
 
@@ -83,16 +85,30 @@ class SmallNet(nn.Module):
         f = self.features(x).flatten(1)
         return self.heads(f)
 
-    def freeze_backbone(self) -> None:
-        for p in self.features.parameters():
-            p.requires_grad = False
 
-    def unfreeze_backbone(self) -> None:
-        for p in self.features.parameters():
-            p.requires_grad = True
+class SmallerNet(Freezable):
+    """???-param custom CNN intended for browser deployment."""
+
+    feature_dim = 128
+
+    def __init__(self, pretrained: bool = False):
+        super().__init__()
+        del pretrained  # no pretrained weights for custom backbone
+        self.features = nn.Sequential(
+            _ConvBlock(3, 32),
+            _ConvBlock(32, 64),
+            _ConvBlock(64, 128),
+            _ConvBlock(128, 128),
+            nn.AdaptiveAvgPool2d(1),
+        )
+        self.heads = _Heads(self.feature_dim)
+
+    def forward(self, x: torch.Tensor):
+        f = self.features(x).flatten(1)
+        return self.heads(f)
 
 
-ARCHES = {"resnet18": ResNet18Net, "small": SmallNet}
+ARCHES = {"resnet18": ResNet18Net, "small": SmallNet, "smaller": SmallerNet}
 
 
 def build_model(arch: str, pretrained: bool = True) -> nn.Module:

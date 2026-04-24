@@ -34,6 +34,7 @@ ATTRS = ("number", "color", "shape", "shading")
 ARCH_DEFAULTS: dict[str, dict[str, float | int]] = {
     "resnet18": {"phase1_epochs": 10, "backbone_lr": 1e-5, "heads_lr": 1e-4},
     "small":    {"phase1_epochs": 0,  "backbone_lr": 1e-3, "heads_lr": 1e-3},
+    "smaller":  {"phase1_epochs": 0,  "backbone_lr": 1e-3, "heads_lr": 1e-3},
 }
 
 
@@ -266,7 +267,7 @@ def run(cfg: TrainConfig) -> None:
 
 def parse_args() -> TrainConfig:
     p = argparse.ArgumentParser()
-    p.add_argument("--arch", choices=("resnet18", "small"), default="resnet18")
+    p.add_argument("--arch", default="resnet18")
     p.add_argument("--img-size", type=int, default=128)
     p.add_argument("--batch-size", type=int, default=32)
     p.add_argument("--phase1-epochs", type=int, default=None,
