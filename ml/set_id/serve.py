@@ -33,7 +33,7 @@ from set_id.augment import val_transform
 from set_id.labels_schema import NAME
 from set_id.model import build_model
 
-DEFAULT_CKPT = Path(__file__).resolve().parents[1] / "checkpoints" / "small_best.pt"
+DEFAULT_CKPT = Path(__file__).resolve().parents[1] / "checkpoints" / "smaller_best.pt"
 
 
 class PredictRequest(BaseModel):
@@ -43,11 +43,19 @@ class PredictRequest(BaseModel):
     )
 
 
+class CardLogits(BaseModel):
+    number: dict[str, float]
+    color: dict[str, float]
+    shape: dict[str, float]
+    shading: dict[str, float]
+
+
 class CardAttrs(BaseModel):
     color: str
     shape: str
     shading: str
     number: str
+    logits: CardLogits
 
 
 class PredictResponse(BaseModel):
@@ -109,13 +117,20 @@ def create_app(
         with torch.inference_mode():
             logits = model(batch)
         # Head order is (number, color, shape, shading) — see model._Heads.
-        number, color, shape, shading = (l.argmax(1).tolist() for l in logits)
+        logit_rows = [l.tolist() for l in logits]
+        argmax = [l.argmax(1).tolist() for l in logits]
         out = [
             CardAttrs(
-                number=str(NAME["number"][number[i]]),
-                color=NAME["color"][color[i]],
-                shape=NAME["shape"][shape[i]],
-                shading=NAME["shading"][shading[i]],
+                number=str(NAME["number"][argmax[0][i]]),
+                color=NAME["color"][argmax[1][i]],
+                shape=NAME["shape"][argmax[2][i]],
+                shading=NAME["shading"][argmax[3][i]],
+                logits=CardLogits(
+                    number={str(NAME["number"][j]): logit_rows[0][i][j] for j in range(3)},
+                    color={NAME["color"][j]: logit_rows[1][i][j] for j in range(3)},
+                    shape={NAME["shape"][j]: logit_rows[2][i][j] for j in range(3)},
+                    shading={NAME["shading"][j]: logit_rows[3][i][j] for j in range(3)},
+                ),
             )
             for i in range(batch.size(0))
         ]
