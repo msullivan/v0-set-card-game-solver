@@ -24,15 +24,14 @@ from pathlib import Path
 sys.modules.setdefault("pathlib._local", pathlib)
 
 import torch
-import numpy as np
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from PIL import Image, UnidentifiedImageError
 from pydantic import BaseModel, Field
 
-from set_id.augment import val_transform
 from set_id.labels_schema import NAME
 from set_id.model import build_model
+from set_id.preprocess import preprocess
 
 DEFAULT_CKPT = Path(__file__).resolve().parents[1] / "checkpoints" / "smaller_best.pt"
 
@@ -63,7 +62,7 @@ class PredictResponse(BaseModel):
     predictions: list[CardAttrs]
 
 
-def _decode(b64: str) -> np.ndarray:
+def _decode(b64: str) -> Image.Image:
     s = b64.strip()
     if s.startswith("data:") and "," in s:
         s = s.split(",", 1)[1]
@@ -72,10 +71,9 @@ def _decode(b64: str) -> np.ndarray:
     except (binascii.Error, ValueError) as e:
         raise HTTPException(status_code=400, detail=f"base64 decode failed: {e}")
     try:
-        img = Image.open(io.BytesIO(raw)).convert("RGB")
+        return Image.open(io.BytesIO(raw)).convert("RGB")
     except (UnidentifiedImageError, OSError) as e:
         raise HTTPException(status_code=400, detail=f"image decode failed: {e}")
-    return np.array(img)
 
 
 def create_app(
@@ -94,8 +92,6 @@ def create_app(
     model = build_model(arch, pretrained=False)
     model.load_state_dict(state["state_dict"])
     model.to(device).eval()
-
-    transform = val_transform(img_size)
 
     app = FastAPI(title="set-id")
     app.add_middleware(
@@ -119,7 +115,7 @@ def create_app(
     def predict(req: PredictRequest) -> PredictResponse:
         if not req.images:
             return PredictResponse(predictions=[])
-        tensors = [transform(image=_decode(b))["image"] for b in req.images]
+        tensors = [preprocess(_decode(b), img_size) for b in req.images]
         batch = torch.stack(tensors).to(device)
         with torch.inference_mode():
             logits = model(batch)

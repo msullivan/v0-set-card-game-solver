@@ -6,16 +6,23 @@ per-crop LLM classification step in the main app.
 
 ## Setup
 
-Pick the extra that matches the machine (they're mutually exclusive — the
-`conflicts` block in `pyproject.toml` enforces it):
+Pick one torch build (they're mutually exclusive — the `conflicts` block in
+`pyproject.toml` enforces it) plus at least one role extra:
 
 ```bash
-uv sync --extra cpu     # local dev / smoke tests
-uv sync --extra gpu     # CUDA 12.8
-uv sync --extra rocm    # ROCm 7.2 (Linux only)
+# Serving only — no albumentations/opencv/scipy/wandb:
+uv sync --extra cpu --extra inference
+uv sync --extra gpu --extra inference
+
+# Training:
+uv sync --extra cpu --extra train
+uv sync --extra gpu --extra train
+uv sync --extra rocm --extra train    # Linux only
 ```
 
-Each extra routes `torch` to the matching PyTorch wheel index. Default groups
+The torch extras (`cpu`/`gpu`/`rocm`) route `torch`/`torchvision` to the
+matching PyTorch wheel index. `inference` adds FastAPI + uvicorn; `train` adds
+albumentations (+ transitive opencv/scipy), wandb, tqdm, pyyaml. Default groups
 are empty, so nothing installs implicitly — add `--group dev` to pull in ruff.
 
 ## Smoke test
@@ -68,7 +75,8 @@ set_id/
   __init__.py
   labels_schema.py    canonical attr -> class id
   dataset.py          labels.json loader + stratified-by-identity split
-  augment.py          Albumentations train/val pipelines
+  augment.py          Albumentations train/val pipelines (train-only)
+  preprocess.py       PIL+torch inference transform (no albumentations/opencv)
   model.py            ResNet18Net + SmallNet, both with 4 heads
   metrics.py          per-attr + full-card accuracy meter
   train.py            phased training loop + wandb

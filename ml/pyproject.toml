@@ -4,17 +4,8 @@ version = "0.1.0"
 description = "Local CNN classifier for Set card attributes"
 requires-python = ">=3.11"
 dependencies = [
-    "torch>=2.11",
-    "torchvision>=0.26",
-    "albumentations>=2.0",
     "numpy>=1.26",
-    "scipy>=1.13",
-    "pyyaml>=6.0",
-    "tqdm>=4.66",
-    "wandb>=0.17",
     "pillow>=10",
-    "fastapi>=0.115",
-    "uvicorn[standard]>=0.32",
 ]
 
 [dependency-groups]
@@ -70,6 +61,7 @@ url = "https://download.pytorch.org/whl/rocm7.2"
 explicit = true
 
 [project.optional-dependencies]
+# Torch build — pick exactly one (enforced by [tool.uv].conflicts above).
 cpu = [
     "torch==2.11.0",
     "torchvision==0.26.0",
@@ -82,4 +74,16 @@ rocm = [
     "torch==2.11.0",
     "torchvision==0.26.0",
     "triton-rocm==3.6.0; sys_platform == 'linux'",
+]
+# Serving only — PIL-based preprocessing, no albumentations/opencv/scipy.
+inference = [
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.32",
+]
+# Training only — pulls in albumentations (and transitively opencv/scipy) + wandb.
+train = [
+    "albumentations>=2.0",
+    "pyyaml>=6.0",
+    "tqdm>=4.66",
+    "wandb>=0.17",
 ]
