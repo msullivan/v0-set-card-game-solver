@@ -80,6 +80,13 @@ inference = [
     "fastapi>=0.115",
     "uvicorn[standard]>=0.32",
 ]
+# ONNX export for browser deployment. `onnxscript` backs the torch 2.9+
+# dynamo-based exporter; `onnxruntime` is used for the post-export parity check.
+export = [
+    "onnx>=1.17",
+    "onnxscript>=0.1",
+    "onnxruntime>=1.18",
+]
 # Training only — pulls in albumentations (and transitively opencv/scipy) + wandb.
 train = [
     "albumentations>=2.0",

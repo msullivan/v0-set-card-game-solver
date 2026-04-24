@@ -1,0 +1,5 @@
+{
+  "arch": "smaller",
+  "img_size": 192,
+  "opset": 20
+}

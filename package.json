@@ -49,6 +49,7 @@
     "lucide-react": "^0.544.0",
     "next": "16.0.10",
     "next-themes": "^0.4.6",
+    "onnxruntime-web": "^1.24.3",
     "react": "19.2.3",
     "react-day-picker": "8.10.1",
     "react-dom": "19.2.3",
