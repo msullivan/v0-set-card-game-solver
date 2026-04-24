@@ -1,0 +1,294 @@
+{
+  "cards": [
+    {
+      "id": "card-1",
+      "color": "red",
+      "shape": "oval",
+      "shading": "empty",
+      "number": 1,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "card-2",
+      "color": "red",
+      "shape": "squiggle",
+      "shading": "empty",
+      "number": 2,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "card-3",
+      "color": "green",
+      "shape": "squiggle",
+      "shading": "striped",
+      "number": 1,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "card-4",
+      "color": "purple",
+      "shape": "squiggle",
+      "shading": "empty",
+      "number": 3,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "card-5",
+      "color": "purple",
+      "shape": "squiggle",
+      "shading": "empty",
+      "number": 1,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "card-6",
+      "color": "green",
+      "shape": "squiggle",
+      "shading": "empty",
+      "number": 3,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "card-7",
+      "color": "purple",
+      "shape": "oval",
+      "shading": "striped",
+      "number": 1,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "card-8",
+      "color": "purple",
+      "shape": "squiggle",
+      "shading": "striped",
+      "number": 1,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "card-9",
+      "color": "green",
+      "shape": "squiggle",
+      "shading": "solid",
+      "number": 2,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "card-10",
+      "color": "purple",
+      "shape": "squiggle",
+      "shading": "empty",
+      "number": 2,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "card-11",
+      "color": "red",
+      "shape": "oval",
+      "shading": "empty",
+      "number": 3,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "card-12",
+      "color": "purple",
+      "shape": "squiggle",
+      "shading": "solid",
+      "number": 2,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    }
+  ],
+  "validSets": [
+    {
+      "cards": [
+        {
+          "id": "card-2",
+          "color": "red",
+          "shape": "squiggle",
+          "shading": "empty",
+          "number": 2,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "card-5",
+          "color": "purple",
+          "shape": "squiggle",
+          "shading": "empty",
+          "number": 1,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "card-6",
+          "color": "green",
+          "shape": "squiggle",
+          "shading": "empty",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      ],
+      "reason": "different color (red, purple, green), all squiggle shape, all empty shading, different number (2, 1, 3)"
+    },
+    {
+      "cards": [
+        {
+          "id": "card-3",
+          "color": "green",
+          "shape": "squiggle",
+          "shading": "striped",
+          "number": 1,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "card-6",
+          "color": "green",
+          "shape": "squiggle",
+          "shading": "empty",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "card-9",
+          "color": "green",
+          "shape": "squiggle",
+          "shading": "solid",
+          "number": 2,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      ],
+      "reason": "all green color, all squiggle shape, different shading (striped, empty, solid), different number (1, 3, 2)"
+    },
+    {
+      "cards": [
+        {
+          "id": "card-4",
+          "color": "purple",
+          "shape": "squiggle",
+          "shading": "empty",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "card-5",
+          "color": "purple",
+          "shape": "squiggle",
+          "shading": "empty",
+          "number": 1,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "card-10",
+          "color": "purple",
+          "shape": "squiggle",
+          "shading": "empty",
+          "number": 2,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      ],
+      "reason": "all purple color, all squiggle shape, all empty shading, different number (3, 1, 2)"
+    },
+    {
+      "cards": [
+        {
+          "id": "card-4",
+          "color": "purple",
+          "shape": "squiggle",
+          "shading": "empty",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "card-8",
+          "color": "purple",
+          "shape": "squiggle",
+          "shading": "striped",
+          "number": 1,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "card-12",
+          "color": "purple",
+          "shape": "squiggle",
+          "shading": "solid",
+          "number": 2,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      ],
+      "reason": "all purple color, all squiggle shape, different shading (empty, striped, solid), different number (3, 1, 2)"
+    }
+  ],
+  "confidence": "high",
+  "notes": "",
+  "totalCards": 12,
+  "totalSets": 4
+}

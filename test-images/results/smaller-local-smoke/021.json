@@ -1,0 +1,1054 @@
+{
+  "cards": [
+    {
+      "id": "card-1",
+      "color": "red",
+      "shape": "oval",
+      "shading": "striped",
+      "number": 3,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "card-2",
+      "color": "red",
+      "shape": "oval",
+      "shading": "solid",
+      "number": 3,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "card-3",
+      "color": "red",
+      "shape": "oval",
+      "shading": "solid",
+      "number": 3,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "card-4",
+      "color": "green",
+      "shape": "oval",
+      "shading": "solid",
+      "number": 3,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "card-5",
+      "color": "red",
+      "shape": "oval",
+      "shading": "solid",
+      "number": 3,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "card-6",
+      "color": "red",
+      "shape": "oval",
+      "shading": "solid",
+      "number": 3,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "card-7",
+      "color": "red",
+      "shape": "oval",
+      "shading": "striped",
+      "number": 3,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "card-8",
+      "color": "red",
+      "shape": "oval",
+      "shading": "striped",
+      "number": 3,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "card-9",
+      "color": "red",
+      "shape": "oval",
+      "shading": "striped",
+      "number": 3,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "card-10",
+      "color": "red",
+      "shape": "oval",
+      "shading": "solid",
+      "number": 3,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "card-11",
+      "color": "green",
+      "shape": "oval",
+      "shading": "striped",
+      "number": 3,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "card-12",
+      "color": "red",
+      "shape": "oval",
+      "shading": "solid",
+      "number": 3,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    }
+  ],
+  "validSets": [
+    {
+      "cards": [
+        {
+          "id": "card-1",
+          "color": "red",
+          "shape": "oval",
+          "shading": "striped",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "card-7",
+          "color": "red",
+          "shape": "oval",
+          "shading": "striped",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "card-8",
+          "color": "red",
+          "shape": "oval",
+          "shading": "striped",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      ],
+      "reason": "all red color, all oval shape, all striped shading, all 3 number"
+    },
+    {
+      "cards": [
+        {
+          "id": "card-1",
+          "color": "red",
+          "shape": "oval",
+          "shading": "striped",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "card-7",
+          "color": "red",
+          "shape": "oval",
+          "shading": "striped",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "card-9",
+          "color": "red",
+          "shape": "oval",
+          "shading": "striped",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      ],
+      "reason": "all red color, all oval shape, all striped shading, all 3 number"
+    },
+    {
+      "cards": [
+        {
+          "id": "card-1",
+          "color": "red",
+          "shape": "oval",
+          "shading": "striped",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "card-8",
+          "color": "red",
+          "shape": "oval",
+          "shading": "striped",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "card-9",
+          "color": "red",
+          "shape": "oval",
+          "shading": "striped",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      ],
+      "reason": "all red color, all oval shape, all striped shading, all 3 number"
+    },
+    {
+      "cards": [
+        {
+          "id": "card-2",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "card-3",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "card-5",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      ],
+      "reason": "all red color, all oval shape, all solid shading, all 3 number"
+    },
+    {
+      "cards": [
+        {
+          "id": "card-2",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "card-3",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "card-6",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      ],
+      "reason": "all red color, all oval shape, all solid shading, all 3 number"
+    },
+    {
+      "cards": [
+        {
+          "id": "card-2",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "card-3",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "card-10",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      ],
+      "reason": "all red color, all oval shape, all solid shading, all 3 number"
+    },
+    {
+      "cards": [
+        {
+          "id": "card-2",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "card-3",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "card-12",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      ],
+      "reason": "all red color, all oval shape, all solid shading, all 3 number"
+    },
+    {
+      "cards": [
+        {
+          "id": "card-2",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "card-5",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "card-6",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      ],
+      "reason": "all red color, all oval shape, all solid shading, all 3 number"
+    },
+    {
+      "cards": [
+        {
+          "id": "card-2",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "card-5",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "card-10",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      ],
+      "reason": "all red color, all oval shape, all solid shading, all 3 number"
+    },
+    {
+      "cards": [
+        {
+          "id": "card-2",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "card-5",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "card-12",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      ],
+      "reason": "all red color, all oval shape, all solid shading, all 3 number"
+    },
+    {
+      "cards": [
+        {
+          "id": "card-2",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "card-6",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "card-10",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      ],
+      "reason": "all red color, all oval shape, all solid shading, all 3 number"
+    },
+    {
+      "cards": [
+        {
+          "id": "card-2",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "card-6",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "card-12",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      ],
+      "reason": "all red color, all oval shape, all solid shading, all 3 number"
+    },
+    {
+      "cards": [
+        {
+          "id": "card-2",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "card-10",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "card-12",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      ],
+      "reason": "all red color, all oval shape, all solid shading, all 3 number"
+    },
+    {
+      "cards": [
+        {
+          "id": "card-3",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "card-5",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "card-6",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      ],
+      "reason": "all red color, all oval shape, all solid shading, all 3 number"
+    },
+    {
+      "cards": [
+        {
+          "id": "card-3",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "card-5",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "card-10",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      ],
+      "reason": "all red color, all oval shape, all solid shading, all 3 number"
+    },
+    {
+      "cards": [
+        {
+          "id": "card-3",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "card-5",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "card-12",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      ],
+      "reason": "all red color, all oval shape, all solid shading, all 3 number"
+    },
+    {
+      "cards": [
+        {
+          "id": "card-3",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "card-6",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "card-10",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      ],
+      "reason": "all red color, all oval shape, all solid shading, all 3 number"
+    },
+    {
+      "cards": [
+        {
+          "id": "card-3",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "card-6",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "card-12",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      ],
+      "reason": "all red color, all oval shape, all solid shading, all 3 number"
+    },
+    {
+      "cards": [
+        {
+          "id": "card-3",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "card-10",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "card-12",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      ],
+      "reason": "all red color, all oval shape, all solid shading, all 3 number"
+    },
+    {
+      "cards": [
+        {
+          "id": "card-5",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "card-6",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "card-10",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      ],
+      "reason": "all red color, all oval shape, all solid shading, all 3 number"
+    },
+    {
+      "cards": [
+        {
+          "id": "card-5",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "card-6",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "card-12",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      ],
+      "reason": "all red color, all oval shape, all solid shading, all 3 number"
+    },
+    {
+      "cards": [
+        {
+          "id": "card-5",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "card-10",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "card-12",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      ],
+      "reason": "all red color, all oval shape, all solid shading, all 3 number"
+    },
+    {
+      "cards": [
+        {
+          "id": "card-6",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "card-10",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "card-12",
+          "color": "red",
+          "shape": "oval",
+          "shading": "solid",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      ],
+      "reason": "all red color, all oval shape, all solid shading, all 3 number"
+    },
+    {
+      "cards": [
+        {
+          "id": "card-7",
+          "color": "red",
+          "shape": "oval",
+          "shading": "striped",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "card-8",
+          "color": "red",
+          "shape": "oval",
+          "shading": "striped",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "card-9",
+          "color": "red",
+          "shape": "oval",
+          "shading": "striped",
+          "number": 3,
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      ],
+      "reason": "all red color, all oval shape, all striped shading, all 3 number"
+    }
+  ],
+  "confidence": "high",
+  "notes": "",
+  "totalCards": 12,
+  "totalSets": 24
+}
