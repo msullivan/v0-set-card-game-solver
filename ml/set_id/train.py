@@ -12,6 +12,7 @@ from __future__ import annotations
 import argparse
 import math
 from dataclasses import dataclass
+from datetime import datetime
 from pathlib import Path
 
 import torch
@@ -132,6 +133,10 @@ def evaluate(model, loader, device) -> tuple[AccMeter, float]:
 def run(cfg: TrainConfig) -> None:
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"device: {device}")
+
+    if cfg.run_name is None:
+        cfg.run_name = f"{cfg.arch}-{datetime.now().strftime('%Y%m%d-%H%M')}"
+    print(f"run: {cfg.run_name}")
 
     # wandb is optional; guard so missing/misconfigured wandb never blocks training
     wandb = None
