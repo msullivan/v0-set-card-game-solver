@@ -1,0 +1,26 @@
+[project]
+name = "set-classifier"
+version = "0.1.0"
+description = "Local CNN classifier for Set card attributes"
+requires-python = ">=3.11"
+dependencies = [
+    "torch>=2.11",
+    "torchvision>=0.26",
+    "albumentations>=2.0",
+    "numpy>=1.26",
+    "scipy>=1.13",
+    "pyyaml>=6.0",
+    "tqdm>=4.66",
+    "wandb>=0.17",
+    "pillow>=10",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.6",
+]
+
+[tool.uv]
+# Default index is PyPI (CPU torch wheels). On the ROCm box, override with:
+#   uv pip install --reinstall torch torchvision --index-url https://download.pytorch.org/whl/rocm6.2
+package = false
