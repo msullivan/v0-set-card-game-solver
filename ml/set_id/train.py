@@ -92,11 +92,28 @@ def unpack_batch(batch, device):
     }
 
 
-def train_one_epoch(model, loader, optimizer, device, scaler, amp: bool) -> float:
+def train_one_epoch(
+    model,
+    loader,
+    optimizer,
+    device,
+    scaler,
+    amp: bool,
+    *,
+    desc: str = "train",
+    step_offset: int = 0,
+    lr_schedule=None,
+) -> float:
+    """Run one training epoch. If `lr_schedule` is given, it's called with the
+    global step index (step_offset + local batch index) before each step, and
+    is responsible for mutating `optimizer.param_groups[*]['lr']`.
+    """
     model.train()
     total_loss = 0.0
     n = 0
-    for batch in tqdm(loader, desc="train", leave=False):
+    for i, batch in enumerate(tqdm(loader, desc=desc, leave=False)):
+        if lr_schedule is not None:
+            lr_schedule(step_offset + i)
         img, labels = unpack_batch(batch, device)
         optimizer.zero_grad(set_to_none=True)
         if amp and device.type == "cuda":
@@ -202,37 +219,20 @@ def run(cfg: TrainConfig) -> None:
     )
     total_steps = max(1, cfg.phase2_epochs * len(train_dl))
 
-    def lr_mult(step: int) -> float:
-        return 0.5 * (1 + math.cos(math.pi * step / total_steps))
+    def cosine_schedule(global_step: int) -> None:
+        mult = 0.5 * (1 + math.cos(math.pi * global_step / total_steps))
+        opt.param_groups[0]["lr"] = cfg.backbone_lr * mult
+        opt.param_groups[1]["lr"] = cfg.heads_lr * mult
 
-    step = 0
+    step_offset = 0
     for epoch in range(cfg.phase2_epochs):
-        model.train()
-        running = 0.0
-        n = 0
-        for batch in tqdm(train_dl, desc=f"p2/{epoch}", leave=False):
-            img, labels = unpack_batch(batch, device)
-            mult = lr_mult(step)
-            for i, g in enumerate(opt.param_groups):
-                base = cfg.backbone_lr if i == 0 else cfg.heads_lr
-                g["lr"] = base * mult
-            opt.zero_grad(set_to_none=True)
-            if cfg.amp and device.type == "cuda":
-                with torch.autocast(device_type="cuda", dtype=torch.float16):
-                    logits = model(img)
-                    loss = loss_fn(logits, labels)
-                scaler.scale(loss).backward()
-                scaler.step(opt)
-                scaler.update()
-            else:
-                logits = model(img)
-                loss = loss_fn(logits, labels)
-                loss.backward()
-                opt.step()
-            running += loss.item() * img.size(0)
-            n += img.size(0)
-            step += 1
-        tr_loss = running / max(1, n)
+        tr_loss = train_one_epoch(
+            model, train_dl, opt, device, scaler, cfg.amp,
+            desc=f"p2/{epoch}",
+            step_offset=step_offset,
+            lr_schedule=cosine_schedule,
+        )
+        step_offset += len(train_dl)
         meter, val_loss = evaluate(model, val_dl, device)
         m = meter.summary()
         score = m["acc/mean_attr"]
