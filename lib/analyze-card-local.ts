@@ -179,34 +179,30 @@ export async function classifyCards(
   if (images.length === 0) return []
 
   const { session, imgSize } = model
-  const N = images.length
   const perSample = 3 * imgSize * imgSize
-  const batch = new Float32Array(N * perSample)
-  for (let i = 0; i < N; i++) {
-    preprocessInto(batch, i * perSample, images[i], imgSize)
-  }
-
-  const input = new ort.Tensor("float32", batch, [N, 3, imgSize, imgSize])
-  const results = await session.run({ pixels: input })
-
-  const num = results.number_logits.data as Float32Array
-  const col = results.color_logits.data as Float32Array
-  const shp = results.shape_logits.data as Float32Array
-  const shd = results.shading_logits.data as Float32Array
+  const buf = new Float32Array(perSample)
 
   const out: LocalCardPrediction[] = []
-  for (let i = 0; i < N; i++) {
-    const b = i * 3
+  for (let i = 0; i < images.length; i++) {
+    preprocessInto(buf, 0, images[i], imgSize)
+    const input = new ort.Tensor("float32", buf, [1, 3, imgSize, imgSize])
+    const results = await session.run({ pixels: input })
+
+    const num = results.number_logits.data as Float32Array
+    const col = results.color_logits.data as Float32Array
+    const shp = results.shape_logits.data as Float32Array
+    const shd = results.shading_logits.data as Float32Array
+
     out.push({
-      number: NUMBERS[argmax3(num, b)],
-      color: COLORS[argmax3(col, b)],
-      shape: SHAPES[argmax3(shp, b)],
-      shading: SHADINGS[argmax3(shd, b)],
+      number: NUMBERS[argmax3(num, 0)],
+      color: COLORS[argmax3(col, 0)],
+      shape: SHAPES[argmax3(shp, 0)],
+      shading: SHADINGS[argmax3(shd, 0)],
       logits: {
-        number: toLogitMap(NUMBERS, num, b),
-        color: toLogitMap(COLORS, col, b),
-        shape: toLogitMap(SHAPES, shp, b),
-        shading: toLogitMap(SHADINGS, shd, b),
+        number: toLogitMap(NUMBERS, num, 0),
+        color: toLogitMap(COLORS, col, 0),
+        shape: toLogitMap(SHAPES, shp, 0),
+        shading: toLogitMap(SHADINGS, shd, 0),
       },
     })
   }

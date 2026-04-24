@@ -6,6 +6,16 @@ The exporter emits four named outputs (number_logits, color_logits,
 shape_logits, shading_logits) so the JS side can pluck them directly without
 depending on head order.
 
+Post-export, the graph is patched down to opset 13 for WebGL compatibility.
+The dynamo exporter targets opset 18+ which uses forms that onnxruntime-web's
+WebGL backend chokes on:
+  - ReduceMean passes axes as a second input tensor (opset 18+) instead of
+    an attribute (opset 13). WebGL errors with "Reduce op requires 1 input".
+  - Reshape emits an `allowzero` attribute (opset 14+) that WebGL doesn't
+    recognize.
+The patch moves ReduceMean axes back to an attribute, strips allowzero from
+Reshape, and stamps the graph as opset 13.
+
 Usage:
     uv run python -m set_id.export_onnx                      # smaller_best.pt → public/models/set_id_smaller.onnx
     uv run python -m set_id.export_onnx --ckpt checkpoints/small_best.pt
@@ -30,6 +40,42 @@ from set_id.model import build_model
 REPO_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_CKPT = REPO_ROOT / "ml" / "checkpoints" / "smaller_best.pt"
 
+WEBGL_TARGET_OPSET = 13
+
+
+def _patch_for_webgl(model_path: Path) -> int:
+    """Downgrade an exported ONNX graph to opset 13 for WebGL compatibility.
+
+    Returns the target opset version stamped into the model.
+    """
+    import onnx
+    from onnx import helper, numpy_helper
+
+    model = onnx.load(str(model_path))
+    inits = {i.name: numpy_helper.to_array(i) for i in model.graph.initializer}
+
+    for node in model.graph.node:
+        if node.op_type == "ReduceMean" and len(node.input) > 1:
+            axes_val = inits[node.input[1]]
+            del node.input[1]
+            while len(node.attribute):
+                node.attribute.pop()
+            node.attribute.append(helper.make_attribute("axes", axes_val.tolist()))
+            node.attribute.append(helper.make_attribute("keepdims", 1))
+
+        if node.op_type == "Reshape":
+            to_remove = [a for a in node.attribute if a.name == "allowzero"]
+            for a in to_remove:
+                node.attribute.remove(a)
+
+    for oi in model.opset_import:
+        if oi.domain in ("", "ai.onnx"):
+            oi.version = WEBGL_TARGET_OPSET
+
+    onnx.checker.check_model(model)
+    onnx.save(model, str(model_path))
+    return WEBGL_TARGET_OPSET
+
 
 def export(ckpt_path: Path, out_path: Path, opset: int | None = None) -> dict:
     state = torch.load(ckpt_path, map_location="cpu", weights_only=False)
@@ -52,7 +98,6 @@ def export(ckpt_path: Path, out_path: Path, opset: int | None = None) -> dict:
     # `dynamic_axes`; `Dim("batch")` makes dim 0 dynamic. `external_data=False`
     # keeps the weights inline in the .onnx file (default writes them to a
     # sibling .onnx.data, which is awkward for browser deployment).
-    batch_dim = torch.export.Dim("batch")
     export_kwargs: dict = {
         "input_names": ["pixels"],
         "output_names": [
@@ -61,7 +106,6 @@ def export(ckpt_path: Path, out_path: Path, opset: int | None = None) -> dict:
             "shape_logits",
             "shading_logits",
         ],
-        "dynamic_shapes": {"x": {0: batch_dim}},
         "external_data": False,
     }
     if opset is not None:
@@ -74,7 +118,7 @@ def export(ckpt_path: Path, out_path: Path, opset: int | None = None) -> dict:
         import onnxruntime as ort
 
         sess = ort.InferenceSession(str(out_path), providers=["CPUExecutionProvider"])
-        sample = torch.randn(2, 3, img_size, img_size)
+        sample = torch.randn(1, 3, img_size, img_size)
         with torch.inference_mode():
             torch_out = model(sample)
         ort_out = sess.run(None, {"pixels": sample.numpy()})
@@ -85,19 +129,8 @@ def export(ckpt_path: Path, out_path: Path, opset: int | None = None) -> dict:
     except ImportError:
         print("(skipping parity check — onnxruntime not installed)")
 
-    # Pull the actual opset back out of the written file so the sidecar
-    # records what we really shipped (may differ from the requested opset).
-    actual_opset: int | None = None
-    try:
-        import onnx
-
-        loaded = onnx.load(str(out_path), load_external_data=False)
-        for oi in loaded.opset_import:
-            if oi.domain in ("", "ai.onnx"):
-                actual_opset = oi.version
-                break
-    except Exception:
-        actual_opset = opset
+    actual_opset = _patch_for_webgl(out_path)
+    print(f"patched graph to opset {actual_opset} for WebGL compatibility")
 
     return {"arch": arch, "img_size": img_size, "opset": actual_opset}
 

@@ -1,5 +1,5 @@
 {
   "arch": "smaller",
   "img_size": 192,
-  "opset": 20
+  "opset": 13
 }
