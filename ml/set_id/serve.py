@@ -26,6 +26,7 @@ sys.modules.setdefault("pathlib._local", pathlib)
 import torch
 import numpy as np
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from PIL import Image, UnidentifiedImageError
 from pydantic import BaseModel, Field
 
@@ -97,6 +98,12 @@ def create_app(
     transform = val_transform(img_size)
 
     app = FastAPI(title="set-id")
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=["*"],
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
 
     @app.get("/health")
     def health() -> dict:
