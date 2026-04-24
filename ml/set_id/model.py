@@ -119,3 +119,25 @@ def build_model(arch: str, pretrained: bool = True) -> nn.Module:
 
 def param_count(model: nn.Module) -> int:
     return sum(p.numel() for p in model.parameters())
+
+
+def print_sizes() -> None:
+    """Print parameter counts for every arch, with a per-module breakdown."""
+    for arch in ARCHES:
+        model = build_model(arch, pretrained=False)
+        total = param_count(model)
+        print(f"{arch}: {total:,} params")
+        for name, child in model.named_children():
+            sub = sum(p.numel() for p in child.parameters())
+            print(f"  {name}: {sub:,}")
+        # One more level for `features` since that's where the shape choices live
+        if isinstance(getattr(model, "features", None), nn.Sequential):
+            for i, block in enumerate(model.features):
+                sub = sum(p.numel() for p in block.parameters())
+                if sub > 0:
+                    print(f"    features[{i}] ({type(block).__name__}): {sub:,}")
+        print()
+
+
+if __name__ == "__main__":
+    print_sizes()
