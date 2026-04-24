@@ -18,25 +18,18 @@ export type { CardLogits, LocalCardPrediction as CardPrediction } from "./analyz
 const MODEL_URL = "/models/set_id_smaller.onnx"
 const META_URL = "/models/set_id_smaller.json"
 
-let modelPromise: Promise<SetIdSession> | null = null
-
-function getModel(): Promise<SetIdSession> {
-  if (!modelPromise) {
-    modelPromise = (async () => {
-      const [modelBuf, metaResp] = await Promise.all([
-        fetch(MODEL_URL).then((r) => {
-          if (!r.ok) throw new Error(`Failed to load model: ${r.status}`)
-          return r.arrayBuffer()
-        }),
-        fetch(META_URL).then((r) => (r.ok ? r.json() : undefined)),
-      ])
-      return loadSetIdModel(modelBuf, {
-        meta: metaResp as ModelMeta | undefined,
-      })
-    })()
-  }
-  return modelPromise
-}
+const modelPromise: Promise<SetIdSession> = (async () => {
+  const [modelBuf, metaResp] = await Promise.all([
+    fetch(MODEL_URL).then((r) => {
+      if (!r.ok) throw new Error(`Failed to load model: ${r.status}`)
+      return r.arrayBuffer()
+    }),
+    fetch(META_URL).then((r) => (r.ok ? r.json() : undefined)),
+  ])
+  return loadSetIdModel(modelBuf, {
+    meta: metaResp as ModelMeta | undefined,
+  })
+})()
 
 async function blobToRGB(blob: Blob): Promise<RGBImage> {
   const bmp = await createImageBitmap(blob)
@@ -59,7 +52,7 @@ async function blobToRGB(blob: Blob): Promise<RGBImage> {
 export async function classifyCrops(crops: Blob[]) {
   if (crops.length === 0) return { predictions: [] }
   const [model, images] = await Promise.all([
-    getModel(),
+    modelPromise,
     Promise.all(crops.map(blobToRGB)),
   ])
   const predictions = await classifyCards(model, images)
