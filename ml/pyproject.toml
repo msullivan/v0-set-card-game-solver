@@ -38,6 +38,11 @@ torch = [
     { index = "pytorch-cu128", extra = "gpu" },
     { index = "pytorch-rocm", extra = "rocm", marker = "sys_platform == 'linux'" },
 ]
+torchvision = [
+    { index = "pytorch-cpu", extra = "cpu" },
+    { index = "pytorch-cu128", extra = "gpu" },
+    { index = "pytorch-rocm", extra = "rocm", marker = "sys_platform == 'linux'" },
+]
 # ROCm6 support relies on `pytorch-triton-rocm`, which should also be installed from the PyTorch index
 # (and included in `project.dependencies`).
 pytorch-triton-rocm = [
@@ -65,11 +70,14 @@ explicit = true
 [project.optional-dependencies]
 cpu = [
     "torch==2.11.0",
+    "torchvision==0.26.0",
 ]
 gpu = [
     "torch==2.11.0",
+    "torchvision==0.26.0",
 ]
 rocm = [
     "torch==2.11.0",
+    "torchvision==0.26.0",
     "triton-rocm==3.6.0; sys_platform == 'linux'",
 ]

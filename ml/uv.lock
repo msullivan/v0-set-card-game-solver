@@ -1327,7 +1327,11 @@ dependencies = [
     { name = "torch", version = "2.11.0+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform != 'darwin' and extra == 'extra-14-set-classifier-cpu') or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-gpu') or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-rocm') or (extra == 'extra-14-set-classifier-gpu' and extra == 'extra-14-set-classifier-rocm')" },
     { name = "torch", version = "2.11.0+cu128", source = { registry = "https://download.pytorch.org/whl/cu128" }, marker = "extra == 'extra-14-set-classifier-gpu' or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-rocm')" },
     { name = "torch", version = "2.11.0+rocm7.2", source = { registry = "https://download.pytorch.org/whl/rocm7.2" }, marker = "(sys_platform == 'linux' and extra == 'extra-14-set-classifier-rocm') or (extra == 'extra-14-set-classifier-gpu' and extra == 'extra-14-set-classifier-rocm') or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-gpu') or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-rocm')" },
-    { name = "torchvision" },
+    { name = "torchvision", version = "0.26.0", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform == 'darwin' and extra == 'extra-14-set-classifier-cpu') or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-gpu') or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-rocm') or (extra == 'extra-14-set-classifier-gpu' and extra == 'extra-14-set-classifier-rocm')" },
+    { name = "torchvision", version = "0.26.0", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform != 'linux' and extra != 'extra-14-set-classifier-cpu' and extra != 'extra-14-set-classifier-gpu') or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-gpu') or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-rocm') or (extra == 'extra-14-set-classifier-gpu' and extra == 'extra-14-set-classifier-rocm') or (extra != 'extra-14-set-classifier-cpu' and extra != 'extra-14-set-classifier-gpu' and extra != 'extra-14-set-classifier-rocm')" },
+    { name = "torchvision", version = "0.26.0+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform != 'darwin' and extra == 'extra-14-set-classifier-cpu') or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-gpu') or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-rocm') or (extra == 'extra-14-set-classifier-gpu' and extra == 'extra-14-set-classifier-rocm')" },
+    { name = "torchvision", version = "0.26.0+cu128", source = { registry = "https://download.pytorch.org/whl/cu128" }, marker = "extra == 'extra-14-set-classifier-gpu' or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-rocm')" },
+    { name = "torchvision", version = "0.26.0+rocm7.2", source = { registry = "https://download.pytorch.org/whl/rocm7.2" }, marker = "(sys_platform == 'linux' and extra == 'extra-14-set-classifier-rocm') or (extra == 'extra-14-set-classifier-gpu' and extra == 'extra-14-set-classifier-rocm') or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-gpu') or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-rocm')" },
     { name = "tqdm" },
     { name = "wandb" },
 ]
@@ -1336,13 +1340,18 @@ dependencies = [
 cpu = [
     { name = "torch", version = "2.11.0", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform == 'darwin' and extra == 'extra-14-set-classifier-cpu') or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-gpu') or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-rocm') or (extra == 'extra-14-set-classifier-gpu' and extra == 'extra-14-set-classifier-rocm')" },
     { name = "torch", version = "2.11.0+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform != 'darwin' and extra == 'extra-14-set-classifier-cpu') or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-gpu') or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-rocm') or (extra == 'extra-14-set-classifier-gpu' and extra == 'extra-14-set-classifier-rocm')" },
+    { name = "torchvision", version = "0.26.0", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform == 'darwin' and extra == 'extra-14-set-classifier-cpu') or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-gpu') or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-rocm') or (extra == 'extra-14-set-classifier-gpu' and extra == 'extra-14-set-classifier-rocm')" },
+    { name = "torchvision", version = "0.26.0+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform != 'darwin' and extra == 'extra-14-set-classifier-cpu') or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-gpu') or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-rocm') or (extra == 'extra-14-set-classifier-gpu' and extra == 'extra-14-set-classifier-rocm')" },
 ]
 gpu = [
     { name = "torch", version = "2.11.0+cu128", source = { registry = "https://download.pytorch.org/whl/cu128" } },
+    { name = "torchvision", version = "0.26.0+cu128", source = { registry = "https://download.pytorch.org/whl/cu128" } },
 ]
 rocm = [
     { name = "torch", version = "2.11.0", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform != 'linux' and extra == 'extra-14-set-classifier-rocm') or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-gpu') or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-rocm') or (extra == 'extra-14-set-classifier-gpu' and extra == 'extra-14-set-classifier-rocm')" },
     { name = "torch", version = "2.11.0+rocm7.2", source = { registry = "https://download.pytorch.org/whl/rocm7.2" }, marker = "(sys_platform == 'linux' and extra == 'extra-14-set-classifier-rocm') or (extra == 'extra-14-set-classifier-gpu' and extra == 'extra-14-set-classifier-rocm') or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-gpu') or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-rocm')" },
+    { name = "torchvision", version = "0.26.0", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform != 'linux' and extra == 'extra-14-set-classifier-rocm') or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-gpu') or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-rocm') or (extra == 'extra-14-set-classifier-gpu' and extra == 'extra-14-set-classifier-rocm')" },
+    { name = "torchvision", version = "0.26.0+rocm7.2", source = { registry = "https://download.pytorch.org/whl/rocm7.2" }, marker = "(sys_platform == 'linux' and extra == 'extra-14-set-classifier-rocm') or (extra == 'extra-14-set-classifier-gpu' and extra == 'extra-14-set-classifier-rocm') or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-gpu') or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-rocm')" },
     { name = "triton-rocm", marker = "sys_platform == 'linux'" },
 ]
 
@@ -1364,6 +1373,10 @@ requires-dist = [
     { name = "torch", marker = "extra == 'cpu'", specifier = "==2.11.0", index = "https://download.pytorch.org/whl/cpu", conflict = { package = "set-classifier", extra = "cpu" } },
     { name = "torch", marker = "extra == 'gpu'", specifier = "==2.11.0", index = "https://download.pytorch.org/whl/cu128", conflict = { package = "set-classifier", extra = "gpu" } },
     { name = "torchvision", specifier = ">=0.26" },
+    { name = "torchvision", marker = "sys_platform == 'linux' and extra == 'rocm'", specifier = "==0.26.0", index = "https://download.pytorch.org/whl/rocm7.2", conflict = { package = "set-classifier", extra = "rocm" } },
+    { name = "torchvision", marker = "sys_platform != 'linux' and extra == 'rocm'", specifier = "==0.26.0" },
+    { name = "torchvision", marker = "extra == 'cpu'", specifier = "==0.26.0", index = "https://download.pytorch.org/whl/cpu", conflict = { package = "set-classifier", extra = "cpu" } },
+    { name = "torchvision", marker = "extra == 'gpu'", specifier = "==0.26.0", index = "https://download.pytorch.org/whl/cu128", conflict = { package = "set-classifier", extra = "gpu" } },
     { name = "tqdm", specifier = ">=4.66" },
     { name = "triton-rocm", marker = "sys_platform == 'linux' and extra == 'rocm'", specifier = "==3.6.0", index = "https://download.pytorch.org/whl/rocm7.2" },
     { name = "wandb", specifier = ">=0.17" },
@@ -1710,15 +1723,36 @@ wheels = [
 [[package]]
 name = "torchvision"
 version = "0.26.0"
-source = { registry = "https://pypi.org/simple" }
+source = { registry = "https://download.pytorch.org/whl/cpu" }
+resolution-markers = [
+    "sys_platform == 'darwin'",
+]
 dependencies = [
-    { name = "numpy" },
-    { name = "pillow" },
+    { name = "numpy", marker = "(sys_platform == 'darwin' and extra == 'extra-14-set-classifier-cpu') or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-gpu') or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-rocm') or (extra == 'extra-14-set-classifier-gpu' and extra == 'extra-14-set-classifier-rocm')" },
+    { name = "pillow", marker = "(sys_platform == 'darwin' and extra == 'extra-14-set-classifier-cpu') or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-gpu') or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-rocm') or (extra == 'extra-14-set-classifier-gpu' and extra == 'extra-14-set-classifier-rocm')" },
     { name = "torch", version = "2.11.0", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform == 'darwin' and extra == 'extra-14-set-classifier-cpu') or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-gpu') or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-rocm') or (extra == 'extra-14-set-classifier-gpu' and extra == 'extra-14-set-classifier-rocm')" },
+]
+wheels = [
+    { url = "https://download-r2.pytorch.org/whl/cpu/torchvision-0.26.0-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:55bd6ad4ae77be01ba67a410b05b51f53b0d0ee45f146eb6a0dfb9007e70ab3c", upload-time = "2026-03-23T15:36:09Z" },
+    { url = "https://download-r2.pytorch.org/whl/cpu/torchvision-0.26.0-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:c409e1c3fdebec7a3834465086dbda8bf7680eff79abf7fd2f10c6b59520a7a4", upload-time = "2026-03-23T15:36:09Z" },
+    { url = "https://download-r2.pytorch.org/whl/cpu/torchvision-0.26.0-cp313-cp313-macosx_12_0_arm64.whl", hash = "sha256:5d63dd43162691258b1b3529b9041bac7d54caa37eae0925f997108268cbf7c4", upload-time = "2026-03-23T15:36:09Z" },
+    { url = "https://download-r2.pytorch.org/whl/cpu/torchvision-0.26.0-cp313-cp313t-macosx_12_0_arm64.whl", hash = "sha256:358fc4726d0c08615b6d83b3149854f11efb2a564ed1acb6fce882e151412d23", upload-time = "2026-03-23T15:36:09Z" },
+    { url = "https://download-r2.pytorch.org/whl/cpu/torchvision-0.26.0-cp314-cp314-macosx_12_0_arm64.whl", hash = "sha256:eb61804eb9dbe88c5a2a6c4da8dec1d80d2d0a6f18c999c524e32266cb1ebcd3", upload-time = "2026-03-23T15:36:09Z" },
+    { url = "https://download-r2.pytorch.org/whl/cpu/torchvision-0.26.0-cp314-cp314t-macosx_12_0_arm64.whl", hash = "sha256:b7d3e295624a28b3b1769228ce1345d94cf4d390dd31136766f76f2d20f718da", upload-time = "2026-03-23T15:36:09Z" },
+]
+
+[[package]]
+name = "torchvision"
+version = "0.26.0"
+source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "sys_platform != 'linux' and extra != 'extra-14-set-classifier-cpu' and extra != 'extra-14-set-classifier-gpu' and extra == 'extra-14-set-classifier-rocm'",
+    "extra != 'extra-14-set-classifier-cpu' and extra != 'extra-14-set-classifier-gpu' and extra != 'extra-14-set-classifier-rocm'",
+]
+dependencies = [
+    { name = "numpy", marker = "(sys_platform != 'linux' and extra != 'extra-14-set-classifier-cpu' and extra != 'extra-14-set-classifier-gpu') or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-gpu') or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-rocm') or (extra == 'extra-14-set-classifier-gpu' and extra == 'extra-14-set-classifier-rocm') or (extra != 'extra-14-set-classifier-cpu' and extra != 'extra-14-set-classifier-gpu' and extra != 'extra-14-set-classifier-rocm')" },
+    { name = "pillow", marker = "(sys_platform != 'linux' and extra != 'extra-14-set-classifier-cpu' and extra != 'extra-14-set-classifier-gpu') or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-gpu') or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-rocm') or (extra == 'extra-14-set-classifier-gpu' and extra == 'extra-14-set-classifier-rocm') or (extra != 'extra-14-set-classifier-cpu' and extra != 'extra-14-set-classifier-gpu' and extra != 'extra-14-set-classifier-rocm')" },
     { name = "torch", version = "2.11.0", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform != 'linux' and extra != 'extra-14-set-classifier-cpu' and extra != 'extra-14-set-classifier-gpu') or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-gpu') or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-rocm') or (extra == 'extra-14-set-classifier-gpu' and extra == 'extra-14-set-classifier-rocm') or (extra != 'extra-14-set-classifier-cpu' and extra != 'extra-14-set-classifier-gpu' and extra != 'extra-14-set-classifier-rocm')" },
-    { name = "torch", version = "2.11.0+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform != 'darwin' and extra == 'extra-14-set-classifier-cpu') or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-gpu') or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-rocm') or (extra == 'extra-14-set-classifier-gpu' and extra == 'extra-14-set-classifier-rocm')" },
-    { name = "torch", version = "2.11.0+cu128", source = { registry = "https://download.pytorch.org/whl/cu128" }, marker = "extra == 'extra-14-set-classifier-gpu' or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-rocm')" },
-    { name = "torch", version = "2.11.0+rocm7.2", source = { registry = "https://download.pytorch.org/whl/rocm7.2" }, marker = "(sys_platform == 'linux' and extra == 'extra-14-set-classifier-rocm') or (extra == 'extra-14-set-classifier-gpu' and extra == 'extra-14-set-classifier-rocm') or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-gpu') or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-rocm')" },
 ]
 wheels = [
     { url = "https://files.pythonhosted.org/packages/b4/bd/d552a2521bade3295b2c6e7a4a0d1022261cab7ca7011f4e2a330dbb3caa/torchvision-0.26.0-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:55bd6ad4ae77be01ba67a410b05b51f53b0d0ee45f146eb6a0dfb9007e70ab3c", size = 1863499, upload-time = "2026-03-23T18:12:58.696Z" },
@@ -1745,6 +1779,90 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/d2/6a/18a582fe3c5ee26f49b5c9fb21ad8016b4d1c06d10178894a58653946fda/torchvision-0.26.0-cp314-cp314t-manylinux_2_28_aarch64.whl", hash = "sha256:7058c5878262937e876f20c25867b33724586aa4499e2853b2d52b99a5e51953", size = 7729089, upload-time = "2026-03-23T18:12:31.394Z" },
     { url = "https://files.pythonhosted.org/packages/c5/9b/f7e119b59499edc00c55c03adc9ec3bd96144d9b81c46852c431f9c64a9a/torchvision-0.26.0-cp314-cp314t-manylinux_2_28_x86_64.whl", hash = "sha256:8008474855623c6ba52876589dc52df0aa66e518c25eca841445348e5f79844c", size = 7522704, upload-time = "2026-03-23T18:12:20.301Z" },
     { url = "https://files.pythonhosted.org/packages/d0/6a/09f3844c10643f6c0de5d95abc863420cfaf194c88c7dffd0ac523e2015f/torchvision-0.26.0-cp314-cp314t-win_amd64.whl", hash = "sha256:e9d0e022c19a78552fb055d0414d47fecb4a649309b9968573daea160ba6869c", size = 4454275, upload-time = "2026-03-23T18:12:27.487Z" },
+]
+
+[[package]]
+name = "torchvision"
+version = "0.26.0+cpu"
+source = { registry = "https://download.pytorch.org/whl/cpu" }
+resolution-markers = [
+    "sys_platform != 'darwin'",
+]
+dependencies = [
+    { name = "numpy", marker = "(sys_platform != 'darwin' and extra == 'extra-14-set-classifier-cpu') or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-gpu') or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-rocm') or (extra == 'extra-14-set-classifier-gpu' and extra == 'extra-14-set-classifier-rocm')" },
+    { name = "pillow", marker = "(sys_platform != 'darwin' and extra == 'extra-14-set-classifier-cpu') or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-gpu') or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-rocm') or (extra == 'extra-14-set-classifier-gpu' and extra == 'extra-14-set-classifier-rocm')" },
+    { name = "torch", version = "2.11.0+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform != 'darwin' and extra == 'extra-14-set-classifier-cpu') or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-gpu') or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-rocm') or (extra == 'extra-14-set-classifier-gpu' and extra == 'extra-14-set-classifier-rocm')" },
+]
+wheels = [
+    { url = "https://download-r2.pytorch.org/whl/cpu/torchvision-0.26.0%2Bcpu-cp311-cp311-manylinux_2_28_aarch64.whl", hash = "sha256:c11e55041f6b84a6c4fb28981b901475aa81c38695ccec6ddfcc54c3fa9fac4f", upload-time = "2026-03-23T15:36:09Z" },
+    { url = "https://download-r2.pytorch.org/whl/cpu/torchvision-0.26.0%2Bcpu-cp311-cp311-manylinux_2_28_x86_64.whl", hash = "sha256:7fcc4584e9f2f8914f898a01437f25b16222fb0bfb3fdeba59cb1b0c640b0995", upload-time = "2026-03-23T15:36:09Z" },
+    { url = "https://download-r2.pytorch.org/whl/cpu/torchvision-0.26.0%2Bcpu-cp311-cp311-win_amd64.whl", hash = "sha256:f0c80af8e2807d52f3d480d9828d550f097ad55589f28aab4d65471b3d636359", upload-time = "2026-03-23T15:36:09Z" },
+    { url = "https://download-r2.pytorch.org/whl/cpu/torchvision-0.26.0%2Bcpu-cp312-cp312-manylinux_2_28_aarch64.whl", hash = "sha256:17f0b542331fc94230b4214c6d123f038af7330fd81019608c0d2402f3bc3079", upload-time = "2026-03-23T15:36:09Z" },
+    { url = "https://download-r2.pytorch.org/whl/cpu/torchvision-0.26.0%2Bcpu-cp312-cp312-manylinux_2_28_x86_64.whl", hash = "sha256:cf547dc0975eb40bc3249be4ccbeb736597d2c3ece305b1c4e5b7a5dd7363567", upload-time = "2026-03-23T15:36:09Z" },
+    { url = "https://download-r2.pytorch.org/whl/cpu/torchvision-0.26.0%2Bcpu-cp312-cp312-win_amd64.whl", hash = "sha256:52aa8401850a9792e71a8a1e65ac004e2b23622a6b6fd278cd11179efbefc65b", upload-time = "2026-03-23T15:36:09Z" },
+    { url = "https://download-r2.pytorch.org/whl/cpu/torchvision-0.26.0%2Bcpu-cp313-cp313-manylinux_2_28_aarch64.whl", hash = "sha256:2e932af123a39137815dfd152c64cc683fa7cbd327c965e807c9728c7aa4971a", upload-time = "2026-03-23T15:36:09Z" },
+    { url = "https://download-r2.pytorch.org/whl/cpu/torchvision-0.26.0%2Bcpu-cp313-cp313-manylinux_2_28_x86_64.whl", hash = "sha256:16c4f11eda096dc377e82238c8ebb26c7013622c0f1b2c4dcf85fc70f96c0ea7", upload-time = "2026-03-23T15:36:09Z" },
+    { url = "https://download-r2.pytorch.org/whl/cpu/torchvision-0.26.0%2Bcpu-cp313-cp313-win_amd64.whl", hash = "sha256:34ac55a1f614baca2e0f5cef20ddb36184ee3503423871260e1ddd72caf9cb5f", upload-time = "2026-03-23T15:36:09Z" },
+    { url = "https://download-r2.pytorch.org/whl/cpu/torchvision-0.26.0%2Bcpu-cp313-cp313t-manylinux_2_28_aarch64.whl", hash = "sha256:3d30ce3444698807d4b18b199645cd7a95e0b16a4cd0909b8aab47c562a7673a", upload-time = "2026-03-23T15:36:09Z" },
+    { url = "https://download-r2.pytorch.org/whl/cpu/torchvision-0.26.0%2Bcpu-cp313-cp313t-manylinux_2_28_x86_64.whl", hash = "sha256:870a97101168d4da68039d3d51f0c781047065e82dc4c19b2eb0ddff08486180", upload-time = "2026-03-23T15:36:09Z" },
+    { url = "https://download-r2.pytorch.org/whl/cpu/torchvision-0.26.0%2Bcpu-cp313-cp313t-win_amd64.whl", hash = "sha256:050aaf28cff9c2981ec72dc3f9b4ef77bcf9c9c99330ce426cb06c5bb9e6e726", upload-time = "2026-03-23T15:36:09Z" },
+    { url = "https://download-r2.pytorch.org/whl/cpu/torchvision-0.26.0%2Bcpu-cp314-cp314-manylinux_2_28_aarch64.whl", hash = "sha256:78576c8d5a8665de6caaa6e7c3a3fb7caa5dc112032ba60e129a9e78a446a03b", upload-time = "2026-03-23T15:36:09Z" },
+    { url = "https://download-r2.pytorch.org/whl/cpu/torchvision-0.26.0%2Bcpu-cp314-cp314-manylinux_2_28_x86_64.whl", hash = "sha256:78e88d0a57bfadcd17042aa92fe4dd1059e48fcaa2e54a10ac7f438c2eca10d5", upload-time = "2026-03-23T15:36:09Z" },
+    { url = "https://download-r2.pytorch.org/whl/cpu/torchvision-0.26.0%2Bcpu-cp314-cp314-win_amd64.whl", hash = "sha256:93144d0997c51b27996c8305df4d9104efb0d38c9a9b6b05c8bc20ebdf7193b5", upload-time = "2026-03-23T15:36:09Z" },
+    { url = "https://download-r2.pytorch.org/whl/cpu/torchvision-0.26.0%2Bcpu-cp314-cp314t-manylinux_2_28_aarch64.whl", hash = "sha256:93a11b159613ad920b1d42c4eb4e585f48e5dff895f3e08f517ef482fe84e130", upload-time = "2026-03-23T15:36:09Z" },
+    { url = "https://download-r2.pytorch.org/whl/cpu/torchvision-0.26.0%2Bcpu-cp314-cp314t-manylinux_2_28_x86_64.whl", hash = "sha256:99f86ec0a83b9e4b5428a452bf667f99a9ae27d4c32bd4b2081fe917303e7710", upload-time = "2026-03-23T15:36:09Z" },
+    { url = "https://download-r2.pytorch.org/whl/cpu/torchvision-0.26.0%2Bcpu-cp314-cp314t-win_amd64.whl", hash = "sha256:6139108231a29ffb607931360ee24594553a939467c65530f734a2ed9918f011", upload-time = "2026-03-23T15:36:09Z" },
+]
+
+[[package]]
+name = "torchvision"
+version = "0.26.0+cu128"
+source = { registry = "https://download.pytorch.org/whl/cu128" }
+dependencies = [
+    { name = "numpy", marker = "extra == 'extra-14-set-classifier-gpu' or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-rocm')" },
+    { name = "pillow", marker = "extra == 'extra-14-set-classifier-gpu' or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-rocm')" },
+    { name = "torch", version = "2.11.0+cu128", source = { registry = "https://download.pytorch.org/whl/cu128" }, marker = "extra == 'extra-14-set-classifier-gpu' or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-rocm')" },
+]
+wheels = [
+    { url = "https://download-r2.pytorch.org/whl/cu128/torchvision-0.26.0%2Bcu128-cp311-cp311-manylinux_2_28_aarch64.whl", hash = "sha256:ed1324dbbbecb5a0149ed4ce8f9308465a1eef85ca2d2370dbb14805bf1c90aa", upload-time = "2026-04-09T23:21:34Z" },
+    { url = "https://download-r2.pytorch.org/whl/cu128/torchvision-0.26.0%2Bcu128-cp311-cp311-manylinux_2_28_x86_64.whl", hash = "sha256:8f2629d056570c929b0a1d5473d9cb0320b90bda1764bda353553a72cc6b2069", upload-time = "2026-03-23T15:36:22Z" },
+    { url = "https://download-r2.pytorch.org/whl/cu128/torchvision-0.26.0%2Bcu128-cp311-cp311-win_amd64.whl", hash = "sha256:d26091b15cd6e3c74c148d9b68c9a901ad6fb9b0f66fa3ea3ab09f04132a07d3", upload-time = "2026-04-09T23:21:35Z" },
+    { url = "https://download-r2.pytorch.org/whl/cu128/torchvision-0.26.0%2Bcu128-cp312-cp312-manylinux_2_28_aarch64.whl", hash = "sha256:63e35234aed13b6edda37056f417b5c281249669db631e706811917af36b21d7", upload-time = "2026-04-09T23:21:35Z" },
+    { url = "https://download-r2.pytorch.org/whl/cu128/torchvision-0.26.0%2Bcu128-cp312-cp312-manylinux_2_28_x86_64.whl", hash = "sha256:ccf26b4b659cfce6f2208cb8326071d51c70219a34856dfdf468d1e19af52c0d", upload-time = "2026-03-23T15:36:22Z" },
+    { url = "https://download-r2.pytorch.org/whl/cu128/torchvision-0.26.0%2Bcu128-cp312-cp312-win_amd64.whl", hash = "sha256:8c0d1c4fbb2c9a4d5d41d0aaa87da20e525bcb2a154ce405725b0be59456804b", upload-time = "2026-04-09T23:21:36Z" },
+    { url = "https://download-r2.pytorch.org/whl/cu128/torchvision-0.26.0%2Bcu128-cp313-cp313-manylinux_2_28_aarch64.whl", hash = "sha256:c4a9cacd521f2a4df0bcd9d8e96704771b928f478f1f3067e4085bb53a1da298", upload-time = "2026-04-09T23:21:37Z" },
+    { url = "https://download-r2.pytorch.org/whl/cu128/torchvision-0.26.0%2Bcu128-cp313-cp313-manylinux_2_28_x86_64.whl", hash = "sha256:cb1f6184a7ba30fba40580e1a01a6604a86c55e79fdda187f40116ee680441ec", upload-time = "2026-03-23T15:36:22Z" },
+    { url = "https://download-r2.pytorch.org/whl/cu128/torchvision-0.26.0%2Bcu128-cp313-cp313-win_amd64.whl", hash = "sha256:0232cb219927a52d6c98ff202f32d1cdf4802c2195a85fc1f1a0c1b0b4983a4d", upload-time = "2026-04-09T23:21:38Z" },
+    { url = "https://download-r2.pytorch.org/whl/cu128/torchvision-0.26.0%2Bcu128-cp313-cp313t-manylinux_2_28_aarch64.whl", hash = "sha256:e594732552a8c2fee2ace9c6475c6c6904fc44ccca622ee6765a89a045416a44", upload-time = "2026-04-09T23:21:38Z" },
+    { url = "https://download-r2.pytorch.org/whl/cu128/torchvision-0.26.0%2Bcu128-cp313-cp313t-manylinux_2_28_x86_64.whl", hash = "sha256:6168abc019803ac9e97efce27eafd2fdb33db04dcc54a86039537729e5047b29", upload-time = "2026-03-23T15:36:23Z" },
+    { url = "https://download-r2.pytorch.org/whl/cu128/torchvision-0.26.0%2Bcu128-cp313-cp313t-win_amd64.whl", hash = "sha256:367d42ea703844ecdb516e9d5eb09929012a58705d2622cf4e9e3c37f278cb85", upload-time = "2026-04-09T23:21:39Z" },
+    { url = "https://download-r2.pytorch.org/whl/cu128/torchvision-0.26.0%2Bcu128-cp314-cp314-manylinux_2_28_aarch64.whl", hash = "sha256:b3865fa227661dd75b7b28c96d3d14e739bd08bf0614132758922fe0e7206f91", upload-time = "2026-04-09T23:21:39Z" },
+    { url = "https://download-r2.pytorch.org/whl/cu128/torchvision-0.26.0%2Bcu128-cp314-cp314-manylinux_2_28_x86_64.whl", hash = "sha256:aac647c9130f1f25f5c8f5bca3d95cfd96bdfac93ab54529690b088e64e4fa64", upload-time = "2026-03-23T15:36:23Z" },
+    { url = "https://download-r2.pytorch.org/whl/cu128/torchvision-0.26.0%2Bcu128-cp314-cp314-win_amd64.whl", hash = "sha256:6319e1ba49c6f62ac9902f73d0eab207b8a4dc6b4d3392fe9edd9903fff1be0a", upload-time = "2026-04-09T23:21:40Z" },
+    { url = "https://download-r2.pytorch.org/whl/cu128/torchvision-0.26.0%2Bcu128-cp314-cp314t-manylinux_2_28_aarch64.whl", hash = "sha256:e2ee9e16ee4518292694537fcbd20d2d27044e381d92b864f637e82795796a84", upload-time = "2026-04-09T23:21:40Z" },
+    { url = "https://download-r2.pytorch.org/whl/cu128/torchvision-0.26.0%2Bcu128-cp314-cp314t-manylinux_2_28_x86_64.whl", hash = "sha256:b5772c55bfda4377df8f1930d43c4e0231ef231b0228eade4b227c8d3ba6e34e", upload-time = "2026-03-23T15:36:23Z" },
+    { url = "https://download-r2.pytorch.org/whl/cu128/torchvision-0.26.0%2Bcu128-cp314-cp314t-win_amd64.whl", hash = "sha256:f160dc552a086244f7102c898f7be8ef46a41b36bce5ea80a4f2493cb30ca1fc", upload-time = "2026-04-09T23:21:41Z" },
+]
+
+[[package]]
+name = "torchvision"
+version = "0.26.0+rocm7.2"
+source = { registry = "https://download.pytorch.org/whl/rocm7.2" }
+resolution-markers = [
+    "sys_platform == 'linux'",
+]
+dependencies = [
+    { name = "numpy", marker = "(sys_platform == 'linux' and extra == 'extra-14-set-classifier-rocm') or (extra == 'extra-14-set-classifier-gpu' and extra == 'extra-14-set-classifier-rocm') or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-gpu') or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-rocm')" },
+    { name = "pillow", marker = "(sys_platform == 'linux' and extra == 'extra-14-set-classifier-rocm') or (extra == 'extra-14-set-classifier-gpu' and extra == 'extra-14-set-classifier-rocm') or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-gpu') or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-rocm')" },
+    { name = "torch", version = "2.11.0+rocm7.2", source = { registry = "https://download.pytorch.org/whl/rocm7.2" }, marker = "(sys_platform == 'linux' and extra == 'extra-14-set-classifier-rocm') or (extra == 'extra-14-set-classifier-gpu' and extra == 'extra-14-set-classifier-rocm') or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-gpu') or (extra == 'extra-14-set-classifier-cpu' and extra == 'extra-14-set-classifier-rocm')" },
+]
+wheels = [
+    { url = "https://download-r2.pytorch.org/whl/rocm7.2/torchvision-0.26.0%2Brocm7.2-cp311-cp311-manylinux_2_28_x86_64.whl", hash = "sha256:2104e5a357e32bd9260a32149af8ba0a5873dc579d6fe86b23b704c03111c277", upload-time = "2026-03-23T15:36:37Z" },
+    { url = "https://download-r2.pytorch.org/whl/rocm7.2/torchvision-0.26.0%2Brocm7.2-cp312-cp312-manylinux_2_28_x86_64.whl", hash = "sha256:2d766e7b69bfaf2fc29471ed95727fd19fa7aa88124fcf1f1808fd03bf86f226", upload-time = "2026-03-23T15:36:37Z" },
+    { url = "https://download-r2.pytorch.org/whl/rocm7.2/torchvision-0.26.0%2Brocm7.2-cp313-cp313-manylinux_2_28_x86_64.whl", hash = "sha256:51e9bdb4d603b61d4d26be9436ce968daef1492b138753ae610cceb4ad6b5c0c", upload-time = "2026-03-23T15:36:37Z" },
+    { url = "https://download-r2.pytorch.org/whl/rocm7.2/torchvision-0.26.0%2Brocm7.2-cp313-cp313t-manylinux_2_28_x86_64.whl", hash = "sha256:720e0c54d6384223c4678685a0522a8fca367293b646dbdf6bc5b5f804da0f49", upload-time = "2026-03-23T15:36:37Z" },
+    { url = "https://download-r2.pytorch.org/whl/rocm7.2/torchvision-0.26.0%2Brocm7.2-cp314-cp314-manylinux_2_28_x86_64.whl", hash = "sha256:6e7337224df2c9391cd19f10cd4193cf0c06ccb929cf62c13da39d359ec8b3e9", upload-time = "2026-03-23T15:36:37Z" },
+    { url = "https://download-r2.pytorch.org/whl/rocm7.2/torchvision-0.26.0%2Brocm7.2-cp314-cp314t-manylinux_2_28_x86_64.whl", hash = "sha256:3e44fbec828d4f427e4e4d82e7a868597a6ce54897936ab77ba830d3e716f953", upload-time = "2026-03-23T15:36:37Z" },
 ]
 
 [[package]]
