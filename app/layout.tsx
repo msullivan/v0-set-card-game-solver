@@ -8,7 +8,7 @@ const OPENCV_URL = "https://cdn.jsdelivr.net/npm/@techstark/opencv-js@4.12.0-rel
 
 export const metadata: Metadata = {
   title: 'Set Solver - Find Sets in Your Cards',
-  description: 'Upload a photo of Set cards and instantly find all valid sets using AI vision',
+  description: 'Upload a photo of Set cards and instantly find all valid sets. Runs entirely in your browser.',
   generator: 'v0.app',
 }
 
