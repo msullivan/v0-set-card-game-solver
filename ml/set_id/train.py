@@ -27,6 +27,15 @@ from set_id.model import build_model, param_count
 
 ATTRS = ("number", "color", "shape", "shading")
 
+# Per-arch defaults: ResNet-18 is fine-tuned from ImageNet (small LRs,
+# phased training to protect pretrained weights). The custom CNN trains
+# from scratch, so phase 1 (frozen random features) is pointless, and the
+# whole net wants a normal scratch-training LR.
+ARCH_DEFAULTS: dict[str, dict[str, float | int]] = {
+    "resnet18": {"phase1_epochs": 10, "backbone_lr": 1e-5, "heads_lr": 1e-4},
+    "small":    {"phase1_epochs": 0,  "backbone_lr": 1e-3, "heads_lr": 1e-3},
+}
+
 
 @dataclass
 class TrainConfig:
@@ -186,18 +195,23 @@ def run(cfg: TrainConfig) -> None:
 
     scaler = torch.amp.GradScaler("cuda", enabled=cfg.amp and device.type == "cuda")
 
-    # Phase 1: frozen backbone
-    model.freeze_backbone()
-    phase1_params = [p for p in model.parameters() if p.requires_grad]
-    opt = torch.optim.Adam(phase1_params, lr=cfg.phase1_lr, weight_decay=cfg.weight_decay)
-    for epoch in range(cfg.phase1_epochs):
-        tr_loss = train_one_epoch(model, train_dl, opt, device, scaler, cfg.amp)
+    def end_of_epoch(phase: int, epoch_in_phase: int, tr_loss: float, extra_log: dict | None = None) -> None:
+        nonlocal best_score
         meter, val_loss = evaluate(model, val_dl, device)
         m = meter.summary()
         score = m["acc/mean_attr"]
-        log = {"phase": 1, "epoch": epoch, "train/loss": tr_loss, "val/loss": val_loss, **{f"val/{k}": v for k, v in m.items()}}
+        global_epoch = epoch_in_phase if phase == 1 else cfg.phase1_epochs + epoch_in_phase
+        log = {
+            "phase": phase,
+            "epoch": global_epoch,
+            "train/loss": tr_loss,
+            "val/loss": val_loss,
+            **{f"val/{k}": v for k, v in m.items()},
+        }
+        if extra_log:
+            log.update(extra_log)
         print(
-            f"[p1 {epoch:02d}] train={tr_loss:.4f} val={val_loss:.4f} "
+            f"[p{phase} {epoch_in_phase:02d}] train={tr_loss:.4f} val={val_loss:.4f} "
             f"mean={score:.3f} full={m['acc/full_card']:.3f}"
         )
         if wandb:
@@ -206,14 +220,20 @@ def run(cfg: TrainConfig) -> None:
             best_score = score
             torch.save({"cfg": cfg.__dict__, "state_dict": model.state_dict()}, best_path)
 
+    # Phase 1: frozen backbone, train heads only
+    model.freeze_backbone()
+    phase1_params = [p for p in model.parameters() if p.requires_grad]
+    opt = torch.optim.Adam(phase1_params, lr=cfg.phase1_lr, weight_decay=cfg.weight_decay)
+    for epoch in range(cfg.phase1_epochs):
+        tr_loss = train_one_epoch(model, train_dl, opt, device, scaler, cfg.amp)
+        end_of_epoch(1, epoch, tr_loss)
+
     # Phase 2: full fine-tune with cosine schedule
     model.unfreeze_backbone()
-    backbone_params = list(model.features.parameters())
-    head_params = list(model.heads.parameters())
     opt = torch.optim.AdamW(
         [
-            {"params": backbone_params, "lr": cfg.backbone_lr},
-            {"params": head_params, "lr": cfg.heads_lr},
+            {"params": list(model.features.parameters()), "lr": cfg.backbone_lr},
+            {"params": list(model.heads.parameters()), "lr": cfg.heads_lr},
         ],
         weight_decay=cfg.weight_decay,
     )
@@ -233,27 +253,10 @@ def run(cfg: TrainConfig) -> None:
             lr_schedule=cosine_schedule,
         )
         step_offset += len(train_dl)
-        meter, val_loss = evaluate(model, val_dl, device)
-        m = meter.summary()
-        score = m["acc/mean_attr"]
-        log = {
-            "phase": 2,
-            "epoch": cfg.phase1_epochs + epoch,
-            "train/loss": tr_loss,
-            "val/loss": val_loss,
+        end_of_epoch(2, epoch, tr_loss, extra_log={
             "lr/backbone": opt.param_groups[0]["lr"],
             "lr/heads": opt.param_groups[1]["lr"],
-            **{f"val/{k}": v for k, v in m.items()},
-        }
-        print(
-            f"[p2 {epoch:02d}] train={tr_loss:.4f} val={val_loss:.4f} "
-            f"mean={score:.3f} full={m['acc/full_card']:.3f}"
-        )
-        if wandb:
-            wandb.log(log)
-        if score > best_score:
-            best_score = score
-            torch.save({"cfg": cfg.__dict__, "state_dict": model.state_dict()}, best_path)
+        })
 
     print(f"best mean-attr val acc: {best_score:.4f}  → {best_path}")
     if wandb:
@@ -266,8 +269,13 @@ def parse_args() -> TrainConfig:
     p.add_argument("--arch", choices=("resnet18", "small"), default="resnet18")
     p.add_argument("--img-size", type=int, default=128)
     p.add_argument("--batch-size", type=int, default=32)
-    p.add_argument("--phase1-epochs", type=int, default=10)
+    p.add_argument("--phase1-epochs", type=int, default=None,
+                   help="default: 10 for resnet18, 0 for small (scratch)")
     p.add_argument("--phase2-epochs", type=int, default=40)
+    p.add_argument("--backbone-lr", type=float, default=None,
+                   help="default: 1e-5 for resnet18, 1e-3 for small")
+    p.add_argument("--heads-lr", type=float, default=None,
+                   help="default: 1e-4 for resnet18, 1e-3 for small")
     p.add_argument("--num-workers", type=int, default=2)
     p.add_argument("--holdout-identities", type=int, default=15)
     p.add_argument("--seed", type=int, default=0)
@@ -282,12 +290,15 @@ def parse_args() -> TrainConfig:
         "Pass empty string to include all. Default excludes '021' (orange-cast).",
     )
     args = p.parse_args()
+    d = ARCH_DEFAULTS[args.arch]
     cfg = TrainConfig(
         arch=args.arch,
         img_size=args.img_size,
         batch_size=args.batch_size,
-        phase1_epochs=args.phase1_epochs,
+        phase1_epochs=args.phase1_epochs if args.phase1_epochs is not None else d["phase1_epochs"],
         phase2_epochs=args.phase2_epochs,
+        backbone_lr=args.backbone_lr if args.backbone_lr is not None else d["backbone_lr"],
+        heads_lr=args.heads_lr if args.heads_lr is not None else d["heads_lr"],
         num_workers=args.num_workers,
         holdout_identities=args.holdout_identities,
         seed=args.seed,
