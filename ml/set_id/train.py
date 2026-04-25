@@ -58,9 +58,7 @@ class TrainConfig:
     run_name: str | None = None
     crops_dir: Path = Path(__file__).resolve().parents[2] / "test-images" / "crops"
     out_dir: Path = Path(__file__).resolve().parents[1] / "checkpoints"
-    # 021 is shot under orange light — pixel colors disagree with labels;
-    # those crops poison training more than they help.
-    exclude_sources: tuple[str, ...] = ("021",)
+    exclude_sources: tuple[str, ...] = ()
 
 
 def build_loaders(cfg: TrainConfig) -> tuple[DataLoader, DataLoader]:
@@ -287,8 +285,7 @@ def parse_args() -> TrainConfig:
     p.add_argument(
         "--exclude-sources",
         default=None,
-        help="Comma-separated source image ids to drop (e.g. '021,024'). "
-        "Pass empty string to include all. Default excludes '021' (orange-cast).",
+        help="Comma-separated source image ids to drop (e.g. '021,024').",
     )
     args = p.parse_args()
     d = ARCH_DEFAULTS[args.arch]
