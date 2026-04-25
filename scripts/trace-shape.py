@@ -85,6 +85,33 @@ def rdp(points: list[tuple[float, float]], eps: float) -> list[tuple[float, floa
     return _rdp(points)
 
 
+def polyline(pts: list[tuple[float, float]]) -> str:
+    """Emit `pts` as a closed polyline (M + L*)."""
+    out = [f"M {pts[0][0]:.2f},{pts[0][1]:.2f}"]
+    for x, y in pts[1:]:
+        out.append(f"L {x:.2f},{y:.2f}")
+    out.append("Z")
+    return " ".join(out)
+
+
+def chaikin(pts: list[tuple[float, float]], iters: int) -> list[tuple[float, float]]:
+    """Chaikin's corner-cutting on a closed polygon. Approaches a quadratic
+    B-spline in the limit — stays inside the convex hull, so no overshoot
+    or pinching like splprep can produce.
+    """
+    out = list(pts)
+    for _ in range(iters):
+        n = len(out)
+        new: list[tuple[float, float]] = []
+        for i in range(n):
+            p0 = out[i]
+            p1 = out[(i + 1) % n]
+            new.append((0.75 * p0[0] + 0.25 * p1[0], 0.75 * p0[1] + 0.25 * p1[1]))
+            new.append((0.25 * p0[0] + 0.75 * p1[0], 0.25 * p0[1] + 0.75 * p1[1]))
+        out = new
+    return out
+
+
 def midpoint_quadratic(pts: list[tuple[float, float]]) -> str:
     """Closed quadratic-Bezier path: each polygon vertex is a control,
     midpoints between consecutive vertices are on-curve points.
@@ -127,8 +154,22 @@ def main():
     simp = rdp(pts, target_eps)
     if simp and simp[-1] == simp[0]:
         simp = simp[:-1]
+
+    # Dedupe near-coincident vertices: the midpoint-quadratic smoothing
+    # produces visible pinches when two control points are very close, since
+    # the tangent changes abruptly between segments.
+    def dedupe_close(pts: list[tuple[float, float]], min_dist: float) -> list[tuple[float, float]]:
+        out: list[tuple[float, float]] = []
+        for p in pts:
+            if not out or ((p[0] - out[-1][0]) ** 2 + (p[1] - out[-1][1]) ** 2) ** 0.5 >= min_dist:
+                out.append(p)
+        while len(out) > 3 and ((out[0][0] - out[-1][0]) ** 2 + (out[0][1] - out[-1][1]) ** 2) ** 0.5 < min_dist:
+            out.pop()
+        return out
+
+    simp = dedupe_close(simp, min_dist=max(target_eps * 0.6, 2.0))
     eps = target_eps
-    print(f"Chosen eps={eps}, {len(simp)} points")
+    print(f"Chosen eps={eps}, {len(simp)} points after dedupe")
 
     # Normalize to viewBox 0 0 100 50.
     xs = [p[0] for p in simp]
@@ -149,7 +190,8 @@ def main():
 
     print(f"normalized aspect: width=100, height={new_h:.1f}")
 
-    path = catmull_to_bezier(norm)
+    smoothed = chaikin(norm, iters=2)
+    path = polyline(smoothed)
     print()
     print(path)
     print()
