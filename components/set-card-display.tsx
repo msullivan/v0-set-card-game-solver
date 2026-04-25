@@ -11,94 +11,56 @@ interface SetCardDisplayProps {
   onClick?: () => void
 }
 
-const colorMap = {
-  red: "text-red-500",
-  green: "text-emerald-500",
-  purple: "text-purple-500",
-}
-
 const bgColorMap = {
   red: "bg-red-50 border-red-200",
   green: "bg-emerald-50 border-emerald-200",
   purple: "bg-purple-50 border-purple-200",
 }
 
-// SVG shapes for Set cards
-function DiamondShape({ shading, color }: { shading: string; color: string }) {
-  const fillColor = color === "red" ? "#ef4444" : color === "green" ? "#10b981" : "#a855f7"
+// SVG shapes for Set cards. All paths use viewBox 0 0 100 50.
+const SHAPE_PATHS = {
+  diamond: "M 3,25 L 50,3 L 97,25 L 50,47 Z",
+  oval: "M 25,3 L 75,3 A 22,22 0 0 1 75,47 L 25,47 A 22,22 0 0 1 25,3 Z",
+  squiggle:
+    "M 8,35 C 8,19 27,3 50,19 C 73,28 92,3 92,15 C 92,28 73,48 50,31 C 27,23 8,48 8,35 Z",
+} as const
 
+const FILL_COLOR = {
+  red: "#ef4444",
+  green: "#10b981",
+  purple: "#a855f7",
+} as const
+
+function ShapeRenderer({
+  shape,
+  shading,
+  color,
+}: {
+  shape: keyof typeof SHAPE_PATHS
+  shading: string
+  color: keyof typeof FILL_COLOR
+}) {
+  const fillColor = FILL_COLOR[color]
+  const patternId = `stripe-${color}`
+  const fill =
+    shading === "solid" ? fillColor : shading === "striped" ? `url(#${patternId})` : "none"
   return (
-    <svg viewBox="0 0 60 40" className="w-[60%] h-auto">
-      <polygon
-        points="5,20 30,5 55,20 30,35"
-        fill={shading === "solid" ? fillColor : shading === "striped" ? `url(#stripe-${color})` : "none"}
-        stroke={fillColor}
-        strokeWidth="2"
-      />
+    <svg viewBox="0 0 100 50" className="w-[70%] h-auto">
       <defs>
-        <pattern id={`stripe-${color}`} patternUnits="userSpaceOnUse" width="4" height="4">
+        <pattern id={patternId} patternUnits="userSpaceOnUse" width="4" height="4">
           <line x1="0" y1="0" x2="0" y2="4" stroke={fillColor} strokeWidth="1.5" />
         </pattern>
       </defs>
-    </svg>
-  )
-}
-
-function OvalShape({ shading, color }: { shading: string; color: string }) {
-  const fillColor = color === "red" ? "#ef4444" : color === "green" ? "#10b981" : "#a855f7"
-
-  return (
-    <svg viewBox="0 0 60 40" className="w-[60%] h-auto">
-      <ellipse
-        cx="30"
-        cy="20"
-        rx="25"
-        ry="15"
-        fill={shading === "solid" ? fillColor : shading === "striped" ? `url(#stripe-oval-${color})` : "none"}
-        stroke={fillColor}
-        strokeWidth="2"
-      />
-      <defs>
-        <pattern id={`stripe-oval-${color}`} patternUnits="userSpaceOnUse" width="4" height="4">
-          <line x1="0" y1="0" x2="0" y2="4" stroke={fillColor} strokeWidth="1.5" />
-        </pattern>
-      </defs>
-    </svg>
-  )
-}
-
-function SquiggleShape({ shading, color }: { shading: string; color: string }) {
-  const fillColor = color === "red" ? "#ef4444" : color === "green" ? "#10b981" : "#a855f7"
-
-  return (
-    <svg viewBox="0 0 60 40" className="w-[60%] h-auto">
       <path
-        d="M5,28 C5,15 16,2 30,15 C44,22 55,2 55,12 C55,22 44,38 30,25 C16,18 5,38 5,28Z"
-        fill={shading === "solid" ? fillColor : shading === "striped" ? `url(#stripe-squiggle-${color})` : "none"}
+        d={SHAPE_PATHS[shape]}
+        fill={fill}
         stroke={fillColor}
         strokeWidth="2"
         strokeLinejoin="round"
+        vectorEffect="non-scaling-stroke"
       />
-      <defs>
-        <pattern id={`stripe-squiggle-${color}`} patternUnits="userSpaceOnUse" width="4" height="4">
-          <line x1="0" y1="0" x2="0" y2="4" stroke={fillColor} strokeWidth="1.5" />
-        </pattern>
-      </defs>
     </svg>
   )
-}
-
-function ShapeRenderer({ shape, shading, color }: { shape: string; shading: string; color: string }) {
-  switch (shape) {
-    case "diamond":
-      return <DiamondShape shading={shading} color={color} />
-    case "oval":
-      return <OvalShape shading={shading} color={color} />
-    case "squiggle":
-      return <SquiggleShape shading={shading} color={color} />
-    default:
-      return null
-  }
 }
 
 export function SetCardDisplay({ card, highlighted, size = "md", onClick }: SetCardDisplayProps) {
