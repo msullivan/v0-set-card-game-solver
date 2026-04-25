@@ -2,7 +2,7 @@
 
 import { type SetCard } from "@/lib/set-game"
 import { cn } from "@/lib/utils"
-import { Pencil } from "lucide-react"
+import { Pencil, AlertTriangle } from "lucide-react"
 
 interface SetCardDisplayProps {
   card: SetCard
@@ -102,6 +102,16 @@ export function SetCardDisplay({ card, highlighted, size = "md", onClick }: SetC
           <div className="bg-black/40 rounded p-0.5">
             <Pencil className="w-2.5 h-2.5 text-white" />
           </div>
+        </div>
+      )}
+      {card.uncertain && card.uncertain.length > 0 && (
+        <div
+          className="absolute top-1 left-1 text-amber-500"
+          title={`Uncertain: ${card.uncertain
+            .map((u) => `${u.attr} (${(u.topProb * 100).toFixed(0)}%)`)
+            .join(", ")}`}
+        >
+          <AlertTriangle className="w-3.5 h-3.5 fill-amber-100" strokeWidth={2.5} />
         </div>
       )}
     </div>

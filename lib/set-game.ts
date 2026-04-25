@@ -12,6 +12,9 @@ export interface SetCard {
   shading: CardShading
   number: CardNumber
   position?: { x: number; y: number } // Position in the image
+  // Attributes whose top softmax probability fell below the certainty
+  // threshold during classification, with that probability for tooltip use.
+  uncertain?: { attr: "number" | "color" | "shape" | "shading"; topProb: number }[]
 }
 
 export interface ValidSet {

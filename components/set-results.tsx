@@ -58,7 +58,8 @@ export function SetResults({ cards: initialCards, validSets: initialValidSets, c
 
   const handleSaveCard = () => {
     if (!editingCard) return
-    const newCards = cards.map((c) => (c.id === editingCard.id ? editingCard : c))
+    const edited = { ...editingCard, uncertain: undefined }
+    const newCards = cards.map((c) => (c.id === edited.id ? edited : c))
     setCards(newCards)
     setValidSets(findAllSets(newCards))
     setHoveredSetIndex(null)

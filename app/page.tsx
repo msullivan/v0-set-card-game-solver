@@ -65,14 +65,28 @@ export default function SetSolverPage() {
       const { predictions } = await classifyCrops(crops)
       const ai = performance.now() - aiStart
 
-      const cards: SetCard[] = predictions.map((p, i) => ({
-        id: `card-${i + 1}`,
-        color: p.color,
-        shape: p.shape,
-        shading: p.shading,
-        number: parseInt(p.number, 10) as 1 | 2 | 3,
-        position: { x: 0, y: 0 },
-      }))
+      const softmaxTop = (logits: Record<string, number>) => {
+        const vals = Object.values(logits)
+        const max = Math.max(...vals)
+        const exps = vals.map((v) => Math.exp(v - max))
+        const sum = exps.reduce((a, b) => a + b, 0)
+        return Math.max(...exps) / sum
+      }
+      const UNCERTAIN_THRESHOLD = 0.65
+      const cards: SetCard[] = predictions.map((p, i) => {
+        const uncertain = (["number", "color", "shape", "shading"] as const)
+          .map((attr) => ({ attr, topProb: softmaxTop(p.logits[attr]) }))
+          .filter((u) => u.topProb < UNCERTAIN_THRESHOLD)
+        return {
+          id: `card-${i + 1}`,
+          color: p.color,
+          shape: p.shape,
+          shading: p.shading,
+          number: parseInt(p.number, 10) as 1 | 2 | 3,
+          position: { x: 0, y: 0 },
+          uncertain: uncertain.length > 0 ? uncertain : undefined,
+        }
+      })
 
       const setsStart = performance.now()
       const validSets = findAllSets(cards)
